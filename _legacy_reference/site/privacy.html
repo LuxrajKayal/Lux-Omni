@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Privacy policy for Lux Omni.">
+  <title>Privacy Policy — Lux Omni</title>
+  <style>
+    :root{color-scheme:light dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1d2636;background:#f6f8fb}
+    @media(prefers-color-scheme:dark){:root{color:#e8edf5;background:#10151e}a{color:#9db2ff}}
+    body{max-width:820px;margin:0 auto;padding:36px 22px 64px;line-height:1.7}
+    a{color:#4263eb}h1,h2{line-height:1.25}h1{letter-spacing:-.04em}header p,footer{color:#758196;font-size:.93rem}
+    section{margin-top:28px}li{margin:.45em 0}.brand{font-weight:750;text-decoration:none}
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="./">Lux Omni</a>
+    <h1>Privacy Policy</h1>
+    <p>Last updated: 13 October 2026</p>
+  </header>
+  <p>Lux Omni (“Luxy”) is a browser-based project maintained by Luxraj Kayal (Subrata Kayal). It includes a browser-based workspace, local clipboard tools, and an optional Dropbox connection. Dropbox access is initiated only when you use the Dropbox controls. This policy explains how the website handles information when you use it.</p>
+
+  <section>
+    <h2>Where information is processed and stored</h2>
+    <ul>
+      <li>Luxy is a static website hosted through GitHub Pages. The current application does not send document contents to a Luxy-operated application server or store them in a Luxy-operated database.</li>
+      <li>When you connect Dropbox, its short-lived access token and OAuth flow values are held in this browser's localStorage for this site origin, so the connection can be recognized across tabs while the token remains valid. The integration requests Dropbox API access to list folders, download files you select, and upload files you explicitly choose. These browser-stored values are not sent to a Lux Omni-operated server.</li>
+      <li>When you open a PDF, the browser loads the pinned Mozilla PDF.js 6.4.299 JavaScript modules, styles, worker, and supporting assets from the versioned jsDelivr CDN. Your selected PDF bytes are passed to the PDF.js engine in the browser; they are not uploaded to the CDN by Lux Omni. Requests to jsDelivr disclose ordinary connection metadata to that service, and the PDF editor depends on the CDN being reachable.</li>
+      <li>PDF annotations and form changes remain in the browser until you export/download the PDF or choose Dropbox Sync. PDF.js serializes supported edits into a new PDF byte stream in the browser. Dropbox Sync uploads those edited bytes directly to Dropbox using the source file revision to detect conflicting changes.</li>
+      <li>Lux Omni Clipboard history is stored locally in this browser using IndexedDB. You can clear this history from the clipboard page or clear this website's browser data.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Lux Omni Clipboard history</h2>
+    <p>Lux Omni Clipboard can keep up to ten recent items in this browser's local IndexedDB storage. Entries are ordered with the newest first and may contain text you copy using the Text Clipboard's Copy text button, images you copy using the Screenshot Clipboard's Copy screenshot button, or selected text you explicitly save using “Save to Temporary Log” from the Lux Omni page’s right-click menu. Older entries are automatically removed when the history exceeds ten items.</p>
+    <p>This history feature does not continuously monitor or record everything you copy elsewhere on your device. Selected text is saved only after you select it, right-click within Lux Omni, and explicitly choose “Save to Temporary Log”; clipboard items are recorded when you explicitly use a Copy button within Lux Omni Clipboard. The selected text is stored in this browser profile and is not sent to a Lux Omni-operated server by this feature. Importing a history item does not create a new history entry until you copy it again. Use Clear history to remove the stored entries, or clear this website’s browser data to remove locally stored records.</p>
+  </section>
+
+  <section>
+    <h2>Third-party services</h2>
+    <p>Luxy is hosted on GitHub Pages. If you connect Dropbox, your browser communicates directly with Dropbox for authorization and file API requests. When you open a PDF, your browser also requests the pinned Mozilla PDF.js distribution and supporting assets from jsDelivr. If you use the YouTube workspace tool, content is provided by YouTube and is subject to its applicable terms and privacy policy.</p>
+  </section>
+
+  <section>
+    <h2>Your choices and security</h2>
+    <p>Use the website only in browsers and on devices you trust. Browser localStorage is readable by JavaScript running on this site, so keep your browser and device secure. Disconnect Dropbox in Lux Omni to clear stored credentials and request token revocation from Dropbox; you can also remove Lux Omni from your Dropbox connected-app settings. The Dropbox viewport bridge now renders PDFs with Mozilla PDF.js and provides a Lux Omni toolbar for supported annotation and form editing. PDF rendering, editing, and export occur in the browser. Use the toolbar's Save PDF action to download a copy, or use Dropbox Sync to upload the current edited bytes to the selected Dropbox file; Dropbox revision checks help prevent overwriting a file that changed elsewhere. Image previews, the basic Markdown renderer, and text/code previews remain separate viewport types; Markdown and text are inserted as text/DOM nodes rather than executed as HTML. Clear this website's browser data to remove locally stored records.</p>
+  </section>
+
+  <section>
+    <h2>Project names, branding, and authorship</h2>
+    <p>The Lux Omni project and its related tools and features are associated with the project author, Luxraj Kayal (Subrata Kayal). Project and product names used or contemplated within this project include:</p>
+    <ul>
+      <li>Lux Omni</li>
+      <li>Lux Omni Clipboard</li>
+      <li>Lux PDF Viewer</li>
+      <li>Lux PDF Editor</li>
+      <li>Lux Player</li>
+      <li>Lux Viewport</li>
+      <li>Lux Markdown</li>
+      <li>Lux Docs</li>
+      <li>Luxy, and related names or variants used for Lux Omni project tools, modules, and features</li>
+    </ul>
+    <p>These names identify or are intended to identify this project and its related tools, and are attributed to Luxraj Kayal (Subrata Kayal) as the project author. To the extent applicable, the author reserves rights in original project materials and project-specific branding, including original code, writing, artwork, icons, and design. This notice does not claim exclusive ownership of generic words or names, third-party brands or products, external services, libraries, or content. Any rights in those third-party materials remain with their respective owners and are subject to their applicable terms and licenses.</p>
+  </section>
+
+  <section>
+    <h2>Changes to this policy</h2>
+    <p>This policy may be updated if Luxy’s features or data handling change. The “Last updated” date above will be changed when a revision is published.</p>
+  </section>
+
+  <footer>
+    <p>Questions or privacy concerns: <a href="https://github.com/LuxrajKayal/Luxy/issues">open an issue in the Luxy repository</a>. Please do not post access tokens, private documents, or other sensitive information in public issues.</p>
+    <p><a href="./">Return to Lux Omni</a></p>
+  </footer>
+</body>
+</html>
