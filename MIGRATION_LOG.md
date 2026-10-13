@@ -166,3 +166,14 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Added `.github/workflows/pages.yml` to publish the contents of `site/` through GitHub Actions when relevant changes reach `main`, with a manual workflow-dispatch option.
   * Restored the three icon assets used by the page into `site/icons/` using exact copies from the reference snapshot.
   * Configured the workflow with the permissions required by GitHub Pages deployment and the `github-pages` deployment environment.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `feat(services): implement secure, in-memory Dropbox API service`
+* **Changes:**
+  * Created `site/js/services/DropboxApi.js` as a class-based singleton using the exact public app key, Dropbox OAuth/API/content endpoints, and requested scopes from the configuration reference.
+  * Ported OAuth authorization-code with PKCE S256, callback state verification, current-account lookup, folder listing and pagination, file download/upload, revision-aware save, connection checks, and token revocation.
+  * Stored the active access token and its expiry exclusively in private in-memory class fields; did not migrate, read, or write access tokens or token expiry values in browser storage.
+  * Limited `localStorage` usage to temporary state-specific OAuth PKCE state and verifier keys, and removed those keys after callback handling, sign-out, or revocation.
+  * Added beginner-friendly comments, consistent Dropbox API errors, path validation, and safe Dropbox-API-Arg header encoding; no other application files were changed.
