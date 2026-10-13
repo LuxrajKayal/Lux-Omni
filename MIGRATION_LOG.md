@@ -125,3 +125,13 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Made `handleStateChange()` accept both EventBus payloads shaped as `{ updates, state }` and the raw state snapshot returned by `Store.getState()`.
   * Implemented `site/js/main.js` to wait for `DOMContentLoaded`, call `Store.init()`, and instantiate `WorkspaceUI`.
   * Added beginner-friendly explanatory comments throughout both files; no other application modules were changed.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `chore(reference): add legacy app.js reference snapshot`
+* **Changes:**
+  * Created `_legacy_reference/site/app.js` as a verbatim UTF-8 copy of `LuxrajKayal/Luxy/site/app.js` from the legacy repository's `main` branch.
+  * Created `_legacy_reference/REFERENCE_SNAPSHOT.md` with the source blob SHA, source size, and a clear note that this is a partial snapshot rather than a full repository clone.
+  * Did not modify the source `LuxrajKayal/Luxy` repository.
+  * Documented that the current connector cannot copy binary PNG assets or check out the PDF.js and pdf-lib Git submodules.
