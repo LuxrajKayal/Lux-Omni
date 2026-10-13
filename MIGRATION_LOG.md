@@ -99,3 +99,16 @@ This log chronologically records file creation, removal, moves, modifications, a
     * `privacy.html`
   * Kept all 24 corrected scaffold files empty; no implementation code was added.
   * Retained the prior Git commits to preserve the audit trail; the current tree contains only the corrected root-level structure and `MIGRATION_LOG.md`.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `feat(core): implement heavily-commented EventBus and Store for decoupled state management`
+* **Changes:**
+  * Implemented `site/js/core/EventBus.js` with a private `Map`, per-event callback `Set` collections, and the `subscribe(event, callback)`, `publish(event, data)`, and `unsubscribe(event, callback)` methods.
+  * Exported one EventBus singleton for use across application modules.
+  * Implemented `site/js/core/Store.js` with private application state and the initial values for `theme`, `focusMode`, `sidebarOpen`, `activeLayout`, and `viewports`.
+  * Added `getState()` to return a defensive copy of the state and the nested viewport map.
+  * Added `setState(updates)` to merge updates, preserve unmodified viewport slots, publish `STATE_CHANGED` immediately, and return a copy of the updated state.
+  * Added `init()` to read the legacy `lux-pdf-viewer-theme`, `lux-pdf-viewer-focus-mode`, and `lux-pdf-viewer-sidebar-open` localStorage keys and restore recognized values safely.
+  * Added beginner-friendly explanatory comments throughout both core modules; no other application modules were changed.
