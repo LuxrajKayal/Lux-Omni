@@ -198,3 +198,14 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Moved the YouTube icon fill colors into `site/styles.css` and the screenshot-selection icon's dashed outline into `site/components/snipping-tool.css`, preserving the existing appearance.
   * Reviewed the active JavaScript import boundaries: UI code consumes Core state/events, Core does not import UI or Services, and the Dropbox service remains isolated from UI modules.
   * Confirmed that non-empty JavaScript modules contain frequent beginner-friendly explanatory comments; empty scaffold modules remain intentionally unimplemented.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(state): persist focus mode and workspace preferences`
+* **Changes:**
+  * Compared the current Focus Mode and top-bar behavior with the previous implementation; the reveal and hide event handlers were already present, but state changes were not being saved.
+  * Added current application-specific storage keys for the theme, Focus Mode, and sidebar state, while retaining fallback reads so existing preferences can be migrated.
+  * Centralized preference persistence in the shared Store, validating values and catching storage errors so the interface remains usable when browser storage is unavailable.
+  * Confirmed that restoring Focus Mode applies the saved state before the workspace UI is initialized, allowing the top bar to start hidden and reveal on the same pointer and scroll triggers as before.
+

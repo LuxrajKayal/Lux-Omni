@@ -1,6 +1,20 @@
 // Import the shared event system so state changes can notify other modules.
 import EventBus from './EventBus.js';
 
+// Keep new preferences under this application's own storage namespace.
+const PREFERENCE_STORAGE_KEYS = {
+  theme: 'lux-omni-theme',
+  focusMode: 'lux-omni-focus-mode',
+  sidebarOpen: 'lux-omni-sidebar-open',
+};
+
+// Read the previous keys only as a compatibility fallback for existing settings.
+const PREVIOUS_PREFERENCE_STORAGE_KEYS = {
+  theme: 'lux-pdf-viewer-theme',
+  focusMode: 'lux-pdf-viewer-focus-mode',
+  sidebarOpen: 'lux-pdf-viewer-sidebar-open',
+};
+
 // Group application state and state-update methods inside one class.
 class Store {
   // Keep the real state private so modules cannot edit it directly.
@@ -54,6 +68,9 @@ class Store {
     // Replace the private state only after the new state has been prepared.
     this.#state = nextState;
 
+    // Save updated preferences before notifying listeners so they survive a refresh.
+    this.#persistPreferences(updates, nextState);
+
     // Copy the update payload before publishing it to outside listeners.
     const updatesSnapshot = { ...updates };
 
@@ -80,21 +97,57 @@ class Store {
     return this.getState();
   }
 
-  // Load settings saved by the older Lux PDF Viewer before this modular version.
+  // Persist only supported preferences explicitly included in a state update.
+  #persistPreferences(updates, nextState) {
+    // Save a theme only when it matches one of the supported options.
+    if (
+      Object.hasOwn(updates, 'theme') &&
+      (nextState.theme === 'light' || nextState.theme === 'dark')
+    ) {
+      try {
+        localStorage.setItem(PREFERENCE_STORAGE_KEYS.theme, nextState.theme);
+      } catch {
+        // Theme changes still work during this session if storage is blocked.
+      }
+    }
+
+    // Store Focus Mode as the strings "true" or "false" for reliable restoration.
+    if (Object.hasOwn(updates, 'focusMode') && typeof nextState.focusMode === 'boolean') {
+      try {
+        localStorage.setItem(PREFERENCE_STORAGE_KEYS.focusMode, String(nextState.focusMode));
+      } catch {
+        // Focus Mode still works during this session if storage is blocked.
+      }
+    }
+
+    // Save the sidebar preference using the same boolean-string format.
+    if (Object.hasOwn(updates, 'sidebarOpen') && typeof nextState.sidebarOpen === 'boolean') {
+      try {
+        localStorage.setItem(PREFERENCE_STORAGE_KEYS.sidebarOpen, String(nextState.sidebarOpen));
+      } catch {
+        // Sidebar changes still work during this session if storage is blocked.
+      }
+    }
+  }
+
+  // Load saved preferences, using the previous keys only as a migration fallback.
   init() {
     // Declare variables for values read from the browser's local storage.
-    let legacyTheme;
-    let legacyFocusMode;
-    let legacySidebarOpen;
+    let storedTheme;
+    let storedFocusMode;
+    let storedSidebarOpen;
 
     // Browser privacy settings can make localStorage unavailable, so guard access.
     try {
-      // Read the theme using the exact key used by the legacy application.
-      legacyTheme = localStorage.getItem('lux-pdf-viewer-theme');
-      // Read the focus-mode flag saved by the legacy application.
-      legacyFocusMode = localStorage.getItem('lux-pdf-viewer-focus-mode');
-      // Read the sidebar flag saved by the legacy application.
-      legacySidebarOpen = localStorage.getItem('lux-pdf-viewer-sidebar-open');
+      // Prefer the current theme key, then migrate the previously saved value if needed.
+      storedTheme = localStorage.getItem(PREFERENCE_STORAGE_KEYS.theme)
+        ?? localStorage.getItem(PREVIOUS_PREFERENCE_STORAGE_KEYS.theme);
+      // Restore Focus Mode from the current key or the previous key.
+      storedFocusMode = localStorage.getItem(PREFERENCE_STORAGE_KEYS.focusMode)
+        ?? localStorage.getItem(PREVIOUS_PREFERENCE_STORAGE_KEYS.focusMode);
+      // Restore the sidebar state from the current key or the previous key.
+      storedSidebarOpen = localStorage.getItem(PREFERENCE_STORAGE_KEYS.sidebarOpen)
+        ?? localStorage.getItem(PREVIOUS_PREFERENCE_STORAGE_KEYS.sidebarOpen);
     } catch (error) {
       // Keep the default state if the browser blocks localStorage access.
       return this.getState();
@@ -104,25 +157,25 @@ class Store {
     const updates = {};
 
     // Restore a supported theme without replacing the default for unknown values.
-    if (legacyTheme === 'light' || legacyTheme === 'dark') {
+    if (storedTheme === 'light' || storedTheme === 'dark') {
       // Apply the theme value saved by the old application.
-      updates.theme = legacyTheme;
+      updates.theme = storedTheme;
     }
 
     // Recognize the legacy true values for focus mode.
-    if (legacyFocusMode === 'true' || legacyFocusMode === '1') {
+    if (storedFocusMode === 'true' || storedFocusMode === '1') {
       // Restore focus mode as enabled.
       updates.focusMode = true;
-    } else if (legacyFocusMode === 'false' || legacyFocusMode === '0') {
+    } else if (storedFocusMode === 'false' || storedFocusMode === '0') {
       // Restore focus mode as disabled when that is what was saved.
       updates.focusMode = false;
     }
 
     // Recognize the legacy true values for the sidebar setting.
-    if (legacySidebarOpen === 'true' || legacySidebarOpen === '1') {
+    if (storedSidebarOpen === 'true' || storedSidebarOpen === '1') {
       // Restore the sidebar as open.
       updates.sidebarOpen = true;
-    } else if (legacySidebarOpen === 'false' || legacySidebarOpen === '0') {
+    } else if (storedSidebarOpen === 'false' || storedSidebarOpen === '0') {
       // Restore the sidebar as closed when that is what was saved.
       updates.sidebarOpen = false;
     }
