@@ -1,172 +1,363 @@
 /* Lux Omni PDF.js workspace and annotation toolbar. */
+/* Style elements matching .lux-pdf-editor-root to define their appearance and layout. */
 .lux-pdf-editor-root {
+  /* Choose how this element participates in layout. Value: flex . */
   display: flex !important;
+  /* Set the minimum allowed width. Value: 0. */
   min-width: 0;
+  /* Set the minimum allowed height. Value: 0 . */
   min-height: 0 !important;
+  /* Control the space between the element's border and its content. Value: 0. */
   padding: 0;
 }
+/* Style elements matching .lux-pdf-editor to define their appearance and layout. */
 .lux-pdf-editor {
+  /* Choose how this element participates in layout. Value: flex. */
   display: flex;
+  /* Control how this flex item grows or shrinks. Value: 1 1 auto. */
   flex: 1 1 auto;
+  /* Choose the direction flex items flow. Value: column. */
   flex-direction: column;
+  /* Control the element's width. Value: 100%. */
   width: 100%;
+  /* Set the minimum allowed width. Value: 0. */
   min-width: 0;
+  /* Set the minimum allowed height. Value: 0. */
   min-height: 0;
+  /* Set the text and current-color icon color. Value: #172033. */
   color: #172033;
+  /* Set the element's background appearance. Value: #e9edf3. */
   background: #e9edf3;
+  /* Set color-scheme to control this element's appearance or behavior. Value: light. */
   color-scheme: light;
   /* The PDF.js stylesheet's :root variables do not cross the Shadow DOM boundary. */
+  /* Set --viewer-container-height to control this element's appearance or behavior. Value: 0. */
   --viewer-container-height: 0;
+  /* Set --pdfviewer-padding-bottom to control this element's appearance or behavior. Value: 0. */
   --pdfViewer-padding-bottom: 0;
+  /* Set --page-margin to control this element's appearance or behavior. Value: 1px auto -8px. */
   --page-margin: 1px auto -8px;
+  /* Set --page-border to control this element's appearance or behavior. Value: 9px solid transparent. */
   --page-border: 9px solid transparent;
+  /* Set --spreadhorizontalwrapped-margin-lr to control this element's appearance or behavior. Value: -3.5px. */
   --spreadHorizontalWrapped-margin-LR: -3.5px;
+  /* Set --loading-icon-delay to control this element's appearance or behavior. Value: 400ms. */
   --loading-icon-delay: 400ms;
+  /* Set --focus-ring-color to control this element's appearance or behavior. Value: var(--focus-outline-color, #0060df). */
   --focus-ring-color: var(--focus-outline-color, #0060df);
+  /* Set --focus-ring-outline to control this element's appearance or behavior. Value: var(--focus-outline-width, 2px) solid var(--focus-ring-color). */
   --focus-ring-outline: var(--focus-outline-width, 2px) solid var(--focus-ring-color);
+  /* Set --text-primary-color to control this element's appearance or behavior. Value: var(--text-color, #15141a). */
   --text-primary-color: var(--text-color, #15141a);
+  /* Set --link-fg-color to control this element's appearance or behavior. Value: var(--link-color, #0060df). */
   --link-fg-color: var(--link-color, #0060df);
+  /* Set --link-hover-fg-color to control this element's appearance or behavior. Value: var(--link-color-hover, #0250bb). */
   --link-hover-fg-color: var(--link-color-hover, #0250bb);
+  /* Set --new-badge-bg to control this element's appearance or behavior. Value: #070. */
   --new-badge-bg: #070;
+  /* Set --new-badge-color to control this element's appearance or behavior. Value: #fff. */
   --new-badge-color: #fff;
+  /* Set --new-badge-border-color to control this element's appearance or behavior. Value: rgb(21 20 26 / 40%). */
   --new-badge-border-color: rgb(21 20 26 / 40%);
+  /* Set font to control this element's appearance or behavior. Value: 13px/1.4 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMac. */
   font: 13px/1.4 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
+/* Style elements matching .lux-pdf-toolbar to define their appearance and layout. */
 .lux-pdf-toolbar {
+  /* Choose how the element is positioned on the page. Value: relative. */
   position: relative;
+  /* Control which overlapping element appears in front. Value: 5. */
   z-index: 5;
+  /* Choose how this element participates in layout. Value: flex. */
   display: flex;
+  /* Control how this flex item grows or shrinks. Value: 0 0 auto. */
   flex: 0 0 auto;
+  /* Allow or prevent flex items from wrapping. Value: wrap. */
   flex-wrap: wrap;
+  /* Align children across the layout's cross-axis. Value: center. */
   align-items: center;
+  /* Set the spacing between child items. Value: 5px. */
   gap: 5px;
+  /* Control the space between the element's border and its content. Value: 8px. */
   padding: 8px;
+  /* Set border-bottom to control this element's appearance or behavior. Value: 1px solid #cbd3df. */
   border-bottom: 1px solid #cbd3df;
+  /* Set the element's background appearance. Value: #fff. */
   background: #fff;
+  /* Draw a shadow to add depth around the element. Value: 0 1px 3px rgb(15 23 42 / 6%). */
   box-shadow: 0 1px 3px rgb(15 23 42 / 6%);
 }
+/* Style elements matching .lux-pdf-toolbar-group to define their appearance and layout. */
 .lux-pdf-toolbar-group {
+  /* Choose how this element participates in layout. Value: flex. */
   display: flex;
+  /* Set the minimum allowed width. Value: 0. */
   min-width: 0;
+  /* Align children across the layout's cross-axis. Value: center. */
   align-items: center;
+  /* Set the spacing between child items. Value: 3px. */
   gap: 3px;
+  /* Set padding-right to control this element's appearance or behavior. Value: 6px. */
   padding-right: 6px;
+  /* Set border-right to control this element's appearance or behavior. Value: 1px solid #e1e6ee. */
   border-right: 1px solid #e1e6ee;
 }
-.lux-pdf-toolbar-group:last-of-type { border-right: 0; }
+/* Style elements matching .lux-pdf-toolbar-group:last-of-type to define their appearance and layout. */
+.lux-pdf-toolbar-group:last-of-type { /* Set border-right to control this element's appearance or behavior. Value: 0. */
+border-right: 0; }
+/* Style elements matching .lux-pdf-tool to define their appearance and layout. */
 .lux-pdf-tool {
+  /* Choose how this element participates in layout. Value: inline-flex. */
   display: inline-flex;
+  /* Set the minimum allowed height. Value: 32px. */
   min-height: 32px;
+  /* Set the minimum allowed width. Value: 32px. */
   min-width: 32px;
+  /* Align children across the layout's cross-axis. Value: center. */
   align-items: center;
+  /* Distribute child items along the main layout axis. Value: center. */
   justify-content: center;
+  /* Set the spacing between child items. Value: 4px. */
   gap: 4px;
+  /* Control the space between the element's border and its content. Value: 5px 8px. */
   padding: 5px 8px;
+  /* Set the outline around the element. Value: 1px solid transparent. */
   border: 1px solid transparent;
+  /* Round the element's corners. Value: 6px. */
   border-radius: 6px;
+  /* Set the text and current-color icon color. Value: #273449. */
   color: #273449;
+  /* Set the element's background appearance. Value: #fff. */
   background: #fff;
+  /* Set font to control this element's appearance or behavior. Value: inherit. */
   font: inherit;
+  /* Choose the pointer symbol shown over the element. Value: pointer. */
   cursor: pointer;
+  /* Control text wrapping and spaces. Value: nowrap. */
   white-space: nowrap;
 }
-.lux-pdf-tool:hover:not(:disabled) { border-color: #cbd5e1; background: #f3f6fa; }
+/* Style elements matching .lux-pdf-tool:hover:not(:disabled) to define their appearance and layout. */
+.lux-pdf-tool:hover:not(:disabled) { /* Set border-color to control this element's appearance or behavior. Value: #cbd5e1. */
+border-color: #cbd5e1; /* Set the element's background appearance. Value: #f3f6fa. */
+background: #f3f6fa; }
+/* Style elements matching .lux-pdf-tool:focus-visible, .lux-pdf-page-input:focus-visible, .lux-pdf-search-input:focus-visible to define their appearance and layout. */
 .lux-pdf-tool:focus-visible,
 .lux-pdf-page-input:focus-visible,
 .lux-pdf-search-input:focus-visible {
+  /* Set outline to control this element's appearance or behavior. Value: 2px solid #2563eb. */
   outline: 2px solid #2563eb;
+  /* Set outline-offset to control this element's appearance or behavior. Value: 1px. */
   outline-offset: 1px;
 }
+/* Style elements matching .lux-pdf-tool.is-active, .lux-pdf-tool[aria-pressed="true"] to define their appearance and layout. */
 .lux-pdf-tool.is-active,
-.lux-pdf-tool[aria-pressed="true"] { border-color: #93b4fa; color: #1646a0; background: #eaf1ff; }
-.lux-pdf-tool:disabled { opacity: .42; cursor: not-allowed; }
-.lux-pdf-save-button { border-color: #bfcee7; background: #f5f8ff; font-weight: 650; }
+.lux-pdf-tool[aria-pressed="true"] { /* Set border-color to control this element's appearance or behavior. Value: #93b4fa. */
+border-color: #93b4fa; /* Set the text and current-color icon color. Value: #1646a0. */
+color: #1646a0; /* Set the element's background appearance. Value: #eaf1ff. */
+background: #eaf1ff; }
+/* Style elements matching .lux-pdf-tool:disabled to define their appearance and layout. */
+.lux-pdf-tool:disabled { /* Set how transparent the element appears. Value: .42. */
+opacity: .42; /* Choose the pointer symbol shown over the element. Value: not-allowed. */
+cursor: not-allowed; }
+/* Style elements matching .lux-pdf-save-button to define their appearance and layout. */
+.lux-pdf-save-button { /* Set border-color to control this element's appearance or behavior. Value: #bfcee7. */
+border-color: #bfcee7; /* Set the element's background appearance. Value: #f5f8ff. */
+background: #f5f8ff; /* Set the thickness of the text. Value: 650. */
+font-weight: 650; }
+/* Style elements matching .lux-pdf-page-input to define their appearance and layout. */
 .lux-pdf-page-input {
+  /* Control the element's width. Value: 44px. */
   width: 44px;
+  /* Set the minimum allowed height. Value: 30px. */
   min-height: 30px;
+  /* Control the space between the element's border and its content. Value: 4px. */
   padding: 4px;
+  /* Set the outline around the element. Value: 1px solid #ccd4e0. */
   border: 1px solid #ccd4e0;
+  /* Round the element's corners. Value: 5px. */
   border-radius: 5px;
+  /* Set the text and current-color icon color. Value: #172033. */
   color: #172033;
+  /* Set the element's background appearance. Value: #fff. */
   background: #fff;
+  /* Set font to control this element's appearance or behavior. Value: inherit. */
   font: inherit;
+  /* Align text inside its content area. Value: center. */
   text-align: center;
 }
+/* Style elements matching .lux-pdf-page-count, .lux-pdf-zoom-value to define their appearance and layout. */
 .lux-pdf-page-count,
-.lux-pdf-zoom-value { color: #4b5568; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.lux-pdf-zoom-value { min-width: 42px; text-align: center; }
-.lux-pdf-search-controls { flex: 1 1 180px; }
+.lux-pdf-zoom-value { /* Set the text and current-color icon color. Value: #4b5568. */
+color: #4b5568; /* Control text wrapping and spaces. Value: nowrap. */
+white-space: nowrap; /* Set font-variant-numeric to control this element's appearance or behavior. Value: tabular-nums. */
+font-variant-numeric: tabular-nums; }
+/* Style elements matching .lux-pdf-zoom-value to define their appearance and layout. */
+.lux-pdf-zoom-value { /* Set the minimum allowed width. Value: 42px. */
+min-width: 42px; /* Align text inside its content area. Value: center. */
+text-align: center; }
+/* Style elements matching .lux-pdf-search-controls to define their appearance and layout. */
+.lux-pdf-search-controls { /* Control how this flex item grows or shrinks. Value: 1 1 180px. */
+flex: 1 1 180px; }
+/* Style elements matching .lux-pdf-search-input to define their appearance and layout. */
 .lux-pdf-search-input {
+  /* Control the element's width. Value: min(100%, 150px). */
   width: min(100%, 150px);
+  /* Set the minimum allowed width. Value: 68px. */
   min-width: 68px;
+  /* Set the minimum allowed height. Value: 30px. */
   min-height: 30px;
+  /* Control the space between the element's border and its content. Value: 4px 8px. */
   padding: 4px 8px;
+  /* Set the outline around the element. Value: 1px solid #ccd4e0. */
   border: 1px solid #ccd4e0;
+  /* Round the element's corners. Value: 5px. */
   border-radius: 5px;
+  /* Set the text and current-color icon color. Value: #172033. */
   color: #172033;
+  /* Set the element's background appearance. Value: #fff. */
   background: #fff;
+  /* Set font to control this element's appearance or behavior. Value: inherit. */
   font: inherit;
 }
+/* Style elements matching .lux-pdf-status to define their appearance and layout. */
 .lux-pdf-status {
+  /* Control how this flex item grows or shrinks. Value: 1 1 150px. */
   flex: 1 1 150px;
+  /* Set the minimum allowed width. Value: 80px. */
   min-width: 80px;
+  /* Set the text and current-color icon color. Value: #526077. */
   color: #526077;
+  /* Set the displayed text size. Value: 12px. */
   font-size: 12px;
+  /* Align text inside its content area. Value: right. */
   text-align: right;
+  /* Set overflow-wrap to control this element's appearance or behavior. Value: anywhere. */
   overflow-wrap: anywhere;
 }
-.lux-pdf-status[data-state="dirty"] { color: #a16207; font-weight: 650; }
-.lux-pdf-status[data-state="saved"] { color: #187244; }
-.lux-pdf-status[data-state="error"] { color: #b42318; }
+/* Style elements matching .lux-pdf-status[data-state="dirty"] to define their appearance and layout. */
+.lux-pdf-status[data-state="dirty"] { /* Set the text and current-color icon color. Value: #a16207. */
+color: #a16207; /* Set the thickness of the text. Value: 650. */
+font-weight: 650; }
+/* Style elements matching .lux-pdf-status[data-state="saved"] to define their appearance and layout. */
+.lux-pdf-status[data-state="saved"] { /* Set the text and current-color icon color. Value: #187244. */
+color: #187244; }
+/* Style elements matching .lux-pdf-status[data-state="error"] to define their appearance and layout. */
+.lux-pdf-status[data-state="error"] { /* Set the text and current-color icon color. Value: #b42318. */
+color: #b42318; }
+/* Style elements matching .lux-pdf-viewer-frame to define their appearance and layout. */
 .lux-pdf-viewer-frame {
+  /* Choose how the element is positioned on the page. Value: relative. */
   position: relative;
+  /* Control how this flex item grows or shrinks. Value: 1 1 auto. */
   flex: 1 1 auto;
+  /* Control the element's width. Value: 100%. */
   width: 100%;
+  /* Set the minimum allowed width. Value: 0. */
   min-width: 0;
+  /* Set the minimum allowed height. Value: 0. */
   min-height: 0;
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
   overflow: hidden;
+  /* Set the element's background appearance. Value: #e9edf3. */
   background: #e9edf3;
 }
+/* Style elements matching .lux-pdf-viewer-container to define their appearance and layout. */
 .lux-pdf-viewer-container {
+  /* Choose how the element is positioned on the page. Value: absolute. */
   position: absolute;
+  /* Set the offsets used to position the element. Value: 0. */
   inset: 0;
+  /* Control the element's width. Value: 100%. */
   width: 100%;
+  /* Control the element's height. Value: 100%. */
   height: 100%;
+  /* Set the minimum allowed width. Value: 0. */
   min-width: 0;
+  /* Set the minimum allowed height. Value: 0. */
   min-height: 0;
+  /* Choose how content beyond the element's box is handled. Value: auto. */
   overflow: auto;
+  /* Set overscroll-behavior to control this element's appearance or behavior. Value: contain. */
   overscroll-behavior: contain;
+  /* Set the element's background appearance. Value: #e9edf3. */
   background: #e9edf3;
+  /* Set scrollbar-gutter to control this element's appearance or behavior. Value: stable. */
   scrollbar-gutter: stable;
 }
+/* Style elements matching .lux-pdf-viewer-container > .pdfViewer to define their appearance and layout. */
 .lux-pdf-viewer-container > .pdfViewer {
+  /* Choose how the element is positioned on the page. Value: relative. */
   position: relative;
+  /* Control the element's width. Value: 100%. */
   width: 100%;
+  /* Set the minimum allowed height. Value: 100%. */
   min-height: 100%;
+  /* Control the space between the element's border and its content. Value: 16px 0 24px. */
   padding: 16px 0 24px;
+  /* Set box-sizing to control this element's appearance or behavior. Value: border-box. */
   box-sizing: border-box;
 }
-.lux-pdf-viewer-container.is-hand-tool { cursor: grab; user-select: none; }
-.lux-pdf-viewer-container.is-panning { cursor: grabbing; }
+/* Style elements matching .lux-pdf-viewer-container.is-hand-tool to define their appearance and layout. */
+.lux-pdf-viewer-container.is-hand-tool { /* Choose the pointer symbol shown over the element. Value: grab. */
+cursor: grab; /* Set user-select to control this element's appearance or behavior. Value: none. */
+user-select: none; }
+/* Style elements matching .lux-pdf-viewer-container.is-panning to define their appearance and layout. */
+.lux-pdf-viewer-container.is-panning { /* Choose the pointer symbol shown over the element. Value: grabbing. */
+cursor: grabbing; }
+/* Style elements matching .lux-pdf-viewer-container.is-hand-tool .textLayer, .lux-pdf-viewer-container.is-hand-tool .annotatio to define their appearance and layout. */
 .lux-pdf-viewer-container.is-hand-tool .textLayer,
 .lux-pdf-viewer-container.is-hand-tool .annotationLayer,
-.lux-pdf-viewer-container.is-hand-tool .annotationEditorLayer { pointer-events: none; }
+.lux-pdf-viewer-container.is-hand-tool .annotationEditorLayer { /* Choose whether pointer actions can target the element. Value: none. */
+pointer-events: none; }
+/* Style elements matching .lux-pdf-editor .pdfViewer .page to define their appearance and layout. */
 .lux-pdf-editor .pdfViewer .page {
+  /* Control the space outside the element. Value: 0 auto 16px. */
   margin: 0 auto 16px;
+  /* Set the outline around the element. Value: 1px solid #cbd3df. */
   border: 1px solid #cbd3df;
+  /* Draw a shadow to add depth around the element. Value: 0 4px 16px rgb(15 23 42 / 14%). */
   box-shadow: 0 4px 16px rgb(15 23 42 / 14%);
 }
+/* Apply these responsive styles only when  (max-width: 760px) is true. */
 @media (max-width: 760px) {
-  .lux-pdf-toolbar { gap: 4px; padding: 6px; }
-  .lux-pdf-toolbar-group { gap: 2px; padding-right: 4px; }
-  .lux-pdf-tool { min-height: 30px; min-width: 29px; padding: 4px 6px; font-size: 12px; }
-  .lux-pdf-search-controls { flex: 1 1 140px; }
-  .lux-pdf-search-input { width: 100%; flex: 1 1 auto; }
-  .lux-pdf-status { flex-basis: 100%; text-align: left; }
+  /* Style elements matching .lux-pdf-toolbar to define their appearance and layout. */
+  .lux-pdf-toolbar { /* Set the spacing between child items. Value: 4px. */
+  gap: 4px; /* Control the space between the element's border and its content. Value: 6px. */
+  padding: 6px; }
+  /* Style elements matching .lux-pdf-toolbar-group to define their appearance and layout. */
+  .lux-pdf-toolbar-group { /* Set the spacing between child items. Value: 2px. */
+  gap: 2px; /* Set padding-right to control this element's appearance or behavior. Value: 4px. */
+  padding-right: 4px; }
+  /* Style elements matching .lux-pdf-tool to define their appearance and layout. */
+  .lux-pdf-tool { /* Set the minimum allowed height. Value: 30px. */
+  min-height: 30px; /* Set the minimum allowed width. Value: 29px. */
+  min-width: 29px; /* Control the space between the element's border and its content. Value: 4px 6px. */
+  padding: 4px 6px; /* Set the displayed text size. Value: 12px. */
+  font-size: 12px; }
+  /* Style elements matching .lux-pdf-search-controls to define their appearance and layout. */
+  .lux-pdf-search-controls { /* Control how this flex item grows or shrinks. Value: 1 1 140px. */
+  flex: 1 1 140px; }
+  /* Style elements matching .lux-pdf-search-input to define their appearance and layout. */
+  .lux-pdf-search-input { /* Control the element's width. Value: 100%. */
+  width: 100%; /* Control how this flex item grows or shrinks. Value: 1 1 auto. */
+  flex: 1 1 auto; }
+  /* Style elements matching .lux-pdf-status to define their appearance and layout. */
+  .lux-pdf-status { /* Set flex-basis to control this element's appearance or behavior. Value: 100%. */
+  flex-basis: 100%; /* Align text inside its content area. Value: left. */
+  text-align: left; }
 }
+/* Apply these responsive styles only when  (max-width: 460px) is true. */
 @media (max-width: 460px) {
-  .lux-pdf-toolbar { align-items: stretch; }
-  .lux-pdf-toolbar-group { flex-wrap: wrap; }
-  .lux-pdf-toolbar-group .lux-pdf-tool { padding-inline: 6px; }
-  .lux-pdf-zoom-value { display: none; }
+  /* Style elements matching .lux-pdf-toolbar to define their appearance and layout. */
+  .lux-pdf-toolbar { /* Align children across the layout's cross-axis. Value: stretch. */
+  align-items: stretch; }
+  /* Style elements matching .lux-pdf-toolbar-group to define their appearance and layout. */
+  .lux-pdf-toolbar-group { /* Allow or prevent flex items from wrapping. Value: wrap. */
+  flex-wrap: wrap; }
+  /* Style elements matching .lux-pdf-toolbar-group .lux-pdf-tool to define their appearance and layout. */
+  .lux-pdf-toolbar-group .lux-pdf-tool { /* Set padding-inline to control this element's appearance or behavior. Value: 6px. */
+  padding-inline: 6px; }
+  /* Style elements matching .lux-pdf-zoom-value to define their appearance and layout. */
+  .lux-pdf-zoom-value { /* Choose how this element participates in layout. Value: none. */
+  display: none; }
 }

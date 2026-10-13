@@ -1,96 +1,175 @@
 /* Lux Omni Temporary Log custom context menu */
+/* Style elements matching .lux-temp-log-menu to define their appearance and layout. */
 .lux-temp-log-menu {
+  /* Choose how the element is positioned on the page. Value: fixed. */
   position: fixed;
+  /* Control which overlapping element appears in front. Value: 9500. */
   z-index: 9500;
+  /* Control the element's width. Value: min(292px, calc(100vw - 16px)). */
   width: min(292px, calc(100vw - 16px));
+  /* Control the space between the element's border and its content. Value: 7px. */
   padding: 7px;
+  /* Set the outline around the element. Value: 1px solid var(--line, #e5e9f0). */
   border: 1px solid var(--line, #e5e9f0);
+  /* Round the element's corners. Value: 12px. */
   border-radius: 12px;
+  /* Set the text and current-color icon color. Value: var(--ink, #1d2636). */
   color: var(--ink, #1d2636);
+  /* Set the element's background appearance. Value: var(--panel, #fff). */
   background: var(--panel, #fff);
+  /* Draw a shadow to add depth around the element. Value: 0 16px 42px rgb(15 23 42 / 23%). */
   box-shadow: 0 16px 42px rgb(15 23 42 / 23%);
+  /* Set font to control this element's appearance or behavior. Value: 13px/1.4 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMac. */
   font: 13px/1.4 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
+/* Style elements matching .lux-temp-log-menu[hidden], .lux-temp-log-toast[hidden] to define their appearance and layout. */
 .lux-temp-log-menu[hidden],
 .lux-temp-log-toast[hidden] {
+  /* Choose how this element participates in layout. Value: none . */
   display: none !important;
 }
+/* Style elements matching .lux-temp-log-menu-heading to define their appearance and layout. */
 .lux-temp-log-menu-heading {
+  /* Control the space between the element's border and its content. Value: 7px 9px 6px. */
   padding: 7px 9px 6px;
+  /* Set the text and current-color icon color. Value: var(--muted, #758196). */
   color: var(--muted, #758196);
+  /* Set the displayed text size. Value: 10px. */
   font-size: 10px;
+  /* Set the thickness of the text. Value: 800. */
   font-weight: 800;
+  /* Set letter-spacing to control this element's appearance or behavior. Value: .11em. */
   letter-spacing: .11em;
 }
+/* Style elements matching .lux-temp-log-menu-item to define their appearance and layout. */
 .lux-temp-log-menu-item {
+  /* Choose how this element participates in layout. Value: flex. */
   display: flex;
+  /* Align children across the layout's cross-axis. Value: center. */
   align-items: center;
+  /* Set the spacing between child items. Value: 10px. */
   gap: 10px;
+  /* Control the element's width. Value: 100%. */
   width: 100%;
+  /* Set the minimum allowed height. Value: 40px. */
   min-height: 40px;
+  /* Control the space between the element's border and its content. Value: 9px 10px. */
   padding: 9px 10px;
+  /* Set the outline around the element. Value: 1px solid transparent. */
   border: 1px solid transparent;
+  /* Round the element's corners. Value: 8px. */
   border-radius: 8px;
+  /* Set the text and current-color icon color. Value: var(--ink, #1d2636). */
   color: var(--ink, #1d2636);
+  /* Set the element's background appearance. Value: transparent. */
   background: transparent;
+  /* Align text inside its content area. Value: left. */
   text-align: left;
+  /* Choose the pointer symbol shown over the element. Value: pointer. */
   cursor: pointer;
+  /* Set font to control this element's appearance or behavior. Value: inherit. */
   font: inherit;
 }
+/* Style elements matching .lux-temp-log-menu-item:hover, .lux-temp-log-menu-item:focus-visible to define their appearance and layout. */
 .lux-temp-log-menu-item:hover,
 .lux-temp-log-menu-item:focus-visible {
+  /* Set border-color to control this element's appearance or behavior. Value: var(--control-hover-border, #bac7ff). */
   border-color: var(--control-hover-border, #bac7ff);
+  /* Set the element's background appearance. Value: var(--control-hover-bg, #f7f8ff). */
   background: var(--control-hover-bg, #f7f8ff);
+  /* Set outline to control this element's appearance or behavior. Value: none. */
   outline: none;
 }
+/* Style elements matching .lux-temp-log-menu-item:disabled to define their appearance and layout. */
 .lux-temp-log-menu-item:disabled {
+  /* Set how transparent the element appears. Value: .55. */
   opacity: .55;
+  /* Choose the pointer symbol shown over the element. Value: progress. */
   cursor: progress;
 }
+/* Style elements matching .lux-temp-log-menu-item svg to define their appearance and layout. */
 .lux-temp-log-menu-item svg {
+  /* Control the element's width. Value: 18px. */
   width: 18px;
+  /* Control the element's height. Value: 18px. */
   height: 18px;
+  /* Control how this flex item grows or shrinks. Value: 0 0 18px. */
   flex: 0 0 18px;
+  /* Set the fill color of a vector shape. Value: none. */
   fill: none;
+  /* Set the outline color of a vector shape. Value: currentColor. */
   stroke: currentColor;
+  /* Set the thickness of a vector outline. Value: 1.8. */
   stroke-width: 1.8;
+  /* Set stroke-linecap to control this element's appearance or behavior. Value: round. */
   stroke-linecap: round;
+  /* Set stroke-linejoin to control this element's appearance or behavior. Value: round. */
   stroke-linejoin: round;
 }
+/* Style elements matching .lux-temp-log-menu-divider to define their appearance and layout. */
 .lux-temp-log-menu-divider {
+  /* Control the element's height. Value: 1px. */
   height: 1px;
+  /* Control the space outside the element. Value: 4px 6px. */
   margin: 4px 6px;
+  /* Set the element's background appearance. Value: var(--line, #e5e9f0). */
   background: var(--line, #e5e9f0);
 }
+/* Style elements matching .lux-temp-log-menu-hint to define their appearance and layout. */
 .lux-temp-log-menu-hint {
+  /* Control the space outside the element. Value: 5px 9px 3px. */
   margin: 5px 9px 3px;
+  /* Set the text and current-color icon color. Value: var(--muted, #758196). */
   color: var(--muted, #758196);
+  /* Set the displayed text size. Value: 10px. */
   font-size: 10px;
 }
+/* Style elements matching .lux-temp-log-toast to define their appearance and layout. */
 .lux-temp-log-toast {
+  /* Choose how the element is positioned on the page. Value: fixed. */
   position: fixed;
+  /* Control which overlapping element appears in front. Value: 9600. */
   z-index: 9600;
+  /* Set the right positioning offset. Value: 16px. */
   right: 16px;
+  /* Set the bottom positioning offset. Value: 16px. */
   bottom: 16px;
+  /* Set the maximum allowed width. Value: min(430px, calc(100vw - 32px)). */
   max-width: min(430px, calc(100vw - 32px));
+  /* Control the space between the element's border and its content. Value: 12px 15px. */
   padding: 12px 15px;
+  /* Set the outline around the element. Value: 1px solid var(--line, #e5e9f0). */
   border: 1px solid var(--line, #e5e9f0);
+  /* Round the element's corners. Value: 11px. */
   border-radius: 11px;
+  /* Set the text and current-color icon color. Value: var(--ink, #1d2636). */
   color: var(--ink, #1d2636);
+  /* Set the element's background appearance. Value: var(--panel, #fff). */
   background: var(--panel, #fff);
+  /* Draw a shadow to add depth around the element. Value: 0 12px 34px rgb(15 23 42 / 18%). */
   box-shadow: 0 12px 34px rgb(15 23 42 / 18%);
+  /* Set font to control this element's appearance or behavior. Value: 500 13px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, Bli. */
   font: 500 13px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
+/* Style elements matching .lux-temp-log-toast.is-error to define their appearance and layout. */
 .lux-temp-log-toast.is-error {
+  /* Set border-color to control this element's appearance or behavior. Value: #ef4444. */
   border-color: #ef4444;
 }
+/* Apply these responsive styles only when  (max-width: 480px) is true. */
 @media (max-width: 480px) {
+  /* Style elements matching .lux-temp-log-menu to define their appearance and layout. */
   .lux-temp-log-menu {
+    /* Control the element's width. Value: min(280px, calc(100vw - 16px)). */
     width: min(280px, calc(100vw - 16px));
   }
+  /* Style elements matching .lux-temp-log-toast to define their appearance and layout. */
   .lux-temp-log-toast {
+    /* Set the right positioning offset. Value: 8px. */
     right: 8px;
+    /* Set the bottom positioning offset. Value: 8px. */
     bottom: 8px;
+    /* Set the maximum allowed width. Value: calc(100vw - 16px). */
     max-width: calc(100vw - 16px);
   }
 }

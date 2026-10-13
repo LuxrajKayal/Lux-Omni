@@ -1,87 +1,156 @@
+/* Define shared CSS variables and defaults for the whole document. */
 :root {
+  /* Set color-scheme to control the color of this element. Value: light. */
   color-scheme: light;
+  /* Choose the typeface used for the text. Value: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe . */
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Set font-synthesis to control the appearance or behavior of this element. Value: none. */
   font-synthesis: none;
+  /* Set text-rendering to control the appearance or behavior of this element. Value: optimizeLegibility. */
   text-rendering: optimizeLegibility;
+  /* Set -webkit-font-smoothing to control the appearance or behavior of this element. Value: antialiased. */
   -webkit-font-smoothing: antialiased;
+  /* Set -moz-osx-font-smoothing to control the appearance or behavior of this element. Value: grayscale. */
   -moz-osx-font-smoothing: grayscale;
 
+  /* Set --ink to control the appearance or behavior of this element. Value: #1d2636. */
   --ink: #1d2636;
+  /* Set --muted to control the appearance or behavior of this element. Value: #758196. */
   --muted: #758196;
+  /* Set --line to control the appearance or behavior of this element. Value: #e5e9f0. */
   --line: #e5e9f0;
+  /* Set --panel to control the appearance or behavior of this element. Value: #ffffff. */
   --panel: #ffffff;
+  /* Set --workspace to control the appearance or behavior of this element. Value: #f6f8fb. */
   --workspace: #f6f8fb;
+  /* Set --accent to control the appearance or behavior of this element. Value: #4263eb. */
   --accent: #4263eb;
+  /* Set --brand-mark-bg to control the appearance or behavior of this element. Value: #eef2ff. */
   --brand-mark-bg: #eef2ff;
+  /* Set --brand-name to control the appearance or behavior of this element. Value: #172033. */
   --brand-name: #172033;
 
+  /* Set --control-text to control the appearance or behavior of this element. Value: #273449. */
   --control-text: #273449;
+  /* Set --control-bg to control the appearance or behavior of this element. Value: #ffffff. */
   --control-bg: #ffffff;
+  /* Set --control-border to control the appearance or behavior of this element. Value: #dce2ec. */
   --control-border: #dce2ec;
+  /* Set --control-hover-bg to control the appearance or behavior of this element. Value: #f7f8ff. */
   --control-hover-bg: #f7f8ff;
+  /* Set --control-hover-border to control the appearance or behavior of this element. Value: #bac7ff. */
   --control-hover-border: #bac7ff;
+  /* Set --focus-outline to control the appearance or behavior of this element. Value: #a5b4fc. */
   --focus-outline: #a5b4fc;
+  /* Set --sidebar-width to control the appearance or behavior of this element. Value: 68px. */
   --sidebar-width: 68px;
 }
 
+/* Define shared CSS variables and defaults for the whole document. */
 :root[data-theme="dark"] {
+  /* Set color-scheme to control the color of this element. Value: dark. */
   color-scheme: dark;
+  /* Set --ink to control the appearance or behavior of this element. Value: #e8edf5. */
   --ink: #e8edf5;
+  /* Set --muted to control the appearance or behavior of this element. Value: #a0aabd. */
   --muted: #a0aabd;
+  /* Set --line to control the appearance or behavior of this element. Value: #303949. */
   --line: #303949;
+  /* Set --panel to control the appearance or behavior of this element. Value: #181e29. */
   --panel: #181e29;
+  /* Set --workspace to control the appearance or behavior of this element. Value: #10151e. */
   --workspace: #10151e;
+  /* Set --accent to control the appearance or behavior of this element. Value: #a5b4fc. */
   --accent: #a5b4fc;
+  /* Set --brand-mark-bg to control the appearance or behavior of this element. Value: #252d44. */
   --brand-mark-bg: #252d44;
+  /* Set --brand-name to control the appearance or behavior of this element. Value: #f3f5fa. */
   --brand-name: #f3f5fa;
 
+  /* Set --control-text to control the appearance or behavior of this element. Value: #e7ecf5. */
   --control-text: #e7ecf5;
+  /* Set --control-bg to control the appearance or behavior of this element. Value: #1d2533. */
   --control-bg: #1d2533;
+  /* Set --control-border to control the appearance or behavior of this element. Value: #3a4557. */
   --control-border: #3a4557;
+  /* Set --control-hover-bg to control the appearance or behavior of this element. Value: #29344a. */
   --control-hover-bg: #29344a;
+  /* Set --control-hover-border to control the appearance or behavior of this element. Value: #6577b8. */
   --control-hover-border: #6577b8;
+  /* Set --focus-outline to control the appearance or behavior of this element. Value: #8195dc. */
   --focus-outline: #8195dc;
 }
 
+/* Style * to define its appearance and layout. */
 * {
+  /* Set box-sizing to control the appearance or behavior of this element. Value: border-box. */
   box-sizing: border-box;
 }
 
+/* Style html, body to define its appearance and layout. */
 html,
 body {
+  /* Set the smallest width the element is allowed to use. Value: 320px. */
   min-width: 320px;
+  /* Set the smallest height the element is allowed to use. Value: 100%. */
   min-height: 100%;
+  /* Control the space outside the element. Value: 0. */
   margin: 0;
 }
 
+/* Style body to define its appearance and layout. */
 body {
+  /* Set the smallest height the element is allowed to use. Value: 100vh. */
   min-height: 100vh;
+  /* Set the color used for text and current-color graphics. Value: var(--ink). */
   color: var(--ink);
+  /* Set the element's background color, image, or combined background. Value: var(--workspace). */
   background: var(--workspace);
+  /* Smooth the listed property changes over time. Value: background-color 180ms ease, color 180ms ease. */
   transition: background-color 180ms ease, color 180ms ease;
 }
 
+/* Style button, a to define its appearance and layout. */
 button,
 a {
+  /* Set font to control the appearance or behavior of this element. Value: inherit. */
   font: inherit;
 }
 
+/* Style .topbar to define its appearance and layout. */
 .topbar {
+  /* Choose the positioning model used to place this element. Value: fixed. */
   position: fixed;
+  /* Set the element's distance from the top of its positioning area. Value: 0. */
   top: 0;
+  /* Set the element's distance from the right edge of its positioning area. Value: 0. */
   right: 0;
+  /* Set the element's distance from the left edge of its positioning area. Value: 0. */
   left: 0;
+  /* Control which overlapping element appears in front. Value: 10. */
   z-index: 10;
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Control how wide the element can appear. Value: 100%. */
   width: 100%;
+  /* Set the smallest height the element is allowed to use. Value: 76px. */
   min-height: 76px;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Distribute child items along the main layout axis. Value: space-between. */
   justify-content: space-between;
+  /* Set the spacing between child layout items. Value: 24px. */
   gap: 24px;
+  /* Control the space between the element's edge and its contents. Value: 12px 28px. */
   padding: 12px 28px;
+  /* Set border-bottom to control the appearance or behavior of this element. Value: 1px solid var(--line). */
   border-bottom: 1px solid var(--line);
+  /* Set the element's background color, image, or combined background. Value: var(--panel). */
   background: var(--panel);
+  /* Apply a visual movement, rotation, or scale. Value: translateY(0). */
   transform: translateY(0);
+  /* Smooth the listed property changes over time. Value: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 180ms . */
   transition:
     transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
     background-color 180ms ease,
@@ -89,1184 +158,2019 @@ a {
     border-color 180ms ease;
 }
 
+/* Style .brand to define its appearance and layout. */
 .brand {
+  /* Choose how the element and its children participate in layout. Value: inline-flex. */
   display: inline-flex;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Set the spacing between child layout items. Value: 12px. */
   gap: 12px;
+  /* Set the color used for text and current-color graphics. Value: inherit. */
   color: inherit;
+  /* Add or remove visual decoration on text. Value: none. */
   text-decoration: none;
 }
 
+/* Style .brand-mark to define its appearance and layout. */
 .brand-mark {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Control how wide the element can appear. Value: 42px. */
   width: 42px;
+  /* Control the element's height. Value: 42px. */
   height: 42px;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 0 0 42px. */
   flex: 0 0 42px;
+  /* Set place-items to control the appearance or behavior of this element. Value: center. */
   place-items: center;
+  /* Round the element's corners. Value: 12px. */
   border-radius: 12px;
+  /* Set the color used for text and current-color graphics. Value: var(--accent). */
   color: var(--accent);
+  /* Set the element's background color, image, or combined background. Value: transparent. */
   background: transparent;
+  /* Smooth the listed property changes over time. Value: color 180ms ease. */
   transition: color 180ms ease;
 }
 
+/* Style .brand-mark img to define its appearance and layout. */
 .brand-mark img {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Control how wide the element can appear. Value: 100%. */
   width: 100%;
+  /* Control the element's height. Value: 100%. */
   height: 100%;
+  /* Control how an image or other replaced content fits its box. Value: contain. */
   object-fit: contain;
 }
 
+/* Style .brand-copy to define its appearance and layout. */
 .brand-copy {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Choose whether flex items flow horizontally or vertically. Value: column. */
   flex-direction: column;
+  /* Set the spacing between child layout items. Value: 3px. */
   gap: 3px;
 }
 
+/* Style .brand-name to define its appearance and layout. */
 .brand-name {
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
   overflow: hidden;
+  /* Set the color used for text and current-color graphics. Value: var(--brand-name). */
   color: var(--brand-name);
+  /* Set how large the text appears. Value: 19px. */
   font-size: 19px;
+  /* Set how thick or bold the text appears. Value: 720. */
   font-weight: 720;
+  /* Set letter-spacing to control the appearance or behavior of this element. Value: -0.035em. */
   letter-spacing: -0.035em;
+  /* Control the vertical spacing between lines of text. Value: 1.2. */
   line-height: 1.2;
+  /* Choose how clipped text is represented. Value: ellipsis. */
   text-overflow: ellipsis;
+  /* Control how spaces and line breaks in text are handled. Value: nowrap. */
   white-space: nowrap;
 }
 
+/* Style .brand-slogan to define its appearance and layout. */
 .brand-slogan {
+  /* Set the color used for text and current-color graphics. Value: var(--muted). */
   color: var(--muted);
+  /* Set how large the text appears. Value: 11px. */
   font-size: 11px;
+  /* Control the vertical spacing between lines of text. Value: 1.25. */
   line-height: 1.25;
 }
 
+/* Style .topbar-actions to define its appearance and layout. */
 .topbar-actions {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 0 0 auto. */
   flex: 0 0 auto;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Set the spacing between child layout items. Value: 8px. */
   gap: 8px;
 }
 
+/* Style .dropbox-topbar-button to define its appearance and layout. */
 .dropbox-topbar-button {
+  /* Choose how the element and its children participate in layout. Value: inline-flex. */
   display: inline-flex;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the smallest height the element is allowed to use. Value: 40px. */
   min-height: 40px;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Distribute child items along the main layout axis. Value: center. */
   justify-content: center;
+  /* Set the spacing between child layout items. Value: 7px. */
   gap: 7px;
+  /* Control the space between the element's edge and its contents. Value: 0 7px. */
   padding: 0 7px;
+  /* Set the line, thickness, and color around the element. Value: 1px solid transparent. */
   border: 1px solid transparent;
+  /* Round the element's corners. Value: 9px. */
   border-radius: 9px;
+  /* Set the color used for text and current-color graphics. Value: var(--control-text). */
   color: var(--control-text);
+  /* Set the element's background color, image, or combined background. Value: transparent. */
   background: transparent;
+  /* Choose the pointer shape shown when hovering over the element. Value: pointer. */
   cursor: pointer;
+  /* Set font to control the appearance or behavior of this element. Value: inherit. */
   font: inherit;
+  /* Control how spaces and line breaks in text are handled. Value: nowrap. */
   white-space: nowrap;
+  /* Smooth the listed property changes over time. Value: background-color 180ms ease, border-color 180ms ease. */
   transition: background-color 180ms ease, border-color 180ms ease;
 }
 
+/* Style .dropbox-topbar-button:hover to define its appearance and layout. */
 .dropbox-topbar-button:hover {
+  /* Set border-color to control the color of this element. Value: var(--control-border). */
   border-color: var(--control-border);
+  /* Set the element's background color, image, or combined background. Value: var(--control-hover-bg). */
   background: var(--control-hover-bg);
 }
 
+/* Style .dropbox-topbar-button:focus-visible to define its appearance and layout. */
 .dropbox-topbar-button:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 3px solid var(--focus-outline). */
   outline: 3px solid var(--focus-outline);
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 2px. */
   outline-offset: 2px;
 }
 
+/* Style .dropbox-topbar-logo to define its appearance and layout. */
 .dropbox-topbar-logo {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Control how wide the element can appear. Value: 20px. */
   width: 20px;
+  /* Control the element's height. Value: 20px. */
   height: 20px;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 0 0 20px. */
   flex: 0 0 20px;
+  /* Set the fill color of an SVG shape. Value: #2469dc. */
   fill: #2469dc;
 }
 
+/* Style .dropbox-topbar-label to define its appearance and layout. */
 .dropbox-topbar-label {
+  /* Set the largest width the element is allowed to use. Value: 148px. */
   max-width: 148px;
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
   overflow: hidden;
+  /* Set the color used for text and current-color graphics. Value: var(--control-text). */
   color: var(--control-text);
+  /* Set how large the text appears. Value: 12px. */
   font-size: 12px;
+  /* Set how thick or bold the text appears. Value: 600. */
   font-weight: 600;
+  /* Choose how clipped text is represented. Value: ellipsis. */
   text-overflow: ellipsis;
+  /* Control how spaces and line breaks in text are handled. Value: nowrap. */
   white-space: nowrap;
 }
 
+/* Style .theme-toggle, .focus-toggle, .sidebar-toggle to define its appearance and layout. */
 .theme-toggle,
 .focus-toggle,
 .sidebar-toggle {
+  /* Set the line, thickness, and color around the element. Value: 1px solid var(--control-border). */
   border: 1px solid var(--control-border);
+  /* Set the color used for text and current-color graphics. Value: var(--control-text). */
   color: var(--control-text);
+  /* Set the element's background color, image, or combined background. Value: var(--control-bg). */
   background: var(--control-bg);
+  /* Choose the pointer shape shown when hovering over the element. Value: pointer. */
   cursor: pointer;
+  /* Smooth the listed property changes over time. Value: background-color 180ms ease, color 180ms ease, border-color 180ms ease. */
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
 }
 
+/* Style .theme-toggle:hover, .focus-toggle:hover, .focus-toggle[aria-pressed="true"], .sidebar-toggle:hover to define its appearance and layout. */
 .theme-toggle:hover,
 .focus-toggle:hover,
 .focus-toggle[aria-pressed="true"],
 .sidebar-toggle:hover {
+  /* Set border-color to control the color of this element. Value: var(--control-hover-border). */
   border-color: var(--control-hover-border);
+  /* Set the element's background color, image, or combined background. Value: var(--control-hover-bg). */
   background: var(--control-hover-bg);
 }
 
+/* Style .theme-toggle:focus-visible, .focus-toggle:focus-visible, .sidebar-toggle:focus-visible, .brand:focu to define its appearance and layout. */
 .theme-toggle:focus-visible,
 .focus-toggle:focus-visible,
 .sidebar-toggle:focus-visible,
 .brand:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 3px solid var(--focus-outline). */
   outline: 3px solid var(--focus-outline);
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 3px. */
   outline-offset: 3px;
 }
 
+/* Style .theme-toggle to define its appearance and layout. */
 .theme-toggle {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Control how wide the element can appear. Value: 40px. */
   width: 40px;
+  /* Control the element's height. Value: 40px. */
   height: 40px;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 0 0 40px. */
   flex: 0 0 40px;
+  /* Set place-items to control the appearance or behavior of this element. Value: center. */
   place-items: center;
+  /* Control the space between the element's edge and its contents. Value: 0. */
   padding: 0;
+  /* Round the element's corners. Value: 9px. */
   border-radius: 9px;
 }
 
+/* Style .theme-toggle svg to define its appearance and layout. */
 .theme-toggle svg {
+  /* Control how wide the element can appear. Value: 19px. */
   width: 19px;
+  /* Control the element's height. Value: 19px. */
   height: 19px;
+  /* Set the fill color of an SVG shape. Value: none. */
   fill: none;
+  /* Set the outline color of an SVG shape. Value: currentColor. */
   stroke: currentColor;
+  /* Set stroke-linecap to control the appearance or behavior of this element. Value: round. */
   stroke-linecap: round;
+  /* Set stroke-linejoin to control the appearance or behavior of this element. Value: round. */
   stroke-linejoin: round;
+  /* Set the thickness of an SVG outline. Value: 1.7. */
   stroke-width: 1.7;
 }
 
+/* Style .theme-icon-sun to define its appearance and layout. */
 .theme-icon-sun {
+  /* Choose how the element and its children participate in layout. Value: none. */
   display: none;
 }
 
+/* Define shared CSS variables and defaults for the whole document. */
 :root[data-theme="dark"] .theme-icon-moon {
+  /* Choose how the element and its children participate in layout. Value: none. */
   display: none;
 }
 
+/* Define shared CSS variables and defaults for the whole document. */
 :root[data-theme="dark"] .theme-icon-sun {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
 }
 
+/* Style .focus-toggle to define its appearance and layout. */
 .focus-toggle {
+  /* Choose how the element and its children participate in layout. Value: inline-flex. */
   display: inline-flex;
+  /* Set the smallest height the element is allowed to use. Value: 40px. */
   min-height: 40px;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Distribute child items along the main layout axis. Value: center. */
   justify-content: center;
+  /* Set the spacing between child layout items. Value: 8px. */
   gap: 8px;
+  /* Control the space between the element's edge and its contents. Value: 0 11px. */
   padding: 0 11px;
+  /* Round the element's corners. Value: 9px. */
   border-radius: 9px;
+  /* Control how spaces and line breaks in text are handled. Value: nowrap. */
   white-space: nowrap;
 }
 
+/* Style .focus-toggle svg to define its appearance and layout. */
 .focus-toggle svg {
+  /* Control how wide the element can appear. Value: 18px. */
   width: 18px;
+  /* Control the element's height. Value: 18px. */
   height: 18px;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 0 0 18px. */
   flex: 0 0 18px;
+  /* Set the fill color of an SVG shape. Value: none. */
   fill: none;
+  /* Set the outline color of an SVG shape. Value: currentColor. */
   stroke: currentColor;
+  /* Set stroke-linecap to control the appearance or behavior of this element. Value: round. */
   stroke-linecap: round;
+  /* Set stroke-linejoin to control the appearance or behavior of this element. Value: round. */
   stroke-linejoin: round;
+  /* Set the thickness of an SVG outline. Value: 1.8. */
   stroke-width: 1.8;
 }
 
+/* Style .focus-icon-exit to define its appearance and layout. */
 .focus-icon-exit {
+  /* Choose how the element and its children participate in layout. Value: none. */
   display: none;
 }
 
+/* Style body[data-focus-mode="true"] .focus-icon-enter to define its appearance and layout. */
 body[data-focus-mode="true"] .focus-icon-enter {
+  /* Choose how the element and its children participate in layout. Value: none. */
   display: none;
 }
 
+/* Style body[data-focus-mode="true"] .focus-icon-exit to define its appearance and layout. */
 body[data-focus-mode="true"] .focus-icon-exit {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
 }
 
 /* Focus Mode only changes topbar visibility when the user enables it. */
+/* Style body[data-focus-mode="true"] .topbar to define its appearance and layout. */
 body[data-focus-mode="true"] .topbar {
+  /* Apply a visual movement, rotation, or scale. Value: translateY(-100%). */
   transform: translateY(-100%);
+  /* Choose whether pointer actions can target the element. Value: none. */
   pointer-events: none;
 }
 
+/* Style body[data-focus-mode="true"] .topbar.is-visible to define its appearance and layout. */
 body[data-focus-mode="true"] .topbar.is-visible {
+  /* Apply a visual movement, rotation, or scale. Value: translateY(0). */
   transform: translateY(0);
+  /* Choose whether pointer actions can target the element. Value: auto. */
   pointer-events: auto;
 }
 
+/* Style .workspace-shell to define its appearance and layout. */
 .workspace-shell {
+  /* Choose the positioning model used to place this element. Value: relative. */
   position: relative;
+  /* Set margin-top to control the appearance or behavior of this element. Value: 76px. */
   margin-top: 76px;
 }
 
+/* Style body[data-focus-mode="true"] .workspace-shell to define its appearance and layout. */
 body[data-focus-mode="true"] .workspace-shell {
+  /* Set margin-top to control the appearance or behavior of this element. Value: 0. */
   margin-top: 0;
 }
 
+/* Style .sidebar-toggle-row to define its appearance and layout. */
 .sidebar-toggle-row {
+  /* Choose the positioning model used to place this element. Value: relative. */
   position: relative;
+  /* Control which overlapping element appears in front. Value: 4. */
   z-index: 4;
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Control how wide the element can appear. Value: var(--sidebar-width). */
   width: var(--sidebar-width);
+  /* Control the element's height. Value: 44px. */
   height: 44px;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Control the space between the element's edge and its contents. Value: 0 12px. */
   padding: 0 12px;
+  /* Set the element's background color, image, or combined background. Value: var(--workspace). */
   background: var(--workspace);
+  /* Choose whether pointer actions can target the element. Value: none. */
   pointer-events: none;
 }
 
+/* Define shared CSS variables and defaults for the whole document. */
 :root[data-sidebar-open="false"] .sidebar-toggle-row {
+  /* Set the element's background color, image, or combined background. Value: transparent. */
   background: transparent;
 }
 
+/* Style .sidebar-toggle to define its appearance and layout. */
 .sidebar-toggle {
+  /* Choose whether pointer actions can target the element. Value: auto. */
   pointer-events: auto;
 }
 
+/* Style .viewport-composition to define its appearance and layout. */
 .viewport-composition {
+  /* Choose the positioning model used to place this element. Value: absolute. */
   position: absolute;
+  /* Set the element's distance from the top of its positioning area. Value: 0. */
   top: 0;
+  /* Set the element's distance from the right edge of its positioning area. Value: 0. */
   right: 0;
+  /* Set the element's distance from the bottom of its positioning area. Value: 0. */
   bottom: 0;
+  /* Set the element's distance from the left edge of its positioning area. Value: var(--sidebar-width). */
   left: var(--sidebar-width);
+  /* Control which overlapping element appears in front. Value: 2. */
   z-index: 2;
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the smallest height the element is allowed to use. Value: 0. */
   min-height: 0;
+  /* Define the number and width of grid columns. Value: minmax(0, var(--split-left-share, 1fr)) 5px minmax(0, var(--split-right-sha. */
   grid-template-columns: minmax(0, var(--split-left-share, 1fr)) 5px minmax(0, var(--split-right-share, 1fr));
+  /* Define the number and height of grid rows. Value: 44px minmax(0, 1fr) auto. */
   grid-template-rows: 44px minmax(0, 1fr) auto;
 }
 
+/* Define shared CSS variables and defaults for the whole document. */
 :root[data-sidebar-open="false"] .viewport-composition {
+  /* Set the element's distance from the left edge of its positioning area. Value: 0. */
   left: 0;
 }
 
+/* Style .viewport-topbar to define its appearance and layout. */
 .viewport-topbar {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1 / -1. */
   grid-column: 1 / -1;
+  /* Set grid-row to control the appearance or behavior of this element. Value: 1. */
   grid-row: 1;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Define the number and width of grid columns. Value: minmax(0, var(--split-left-share, 1fr)) 5px minmax(0, var(--split-right-sha. */
   grid-template-columns: minmax(0, var(--split-left-share, 1fr)) 5px minmax(0, var(--split-right-share, 1fr));
+  /* Set the element's background color, image, or combined background. Value: #d1d5db. */
   background: #d1d5db;
+  /* Set border-bottom to control the appearance or behavior of this element. Value: 1px solid var(--line). */
   border-bottom: 1px solid var(--line);
 }
 
+/* Style .viewport-toolbar-section to define its appearance and layout. */
 .viewport-toolbar-section {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the smallest height the element is allowed to use. Value: 0. */
   min-height: 0;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Distribute child items along the main layout axis. Value: flex-end. */
   justify-content: flex-end;
+  /* Set the spacing between child layout items. Value: 6px. */
   gap: 6px;
+  /* Control the space between the element's edge and its contents. Value: 0 8px. */
   padding: 0 8px;
 }
 
+/* Style .youtube-sidebar-button svg to define its appearance and layout. */
 .youtube-sidebar-button svg {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Control how wide the element can appear. Value: 20px. */
   width: 20px;
+  /* Control the element's height. Value: 15px. */
   height: 15px;
 }
 
+/* Style .youtube-tile to define its appearance and layout. */
 .youtube-tile {
+  /* Choose the positioning model used to place this element. Value: fixed. */
   position: fixed;
+  /* Control which overlapping element appears in front. Value: 30. */
   z-index: 30;
+  /* Control how wide the element can appear. Value: min(340px, calc(100vw - 88px)). */
   width: min(340px, calc(100vw - 88px));
+  /* Control the space between the element's edge and its contents. Value: 16px. */
   padding: 16px;
+  /* Set the line, thickness, and color around the element. Value: 1px solid var(--control-border). */
   border: 1px solid var(--control-border);
+  /* Round the element's corners. Value: 14px. */
   border-radius: 14px;
+  /* Set the color used for text and current-color graphics. Value: var(--ink). */
   color: var(--ink);
+  /* Set the element's background color, image, or combined background. Value: var(--panel). */
   background: var(--panel);
+  /* Draw a shadow around the element to show depth. Value: 0 14px 42px rgb(15 23 42 / 22%). */
   box-shadow: 0 14px 42px rgb(15 23 42 / 22%);
 }
 
+/* Style .youtube-tile h2 to define its appearance and layout. */
 .youtube-tile h2 {
+  /* Control the space outside the element. Value: 0. */
   margin: 0;
+  /* Set the color used for text and current-color graphics. Value: var(--brand-name). */
   color: var(--brand-name);
+  /* Set how large the text appears. Value: 16px. */
   font-size: 16px;
+  /* Set how thick or bold the text appears. Value: 720. */
   font-weight: 720;
+  /* Control the vertical spacing between lines of text. Value: 1.35. */
   line-height: 1.35;
 }
 
+/* Style .youtube-tile-help to define its appearance and layout. */
 .youtube-tile-help {
+  /* Control the space outside the element. Value: 6px 0 14px. */
   margin: 6px 0 14px;
+  /* Set the color used for text and current-color graphics. Value: var(--muted). */
   color: var(--muted);
+  /* Set how large the text appears. Value: 12px. */
   font-size: 12px;
+  /* Control the vertical spacing between lines of text. Value: 1.5. */
   line-height: 1.5;
 }
 
+/* Style .youtube-tile-label to define its appearance and layout. */
 .youtube-tile-label {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Set margin-bottom to control the appearance or behavior of this element. Value: 6px. */
   margin-bottom: 6px;
+  /* Set the color used for text and current-color graphics. Value: var(--control-text). */
   color: var(--control-text);
+  /* Set how large the text appears. Value: 12px. */
   font-size: 12px;
+  /* Set how thick or bold the text appears. Value: 650. */
   font-weight: 650;
 }
 
+/* Style .youtube-tile-input to define its appearance and layout. */
 .youtube-tile-input {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Control how wide the element can appear. Value: 100%. */
   width: 100%;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the smallest height the element is allowed to use. Value: 38px. */
   min-height: 38px;
+  /* Control the space between the element's edge and its contents. Value: 8px 10px. */
   padding: 8px 10px;
+  /* Set the line, thickness, and color around the element. Value: 1px solid var(--control-border). */
   border: 1px solid var(--control-border);
+  /* Round the element's corners. Value: 8px. */
   border-radius: 8px;
+  /* Set the color used for text and current-color graphics. Value: var(--control-text). */
   color: var(--control-text);
+  /* Set the element's background color, image, or combined background. Value: var(--control-bg). */
   background: var(--control-bg);
+  /* Set font to control the appearance or behavior of this element. Value: inherit. */
   font: inherit;
+  /* Set how large the text appears. Value: 12px. */
   font-size: 12px;
 }
 
+/* Style .youtube-tile-input:focus-visible to define its appearance and layout. */
 .youtube-tile-input:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 3px solid var(--focus-outline). */
   outline: 3px solid var(--focus-outline);
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 2px. */
   outline-offset: 2px;
 }
 
+/* Style .youtube-tile-feedback to define its appearance and layout. */
 .youtube-tile-feedback {
+  /* Control the space outside the element. Value: 8px 0 0. */
   margin: 8px 0 0;
+  /* Set the color used for text and current-color graphics. Value: #dc2626. */
   color: #dc2626;
+  /* Set how large the text appears. Value: 12px. */
   font-size: 12px;
+  /* Control the vertical spacing between lines of text. Value: 1.45. */
   line-height: 1.45;
 }
 
+/* Define shared CSS variables and defaults for the whole document. */
 :root[data-theme="dark"] .youtube-tile-feedback {
+  /* Set the color used for text and current-color graphics. Value: #fca5a5. */
   color: #fca5a5;
 }
 
+/* Style .youtube-tile-targets to define its appearance and layout. */
 .youtube-tile-targets {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Define the number and width of grid columns. Value: repeat(3, minmax(0, 1fr)). */
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Set the spacing between child layout items. Value: 7px. */
   gap: 7px;
+  /* Set margin-top to control the appearance or behavior of this element. Value: 14px. */
   margin-top: 14px;
 }
 
+/* Style .youtube-target-button to define its appearance and layout. */
 .youtube-target-button {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the smallest height the element is allowed to use. Value: 62px. */
   min-height: 62px;
+  /* Choose whether flex items flow horizontally or vertically. Value: column. */
   flex-direction: column;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Distribute child items along the main layout axis. Value: center. */
   justify-content: center;
+  /* Set the spacing between child layout items. Value: 6px. */
   gap: 6px;
+  /* Control the space between the element's edge and its contents. Value: 7px 3px. */
   padding: 7px 3px;
+  /* Set the line, thickness, and color around the element. Value: 1px solid var(--control-border). */
   border: 1px solid var(--control-border);
+  /* Round the element's corners. Value: 9px. */
   border-radius: 9px;
+  /* Set the color used for text and current-color graphics. Value: var(--control-text). */
   color: var(--control-text);
+  /* Set the element's background color, image, or combined background. Value: var(--control-bg). */
   background: var(--control-bg);
+  /* Choose the pointer shape shown when hovering over the element. Value: pointer. */
   cursor: pointer;
+  /* Set how large the text appears. Value: 11px. */
   font-size: 11px;
+  /* Set how thick or bold the text appears. Value: 650. */
   font-weight: 650;
+  /* Control the vertical spacing between lines of text. Value: 1.2. */
   line-height: 1.2;
+  /* Align inline text within its content area. Value: center. */
   text-align: center;
+  /* Smooth the listed property changes over time. Value: background-color 160ms ease, border-color 160ms ease. */
   transition: background-color 160ms ease, border-color 160ms ease;
 }
 
+/* Style .youtube-target-button:hover to define its appearance and layout. */
 .youtube-target-button:hover {
+  /* Set border-color to control the color of this element. Value: var(--control-hover-border). */
   border-color: var(--control-hover-border);
+  /* Set the element's background color, image, or combined background. Value: var(--control-hover-bg). */
   background: var(--control-hover-bg);
 }
 
+/* Style .youtube-target-button:focus-visible to define its appearance and layout. */
 .youtube-target-button:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 3px solid var(--focus-outline). */
   outline: 3px solid var(--focus-outline);
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 2px. */
   outline-offset: 2px;
 }
 
+/* Style .youtube-target-button svg to define its appearance and layout. */
 .youtube-target-button svg {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Control how wide the element can appear. Value: 20px. */
   width: 20px;
+  /* Control the element's height. Value: 20px. */
   height: 20px;
+  /* Set the fill color of an SVG shape. Value: none. */
   fill: none;
+  /* Set the outline color of an SVG shape. Value: currentColor. */
   stroke: currentColor;
+  /* Set the thickness of an SVG outline. Value: 1.7. */
   stroke-width: 1.7;
+  /* Set stroke-linecap to control the appearance or behavior of this element. Value: round. */
   stroke-linecap: round;
+  /* Set stroke-linejoin to control the appearance or behavior of this element. Value: round. */
   stroke-linejoin: round;
 }
 
+/* Style .youtube-target-button[data-youtube-target="full"] svg to define its appearance and layout. */
 .youtube-target-button[data-youtube-target="full"] svg {
+  /* Control how wide the element can appear. Value: 19px. */
   width: 19px;
+  /* Control the element's height. Value: 19px. */
   height: 19px;
 }
 
+/* Style .viewport-toolbar-section--full to define its appearance and layout. */
 .viewport-toolbar-section--full {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1 / -1. */
   grid-column: 1 / -1;
 }
 
+/* Style .viewport-toolbar-section--left to define its appearance and layout. */
 .viewport-toolbar-section--left {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1. */
   grid-column: 1;
 }
 
+/* Style .viewport-toolbar-section--right to define its appearance and layout. */
 .viewport-toolbar-section--right {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 3. */
   grid-column: 3;
 }
 
+/* Style .viewport-minimize-button, .viewport-close-button to define its appearance and layout. */
 .viewport-minimize-button,
 .viewport-close-button {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Control how wide the element can appear. Value: 24px. */
   width: 24px;
+  /* Control the element's height. Value: 24px. */
   height: 24px;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 0 0 24px. */
   flex: 0 0 24px;
+  /* Set place-items to control the appearance or behavior of this element. Value: center. */
   place-items: center;
+  /* Control the space between the element's edge and its contents. Value: 0. */
   padding: 0;
+  /* Set the line, thickness, and color around the element. Value: 0. */
   border: 0;
+  /* Round the element's corners. Value: 4px. */
   border-radius: 4px;
+  /* Set the color used for text and current-color graphics. Value: #ffffff. */
   color: #ffffff;
+  /* Set the element's background color, image, or combined background. Value: #dc2626. */
   background: #dc2626;
+  /* Choose the pointer shape shown when hovering over the element. Value: pointer. */
   cursor: pointer;
+  /* Set how large the text appears. Value: 20px. */
   font-size: 20px;
+  /* Set how thick or bold the text appears. Value: 700. */
   font-weight: 700;
+  /* Control the vertical spacing between lines of text. Value: 1. */
   line-height: 1;
+  /* Smooth the listed property changes over time. Value: background-color 140ms ease, box-shadow 140ms ease. */
   transition: background-color 140ms ease, box-shadow 140ms ease;
 }
 
+/* Style .viewport-minimize-button to define its appearance and layout. */
 .viewport-minimize-button {
+  /* Control how wide the element can appear. Value: 24px. */
   width: 24px;
+  /* Control the element's height. Value: 24px. */
   height: 24px;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 0 0 24px. */
   flex: 0 0 24px;
+  /* Set place-items to control the appearance or behavior of this element. Value: center. */
   place-items: center;
+  /* Control the space between the element's edge and its contents. Value: 0. */
   padding: 0;
+  /* Set the line, thickness, and color around the element. Value: 0. */
   border: 0;
+  /* Round the element's corners. Value: 4px. */
   border-radius: 4px;
+  /* Set the color used for text and current-color graphics. Value: #ffffff. */
   color: #ffffff;
+  /* Set the element's background color, image, or combined background. Value: #6b7280. */
   background: #6b7280;
+  /* Choose the pointer shape shown when hovering over the element. Value: pointer. */
   cursor: pointer;
+  /* Set how large the text appears. Value: 22px. */
   font-size: 22px;
+  /* Set how thick or bold the text appears. Value: 600. */
   font-weight: 600;
+  /* Control the vertical spacing between lines of text. Value: 1. */
   line-height: 1;
+  /* Smooth the listed property changes over time. Value: background-color 140ms ease, box-shadow 140ms ease. */
   transition: background-color 140ms ease, box-shadow 140ms ease;
 }
 
+/* Style .viewport-minimize-button:hover to define its appearance and layout. */
 .viewport-minimize-button:hover {
+  /* Set the element's background color, image, or combined background. Value: #4b5563. */
   background: #4b5563;
 }
 
+/* Style .viewport-minimize-button:focus-visible to define its appearance and layout. */
 .viewport-minimize-button:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 2px solid #374151. */
   outline: 2px solid #374151;
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 2px. */
   outline-offset: 2px;
 }
 
+/* Style .viewport-close-button:hover to define its appearance and layout. */
 .viewport-close-button:hover {
+  /* Set the element's background color, image, or combined background. Value: #b91c1c. */
   background: #b91c1c;
 }
 
+/* Style .viewport-close-button:focus-visible to define its appearance and layout. */
 .viewport-close-button:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 2px solid #991b1b. */
   outline: 2px solid #991b1b;
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 2px. */
   outline-offset: 2px;
 }
 
+/* Style .sidebar-toggle to define its appearance and layout. */
 .sidebar-toggle {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Control how wide the element can appear. Value: 36px. */
   width: 36px;
+  /* Control the element's height. Value: 36px. */
   height: 36px;
+  /* Set place-items to control the appearance or behavior of this element. Value: center. */
   place-items: center;
+  /* Control the space between the element's edge and its contents. Value: 0. */
   padding: 0;
+  /* Round the element's corners. Value: 8px. */
   border-radius: 8px;
 }
 
+/* Style .sidebar-toggle svg to define its appearance and layout. */
 .sidebar-toggle svg {
+  /* Control how wide the element can appear. Value: 19px. */
   width: 19px;
+  /* Control the element's height. Value: 19px. */
   height: 19px;
+  /* Set the fill color of an SVG shape. Value: none. */
   fill: none;
+  /* Set the outline color of an SVG shape. Value: currentColor. */
   stroke: currentColor;
+  /* Set the thickness of an SVG outline. Value: 1.8. */
   stroke-width: 1.8;
+  /* Set stroke-linecap to control the appearance or behavior of this element. Value: round. */
   stroke-linecap: round;
 }
 
+/* Style .workspace-layout to define its appearance and layout. */
 .workspace-layout {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Define the number and width of grid columns. Value: var(--sidebar-width) minmax(0, 1fr). */
   grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  /* Set the smallest height the element is allowed to use. Value: calc(100vh - 120px). */
   min-height: calc(100vh - 120px);
+  /* Smooth the listed property changes over time. Value: grid-template-columns 240ms cubic-bezier(0.22, 1, 0.36, 1). */
   transition: grid-template-columns 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Define shared CSS variables and defaults for the whole document. */
 :root[data-sidebar-open="false"] .workspace-layout {
+  /* Define the number and width of grid columns. Value: 0 minmax(0, 1fr). */
   grid-template-columns: 0 minmax(0, 1fr);
 }
 
+/* Style .sidebar to define its appearance and layout. */
 .sidebar {
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
   overflow: hidden;
+  /* Set border-right to control the appearance or behavior of this element. Value: 1px solid var(--line). */
   border-right: 1px solid var(--line);
+  /* Set the element's background color, image, or combined background. Value: var(--panel). */
   background: var(--panel);
+  /* Smooth the listed property changes over time. Value: background-color 180ms ease, border-color 180ms ease. */
   transition: background-color 180ms ease, border-color 180ms ease;
 }
 
+/* Define shared CSS variables and defaults for the whole document. */
 :root[data-sidebar-open="false"] .sidebar {
+  /* Set border-right-color to control the color of this element. Value: transparent. */
   border-right-color: transparent;
 }
 
+/* Style .sidebar-inner to define its appearance and layout. */
 .sidebar-inner {
+  /* Control how wide the element can appear. Value: var(--sidebar-width). */
   width: var(--sidebar-width);
+  /* Set the smallest width the element is allowed to use. Value: var(--sidebar-width). */
   min-width: var(--sidebar-width);
+  /* Set the smallest height the element is allowed to use. Value: calc(100vh - 120px). */
   min-height: calc(100vh - 120px);
+  /* Control the element's height. Value: 100%. */
   height: 100%;
+  /* Control the space between the element's edge and its contents. Value: 12px 8px. */
   padding: 12px 8px;
+  /* Choose how content beyond the horizontal edges is handled. Value: hidden. */
   overflow-x: hidden;
 }
 
+/* Style .workspace to define its appearance and layout. */
 .workspace {
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the smallest height the element is allowed to use. Value: calc(100vh - 120px). */
   min-height: calc(100vh - 120px);
+  /* Set the element's background color, image, or combined background. Value: var(--workspace). */
   background: var(--workspace);
 }
 
+/* Style .viewport-stage to define its appearance and layout. */
 .viewport-stage {
+  /* Control how wide the element can appear. Value: 100%. */
   width: 100%;
+  /* Control the element's height. Value: 100%. */
   height: 100%;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the smallest height the element is allowed to use. Value: 0. */
   min-height: 0;
 }
 
+/* Style .viewport-stage--full to define its appearance and layout. */
 .viewport-stage--full {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1 / -1. */
   grid-column: 1 / -1;
+  /* Set grid-row to control the appearance or behavior of this element. Value: 2. */
   grid-row: 2;
 }
 
+/* Style .viewport-stage--split to define its appearance and layout. */
 .viewport-stage--split {
+  /* Choose how the element and its children participate in layout. Value: contents. */
   display: contents;
 }
 
+/* Style .viewport-stage--split > .viewport:first-child to define its appearance and layout. */
 .viewport-stage--split > .viewport:first-child {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1. */
   grid-column: 1;
+  /* Set grid-row to control the appearance or behavior of this element. Value: 2. */
   grid-row: 2;
 }
 
+/* Style .viewport-stage--split > .viewport:last-child to define its appearance and layout. */
 .viewport-stage--split > .viewport:last-child {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 3. */
   grid-column: 3;
+  /* Set grid-row to control the appearance or behavior of this element. Value: 2. */
   grid-row: 2;
 }
 
+/* Style .viewport-composition[data-mode^="solo-"] to define its appearance and layout. */
 .viewport-composition[data-mode^="solo-"] {
+  /* Define the number and width of grid columns. Value: minmax(0, 1fr) 0 minmax(0, 0fr). */
   grid-template-columns: minmax(0, 1fr) 0 minmax(0, 0fr);
 }
 
+/* Style .viewport-composition[data-mode^="solo-"] .viewport-topbar to define its appearance and layout. */
 .viewport-composition[data-mode^="solo-"] .viewport-topbar {
+  /* Define the number and width of grid columns. Value: minmax(0, 1fr) 0 minmax(0, 0fr). */
   grid-template-columns: minmax(0, 1fr) 0 minmax(0, 0fr);
 }
 
+/* Style .viewport-composition[data-mode^="solo-"] .viewport-stage--split > .viewport to define its appearance and layout. */
 .viewport-composition[data-mode^="solo-"] .viewport-stage--split > .viewport {
+  /* Choose how the element and its children participate in layout. Value: none. */
   display: none;
 }
 
+/* Style .viewport-composition[data-mode="solo-left"] .viewport-stage--split > .viewport[data-viewport-side=" to define its appearance and layout. */
 .viewport-composition[data-mode="solo-left"] .viewport-stage--split > .viewport[data-viewport-side="left"],
 .viewport-composition[data-mode="solo-right"] .viewport-stage--split > .viewport[data-viewport-side="right"] {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1 / -1. */
   grid-column: 1 / -1;
+  /* Set grid-row to control the appearance or behavior of this element. Value: 2. */
   grid-row: 2;
 }
 
+/* Style .viewport-number to define its appearance and layout. */
 .viewport-number {
+  /* Choose the positioning model used to place this element. Value: relative. */
   position: relative;
+  /* Control which overlapping element appears in front. Value: 4. */
   z-index: 4;
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Control how wide the element can appear. Value: 25px. */
   width: 25px;
+  /* Control the element's height. Value: 30px. */
   height: 30px;
+  /* Set align-self to control the appearance or behavior of this element. Value: center. */
   align-self: center;
+  /* Set justify-self to control the appearance or behavior of this element. Value: end. */
   justify-self: end;
+  /* Set place-items to control the appearance or behavior of this element. Value: center. */
   place-items: center;
+  /* Set margin-right to control the appearance or behavior of this element. Value: 7px. */
   margin-right: 7px;
+  /* Set the line, thickness, and color around the element. Value: 1px solid #94a3b8. */
   border: 1px solid #94a3b8;
+  /* Round the element's corners. Value: 5px. */
   border-radius: 5px;
+  /* Set the color used for text and current-color graphics. Value: #111827. */
   color: #111827;
+  /* Set the element's background color, image, or combined background. Value: #ffffff. */
   background: #ffffff;
+  /* Draw a shadow around the element to show depth. Value: 0 1px 3px rgb(15 23 42 / 12%). */
   box-shadow: 0 1px 3px rgb(15 23 42 / 12%);
+  /* Set how large the text appears. Value: 11px. */
   font-size: 11px;
+  /* Set how thick or bold the text appears. Value: 750. */
   font-weight: 750;
+  /* Control the vertical spacing between lines of text. Value: 1. */
   line-height: 1;
+  /* Choose whether pointer actions can target the element. Value: none. */
   pointer-events: none;
+  /* Set grid-row to control the appearance or behavior of this element. Value: 2. */
   grid-row: 2;
 }
 
+/* Style .viewport-number--full to define its appearance and layout. */
 .viewport-number--full {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1 / -1. */
   grid-column: 1 / -1;
 }
 
+/* Style .viewport-number--left to define its appearance and layout. */
 .viewport-number--left {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1. */
   grid-column: 1;
 }
 
+/* Style .viewport-number--right to define its appearance and layout. */
 .viewport-number--right {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 3. */
   grid-column: 3;
 }
 
+/* Style .viewport-composition[data-mode="solo-right"] .viewport-number--right to define its appearance and layout. */
 .viewport-composition[data-mode="solo-right"] .viewport-number--right {
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1 / -1. */
   grid-column: 1 / -1;
 }
 
+/* Style .viewport.is-drop-target to define its appearance and layout. */
 .viewport.is-drop-target {
+  /* Set outline to control the appearance or behavior of this element. Value: 3px dashed var(--accent). */
   outline: 3px dashed var(--accent);
+  /* Set outline-offset to control the appearance or behavior of this element. Value: -6px. */
   outline-offset: -6px;
+  /* Draw a shadow around the element to show depth. Value: inset 0 0 0 2px var(--accent). */
   box-shadow: inset 0 0 0 2px var(--accent);
 }
 
+/* Style .viewport-minimized-bar to define its appearance and layout. */
 .viewport-minimized-bar {
+  /* Choose the pointer shape shown when hovering over the element. Value: grab. */
   cursor: grab;
 }
 
+/* Style .viewport-minimized-bar:active, .viewport-minimized-bar.is-dragging to define its appearance and layout. */
 .viewport-minimized-bar:active,
 .viewport-minimized-bar.is-dragging {
+  /* Choose the pointer shape shown when hovering over the element. Value: grabbing. */
   cursor: grabbing;
+  /* Set how transparent the element appears. Value: 0.68. */
   opacity: 0.68;
 }
 
+/* Style .viewport-minimized-dock to define its appearance and layout. */
 .viewport-minimized-dock {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the largest width the element is allowed to use. Value: 100%. */
   max-width: 100%;
+  /* Set grid-column to control the appearance or behavior of this element. Value: 1 / -1. */
   grid-column: 1 / -1;
+  /* Set grid-row to control the appearance or behavior of this element. Value: 3. */
   grid-row: 3;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Control the space between the element's edge and its contents. Value: 7px 9px. */
   padding: 7px 9px;
+  /* Set border-top to control the appearance or behavior of this element. Value: 1px solid var(--line). */
   border-top: 1px solid var(--line);
+  /* Set the element's background color, image, or combined background. Value: var(--workspace). */
   background: var(--workspace);
 }
 
+/* Style .viewport-minimized-items to define its appearance and layout. */
 .viewport-minimized-items {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the largest width the element is allowed to use. Value: 100%. */
   max-width: 100%;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 1 1 auto. */
   flex: 1 1 auto;
+  /* Choose whether flex items may wrap onto another line. Value: wrap. */
   flex-wrap: wrap;
+  /* Set the spacing between child layout items. Value: 7px. */
   gap: 7px;
 }
 
+/* Style .viewport-minimized-bar to define its appearance and layout. */
 .viewport-minimized-bar {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Control how wide the element can appear. Value: min(100%, 340px). */
   width: min(100%, 340px);
+  /* Set the smallest width the element is allowed to use. Value: min(220px, 100%). */
   min-width: min(220px, 100%);
+  /* Set the smallest height the element is allowed to use. Value: 34px. */
   min-height: 34px;
+  /* Define the number and width of grid columns. Value: auto minmax(0, 1fr) auto. */
   grid-template-columns: auto minmax(0, 1fr) auto;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Set the spacing between child layout items. Value: 8px. */
   gap: 8px;
+  /* Control the space between the element's edge and its contents. Value: 0 10px. */
   padding: 0 10px;
+  /* Set the line, thickness, and color around the element. Value: 1px solid var(--control-border). */
   border: 1px solid var(--control-border);
+  /* Round the element's corners. Value: 7px. */
   border-radius: 7px;
+  /* Set the color used for text and current-color graphics. Value: var(--control-text). */
   color: var(--control-text);
+  /* Set the element's background color, image, or combined background. Value: var(--panel). */
   background: var(--panel);
+  /* Choose the pointer shape shown when hovering over the element. Value: pointer. */
   cursor: pointer;
+  /* Align inline text within its content area. Value: left. */
   text-align: left;
+  /* Draw a shadow around the element to show depth. Value: 0 1px 3px rgb(15 23 42 / 8%). */
   box-shadow: 0 1px 3px rgb(15 23 42 / 8%);
 }
 
+/* Style .viewport-minimized-bar:hover to define its appearance and layout. */
 .viewport-minimized-bar:hover {
+  /* Set border-color to control the color of this element. Value: var(--control-hover-border). */
   border-color: var(--control-hover-border);
+  /* Set the element's background color, image, or combined background. Value: var(--control-hover-bg). */
   background: var(--control-hover-bg);
 }
 
+/* Style .viewport-minimized-bar:focus-visible to define its appearance and layout. */
 .viewport-minimized-bar:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 2px solid var(--focus-outline). */
   outline: 2px solid var(--focus-outline);
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 2px. */
   outline-offset: 2px;
 }
 
+/* Style .viewport-minimized-file to define its appearance and layout. */
 .viewport-minimized-file {
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
   overflow: hidden;
+  /* Set how large the text appears. Value: 12px. */
   font-size: 12px;
+  /* Control the vertical spacing between lines of text. Value: 1.3. */
   line-height: 1.3;
+  /* Choose how clipped text is represented. Value: ellipsis. */
   text-overflow: ellipsis;
+  /* Control how spaces and line breaks in text are handled. Value: nowrap. */
   white-space: nowrap;
 }
 
+/* Style .viewport-minimized-number to define its appearance and layout. */
 .viewport-minimized-number {
+  /* Set the color used for text and current-color graphics. Value: var(--muted). */
   color: var(--muted);
+  /* Set how large the text appears. Value: 11px. */
   font-size: 11px;
+  /* Set how thick or bold the text appears. Value: 750. */
   font-weight: 750;
+  /* Control how spaces and line breaks in text are handled. Value: nowrap. */
   white-space: nowrap;
 }
 
+/* Style .viewport-minimized-restore to define its appearance and layout. */
 .viewport-minimized-restore {
+  /* Set the color used for text and current-color graphics. Value: var(--muted). */
   color: var(--muted);
+  /* Set how large the text appears. Value: 17px. */
   font-size: 17px;
+  /* Control the vertical spacing between lines of text. Value: 1. */
   line-height: 1;
 }
 
+/* Style .viewport-composition.is-minimized-only to define its appearance and layout. */
 .viewport-composition.is-minimized-only {
+  /* Choose whether pointer actions can target the element. Value: none. */
   pointer-events: none;
 }
 
+/* Style .viewport-composition.is-minimized-only .viewport-minimized-dock to define its appearance and layout. */
 .viewport-composition.is-minimized-only .viewport-minimized-dock {
+  /* Choose whether pointer actions can target the element. Value: auto. */
   pointer-events: auto;
 }
 
+/* Style .viewport-split-divider to define its appearance and layout. */
 .viewport-split-divider {
+  /* Choose the positioning model used to place this element. Value: relative. */
   position: relative;
+  /* Control which overlapping element appears in front. Value: 5. */
   z-index: 5;
+  /* Set grid-column to control the appearance or behavior of this element. Value: 2. */
   grid-column: 2;
+  /* Set grid-row to control the appearance or behavior of this element. Value: 1 / 3. */
   grid-row: 1 / 3;
+  /* Control how wide the element can appear. Value: 5px. */
   width: 5px;
+  /* Choose the pointer shape shown when hovering over the element. Value: col-resize. */
   cursor: col-resize;
+  /* Set touch-action to control the appearance or behavior of this element. Value: none. */
   touch-action: none;
+  /* Set user-select to control the appearance or behavior of this element. Value: none. */
   user-select: none;
 }
 
+/* Style .viewport-split-divider::before to define its appearance and layout. */
 .viewport-split-divider::before {
+  /* Choose the positioning model used to place this element. Value: absolute. */
   position: absolute;
+  /* Set the element's distance from the top of its positioning area. Value: 0. */
   top: 0;
+  /* Set the element's distance from the bottom of its positioning area. Value: 0. */
   bottom: 0;
+  /* Set the element's distance from the left edge of its positioning area. Value: 2px. */
   left: 2px;
+  /* Control how wide the element can appear. Value: 1px. */
   width: 1px;
+  /* Set the element's background color, image, or combined background. Value: var(--line). */
   background: var(--line);
+  /* Set generated content inserted by a pseudo-element. Value: "". */
   content: "";
+  /* Smooth the listed property changes over time. Value: background-color 160ms ease. */
   transition: background-color 160ms ease;
 }
 
+/* Style .viewport-split-divider:hover::before, .viewport-split-divider:focus-visible::before, .viewport-spli to define its appearance and layout. */
 .viewport-split-divider:hover::before,
 .viewport-split-divider:focus-visible::before,
 .viewport-split-divider:active::before {
+  /* Set the element's background color, image, or combined background. Value: var(--accent). */
   background: var(--accent);
 }
 
+/* Style .viewport to define its appearance and layout. */
 .viewport {
+  /* Control how wide the element can appear. Value: 100%. */
   width: 100%;
+  /* Control the element's height. Value: 100%. */
   height: 100%;
+  /* Set the smallest width the element is allowed to use. Value: 0. */
   min-width: 0;
+  /* Set the smallest height the element is allowed to use. Value: 0. */
   min-height: 0;
+  /* Choose how content beyond the horizontal edges is handled. Value: hidden. */
   overflow-x: hidden;
+  /* Choose how content beyond the vertical edges is handled. Value: scroll. */
   overflow-y: scroll;
+  /* Set the line, thickness, and color around the element. Value: 1px solid var(--line). */
   border: 1px solid var(--line);
+  /* Set the element's background color, image, or combined background. Value: #ffffff. */
   background: #ffffff;
 }
 
+/* Style .viewport-youtube-content to define its appearance and layout. */
 .viewport-youtube-content {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Control how wide the element can appear. Value: 100%. */
   width: 100%;
+  /* Set the smallest height the element is allowed to use. Value: 100%. */
   min-height: 100%;
+  /* Set place-items to control the appearance or behavior of this element. Value: start center. */
   place-items: start center;
+  /* Control the space between the element's edge and its contents. Value: 12px. */
   padding: 12px;
+  /* Set the element's background color, image, or combined background. Value: #ffffff. */
   background: #ffffff;
 }
 
+/* Style .viewport-youtube-frame to define its appearance and layout. */
 .viewport-youtube-frame {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Control how wide the element can appear. Value: min(100%, 960px). */
   width: min(100%, 960px);
+  /* Control the element's height. Value: auto. */
   height: auto;
+  /* Keep the element within the requested width-to-height proportion. Value: 16 / 9. */
   aspect-ratio: 16 / 9;
+  /* Set the line, thickness, and color around the element. Value: 0. */
   border: 0;
+  /* Set the element's background color, image, or combined background. Value: #000000. */
   background: #000000;
 }
 
+/* Style .viewport-youtube-error to define its appearance and layout. */
 .viewport-youtube-error {
+  /* Control the space outside the element. Value: 12px. */
   margin: 12px;
+  /* Set the color used for text and current-color graphics. Value: #dc2626. */
   color: #dc2626;
+  /* Set how large the text appears. Value: 13px. */
   font-size: 13px;
+  /* Control the vertical spacing between lines of text. Value: 1.5. */
   line-height: 1.5;
 }
 
+/* Style .sidebar-cloud-actions to define its appearance and layout. */
 .sidebar-cloud-actions {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Control how wide the element can appear. Value: 100%. */
   width: 100%;
+  /* Choose whether flex items flow horizontally or vertically. Value: column. */
   flex-direction: column;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Set the spacing between child layout items. Value: 10px. */
   gap: 10px;
 }
 
+/* Style .toolbar-button to define its appearance and layout. */
 .toolbar-button {
+  /* Choose how the element and its children participate in layout. Value: inline-flex. */
   display: inline-flex;
+  /* Control how wide the element can appear. Value: 100%. */
   width: 100%;
+  /* Set the smallest height the element is allowed to use. Value: 42px. */
   min-height: 42px;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Distribute child items along the main layout axis. Value: flex-start. */
   justify-content: flex-start;
+  /* Set the spacing between child layout items. Value: 11px. */
   gap: 11px;
+  /* Control the space between the element's edge and its contents. Value: 10px 12px. */
   padding: 10px 12px;
+  /* Set the line, thickness, and color around the element. Value: 1px solid var(--control-border). */
   border: 1px solid var(--control-border);
+  /* Round the element's corners. Value: 10px. */
   border-radius: 10px;
+  /* Set the color used for text and current-color graphics. Value: var(--control-text). */
   color: var(--control-text);
+  /* Set the element's background color, image, or combined background. Value: var(--control-bg). */
   background: var(--control-bg);
+  /* Choose the pointer shape shown when hovering over the element. Value: pointer. */
   cursor: pointer;
+  /* Align inline text within its content area. Value: left. */
   text-align: left;
+  /* Set how thick or bold the text appears. Value: 650. */
   font-weight: 650;
+  /* Smooth the listed property changes over time. Value: background-color 180ms ease, color 180ms ease, border-color 180ms ease, opa. */
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, opacity 180ms ease;
 }
 
+/* Style .toolbar-icon-button to define its appearance and layout. */
 .toolbar-icon-button {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Control how wide the element can appear. Value: 40px. */
   width: 40px;
+  /* Control the element's height. Value: 40px. */
   height: 40px;
+  /* Set the smallest height the element is allowed to use. Value: 40px. */
   min-height: 40px;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 0 0 40px. */
   flex: 0 0 40px;
+  /* Set place-items to control the appearance or behavior of this element. Value: center. */
   place-items: center;
+  /* Distribute child items along the main layout axis. Value: center. */
   justify-content: center;
+  /* Control the space between the element's edge and its contents. Value: 0. */
   padding: 0;
+  /* Round the element's corners. Value: 9px. */
   border-radius: 9px;
 }
 
+/* Style .toolbar-icon-button .dropbox-logo, .toolbar-icon-button .clipboard-icon to define its appearance and layout. */
 .toolbar-icon-button .dropbox-logo,
 .toolbar-icon-button .clipboard-icon {
+  /* Control how wide the element can appear. Value: 22px. */
   width: 22px;
+  /* Control the element's height. Value: 22px. */
   height: 22px;
 }
 
+/* Style .clipboard-icon to define its appearance and layout. */
 .clipboard-icon {
+  /* Set the fill color of an SVG shape. Value: none. */
   fill: none;
+  /* Set the outline color of an SVG shape. Value: currentColor. */
   stroke: currentColor;
+  /* Set the thickness of an SVG outline. Value: 1.7. */
   stroke-width: 1.7;
+  /* Set stroke-linecap to control the appearance or behavior of this element. Value: round. */
   stroke-linecap: round;
+  /* Set stroke-linejoin to control the appearance or behavior of this element. Value: round. */
   stroke-linejoin: round;
 }
 
+/* Style .viewport-mode-button .viewport-mode-icon to define its appearance and layout. */
 .viewport-mode-button .viewport-mode-icon {
+  /* Control how wide the element can appear. Value: 22px. */
   width: 22px;
+  /* Control the element's height. Value: 22px. */
   height: 22px;
+  /* Set the fill color of an SVG shape. Value: none. */
   fill: none;
+  /* Set the outline color of an SVG shape. Value: currentColor. */
   stroke: currentColor;
+  /* Set the thickness of an SVG outline. Value: 1.7. */
   stroke-width: 1.7;
+  /* Set stroke-linecap to control the appearance or behavior of this element. Value: round. */
   stroke-linecap: round;
+  /* Set stroke-linejoin to control the appearance or behavior of this element. Value: round. */
   stroke-linejoin: round;
 }
 
+/* Style .toolbar-button:hover:not(:disabled) to define its appearance and layout. */
 .toolbar-button:hover:not(:disabled) {
+  /* Set border-color to control the color of this element. Value: var(--control-hover-border). */
   border-color: var(--control-hover-border);
+  /* Set the element's background color, image, or combined background. Value: var(--control-hover-bg). */
   background: var(--control-hover-bg);
 }
 
+/* Style .toolbar-button:focus-visible to define its appearance and layout. */
 .toolbar-button:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 3px solid var(--focus-outline). */
   outline: 3px solid var(--focus-outline);
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 2px. */
   outline-offset: 2px;
 }
 
+/* Style .toolbar-button-primary to define its appearance and layout. */
 .toolbar-button-primary {
+  /* Set border-color to control the color of this element. Value: #2469dc. */
   border-color: #2469dc;
+  /* Set the color used for text and current-color graphics. Value: #fff. */
   color: #fff;
+  /* Set the element's background color, image, or combined background. Value: #2469dc. */
   background: #2469dc;
 }
 
+/* Style .toolbar-button-primary:hover:not(:disabled) to define its appearance and layout. */
 .toolbar-button-primary:hover:not(:disabled) {
+  /* Set border-color to control the color of this element. Value: #1e5ec9. */
   border-color: #1e5ec9;
+  /* Set the element's background color, image, or combined background. Value: #1e5ec9. */
   background: #1e5ec9;
 }
 
+/* Style .toolbar-button:disabled to define its appearance and layout. */
 .toolbar-button:disabled {
+  /* Choose the pointer shape shown when hovering over the element. Value: not-allowed. */
   cursor: not-allowed;
+  /* Set how transparent the element appears. Value: 0.6. */
   opacity: 0.6;
 }
 
+/* Style .dropbox-logo to define its appearance and layout. */
 .dropbox-logo {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Control how wide the element can appear. Value: 21px. */
   width: 21px;
+  /* Control the element's height. Value: 21px. */
   height: 21px;
+  /* Control how a flex item grows, shrinks, and takes up space. Value: 0 0 21px. */
   flex: 0 0 21px;
+  /* Set the fill color of an SVG shape. Value: currentColor. */
   fill: currentColor;
 }
 
 
+/* Style .visually-hidden to define its appearance and layout. */
 .visually-hidden {
+  /* Choose the positioning model used to place this element. Value: absolute . */
   position: absolute !important;
+  /* Control how wide the element can appear. Value: 1px . */
   width: 1px !important;
+  /* Control the element's height. Value: 1px . */
   height: 1px !important;
+  /* Control the space between the element's edge and its contents. Value: 0 . */
   padding: 0 !important;
+  /* Control the space outside the element. Value: -1px . */
   margin: -1px !important;
+  /* Choose how content beyond the element's box is handled. Value: hidden . */
   overflow: hidden !important;
+  /* Set clip to control the appearance or behavior of this element. Value: rect(0, 0, 0, 0) . */
   clip: rect(0, 0, 0, 0) !important;
+  /* Control how spaces and line breaks in text are handled. Value: nowrap . */
   white-space: nowrap !important;
+  /* Set the line, thickness, and color around the element. Value: 0 . */
   border: 0 !important;
 }
 
+/* Style .workspace-empty-state to define its appearance and layout. */
 .workspace-empty-state {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Set the smallest height the element is allowed to use. Value: 50vh. */
   min-height: 50vh;
+  /* Choose whether flex items flow horizontally or vertically. Value: column. */
   flex-direction: column;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Distribute child items along the main layout axis. Value: center. */
   justify-content: center;
+  /* Set the spacing between child layout items. Value: 10px. */
   gap: 10px;
+  /* Control the space between the element's edge and its contents. Value: 32px. */
   padding: 32px;
+  /* Set the color used for text and current-color graphics. Value: var(--muted). */
   color: var(--muted);
+  /* Align inline text within its content area. Value: center. */
   text-align: center;
 }
 
+/* Style .workspace-empty-state h1 to define its appearance and layout. */
 .workspace-empty-state h1 {
+  /* Control the space outside the element. Value: 0. */
   margin: 0;
+  /* Set the color used for text and current-color graphics. Value: var(--ink). */
   color: var(--ink);
+  /* Set how large the text appears. Value: clamp(21px, 3vw, 30px). */
   font-size: clamp(21px, 3vw, 30px);
+  /* Set letter-spacing to control the appearance or behavior of this element. Value: -0.04em. */
   letter-spacing: -0.04em;
 }
 
+/* Style .workspace-empty-state p to define its appearance and layout. */
 .workspace-empty-state p {
+  /* Set the largest width the element is allowed to use. Value: 620px. */
   max-width: 620px;
+  /* Control the space outside the element. Value: 0. */
   margin: 0;
+  /* Set how large the text appears. Value: 14px. */
   font-size: 14px;
+  /* Control the vertical spacing between lines of text. Value: 1.6. */
   line-height: 1.6;
 }
 
+/* Style .pdf-preview-frame to define its appearance and layout. */
 .pdf-preview-frame {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Control how wide the element can appear. Value: 100%. */
   width: 100%;
+  /* Control the element's height. Value: calc(100vh - 150px). */
   height: calc(100vh - 150px);
+  /* Set the smallest height the element is allowed to use. Value: 500px. */
   min-height: 500px;
+  /* Set the line, thickness, and color around the element. Value: 0. */
   border: 0;
+  /* Set the element's background color, image, or combined background. Value: var(--panel). */
   background: var(--panel);
 }
 
+/* Style .pdf-preview-heading to define its appearance and layout. */
 .pdf-preview-heading {
+  /* Control the space between the element's edge and its contents. Value: 14px 18px. */
   padding: 14px 18px;
+  /* Set border-bottom to control the appearance or behavior of this element. Value: 1px solid var(--line). */
   border-bottom: 1px solid var(--line);
+  /* Set the color used for text and current-color graphics. Value: var(--ink). */
   color: var(--ink);
+  /* Set how large the text appears. Value: 14px. */
   font-size: 14px;
+  /* Set how thick or bold the text appears. Value: 650. */
   font-weight: 650;
+  /* Set overflow-wrap to control the appearance or behavior of this element. Value: anywhere. */
   overflow-wrap: anywhere;
 }
 
+/* Style .pdf-preview-note to define its appearance and layout. */
 .pdf-preview-note {
+  /* Control the space outside the element. Value: 0. */
   margin: 0;
+  /* Control the space between the element's edge and its contents. Value: 11px 18px. */
   padding: 11px 18px;
+  /* Set the color used for text and current-color graphics. Value: var(--muted). */
   color: var(--muted);
+  /* Set how large the text appears. Value: 12px. */
   font-size: 12px;
+  /* Control the vertical spacing between lines of text. Value: 1.5. */
   line-height: 1.5;
 }
 
+/* Style .file-preview-image to define its appearance and layout. */
 .file-preview-image {
+  /* Choose how the element and its children participate in layout. Value: block. */
   display: block;
+  /* Set the largest width the element is allowed to use. Value: min(100%, 1200px). */
   max-width: min(100%, 1200px);
+  /* Set the largest height the element is allowed to use. Value: calc(100vh - 180px). */
   max-height: calc(100vh - 180px);
+  /* Control the space outside the element. Value: 0 auto. */
   margin: 0 auto;
+  /* Control how an image or other replaced content fits its box. Value: contain. */
   object-fit: contain;
 }
 
+/* Style .file-preview-markdown to define its appearance and layout. */
 .file-preview-markdown {
+  /* Set the largest width the element is allowed to use. Value: 100%. */
   max-width: 100%;
+  /* Control the space outside the element. Value: 0. */
   margin: 0;
+  /* Control the space between the element's edge and its contents. Value: 20px. */
   padding: 20px;
+  /* Choose how content beyond the element's box is handled. Value: auto. */
   overflow: auto;
+  /* Set the color used for text and current-color graphics. Value: var(--ink). */
   color: var(--ink);
+  /* Set the element's background color, image, or combined background. Value: var(--panel). */
   background: var(--panel);
+  /* Set font to control the appearance or behavior of this element. Value: 13px/1.65 ui-monospace, SFMono-Regular, Consolas, monospace. */
   font: 13px/1.65 ui-monospace, SFMono-Regular, Consolas, monospace;
+  /* Control how spaces and line breaks in text are handled. Value: pre-wrap. */
   white-space: pre-wrap;
+  /* Set overflow-wrap to control the appearance or behavior of this element. Value: anywhere. */
   overflow-wrap: anywhere;
 }
 
+/* Style body[data-focus-mode="true"] .workspace-layout, body[data-focus-mode="true"] .sidebar-inner, body[da to define its appearance and layout. */
 body[data-focus-mode="true"] .workspace-layout,
 body[data-focus-mode="true"] .sidebar-inner,
 body[data-focus-mode="true"] .workspace {
+  /* Set the smallest height the element is allowed to use. Value: calc(100vh - 44px). */
   min-height: calc(100vh - 44px);
 }
 
+/* Style [hidden] to define its appearance and layout. */
 [hidden] {
+  /* Choose how the element and its children participate in layout. Value: none . */
   display: none !important;
 }
 
+/* Style .site-footer to define its appearance and layout. */
 .site-footer {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Set the smallest height the element is allowed to use. Value: 42px. */
   min-height: 42px;
+  /* Align child items across the cross-axis of the layout. Value: center. */
   align-items: center;
+  /* Distribute child items along the main layout axis. Value: flex-end. */
   justify-content: flex-end;
+  /* Control the space between the element's edge and its contents. Value: 8px 18px. */
   padding: 8px 18px;
+  /* Set border-top to control the appearance or behavior of this element. Value: 1px solid var(--line). */
   border-top: 1px solid var(--line);
+  /* Set the element's background color, image, or combined background. Value: var(--panel). */
   background: var(--panel);
+  /* Set how large the text appears. Value: 12px. */
   font-size: 12px;
 }
+/* Style .site-footer a to define its appearance and layout. */
 .site-footer a {
+  /* Set the color used for text and current-color graphics. Value: var(--muted). */
   color: var(--muted);
+  /* Add or remove visual decoration on text. Value: none. */
   text-decoration: none;
 }
+/* Style .site-footer a:hover to define its appearance and layout. */
 .site-footer a:hover {
+  /* Set the color used for text and current-color graphics. Value: var(--accent). */
   color: var(--accent);
+  /* Add or remove visual decoration on text. Value: underline. */
   text-decoration: underline;
 }
 
+/* Apply the following responsive styles only when  (max-width: 560px) is true. */
 @media (max-width: 560px) {
+  /* Style .topbar to define its appearance and layout. */
   .topbar {
+    /* Set the spacing between child layout items. Value: 10px. */
     gap: 10px;
+    /* Set padding-right to control the appearance or behavior of this element. Value: 10px. */
     padding-right: 10px;
+    /* Set padding-left to control the appearance or behavior of this element. Value: 10px. */
     padding-left: 10px;
   }
 
+  /* Style .topbar-actions to define its appearance and layout. */
   .topbar-actions {
+    /* Set the spacing between child layout items. Value: 5px. */
     gap: 5px;
   }
 
+  /* Style .dropbox-topbar-button to define its appearance and layout. */
   .dropbox-topbar-button {
+    /* Set the spacing between child layout items. Value: 4px. */
     gap: 4px;
+    /* Control the space between the element's edge and its contents. Value: 0. */
     padding: 0;
   }
 
+  /* Style .dropbox-topbar-logo to define its appearance and layout. */
   .dropbox-topbar-logo {
+    /* Control how wide the element can appear. Value: 17px. */
     width: 17px;
+    /* Control the element's height. Value: 17px. */
     height: 17px;
+    /* Set flex-basis to control the appearance or behavior of this element. Value: 17px. */
     flex-basis: 17px;
   }
 
+  /* Style .dropbox-topbar-label to define its appearance and layout. */
   .dropbox-topbar-label {
+    /* Set the largest width the element is allowed to use. Value: 92px. */
     max-width: 92px;
+    /* Set how large the text appears. Value: 10px. */
     font-size: 10px;
   }
 
+  /* Style .topbar to define its appearance and layout. */
   .topbar {
+    /* Set the smallest height the element is allowed to use. Value: 68px. */
     min-height: 68px;
+    /* Set the spacing between child layout items. Value: 10px. */
     gap: 10px;
+    /* Control the space between the element's edge and its contents. Value: 10px 12px. */
     padding: 10px 12px;
   }
 
+  /* Style .brand to define its appearance and layout. */
   .brand {
+    /* Set the spacing between child layout items. Value: 8px. */
     gap: 8px;
   }
 
+  /* Style .brand-mark to define its appearance and layout. */
   .brand-mark {
+    /* Control how wide the element can appear. Value: 36px. */
     width: 36px;
+    /* Control the element's height. Value: 36px. */
     height: 36px;
+    /* Set flex-basis to control the appearance or behavior of this element. Value: 36px. */
     flex-basis: 36px;
+    /* Round the element's corners. Value: 10px. */
     border-radius: 10px;
   }
 
+  /* Style .brand-mark svg to define its appearance and layout. */
   .brand-mark svg {
+    /* Control how wide the element can appear. Value: 28px. */
     width: 28px;
+    /* Control the element's height. Value: 28px. */
     height: 28px;
   }
 
+  /* Style .brand-name to define its appearance and layout. */
   .brand-name {
+    /* Set how large the text appears. Value: 15px. */
     font-size: 15px;
   }
 
+  /* Style .brand-slogan to define its appearance and layout. */
   .brand-slogan {
+    /* Set the largest width the element is allowed to use. Value: 180px. */
     max-width: 180px;
+    /* Set how large the text appears. Value: 10px. */
     font-size: 10px;
   }
 
+  /* Style .focus-toggle to define its appearance and layout. */
   .focus-toggle {
+    /* Control how wide the element can appear. Value: 40px. */
     width: 40px;
+    /* Set the smallest width the element is allowed to use. Value: 40px. */
     min-width: 40px;
+    /* Control the space between the element's edge and its contents. Value: 0. */
     padding: 0;
+    /* Set the spacing between child layout items. Value: 0. */
     gap: 0;
   }
 
+  /* Style .focus-toggle span to define its appearance and layout. */
   .focus-toggle span {
+    /* Choose how the element and its children participate in layout. Value: none. */
     display: none;
   }
 
+  /* Style .workspace-shell to define its appearance and layout. */
   .workspace-shell {
+    /* Set margin-top to control the appearance or behavior of this element. Value: 68px. */
     margin-top: 68px;
   }
 
+  /* Style body[data-focus-mode="true"] .workspace-shell to define its appearance and layout. */
   body[data-focus-mode="true"] .workspace-shell {
+    /* Set margin-top to control the appearance or behavior of this element. Value: 0. */
     margin-top: 0;
   }
 
+  /* Style .workspace-layout to define its appearance and layout. */
   .workspace-layout {
+    /* Set the smallest height the element is allowed to use. Value: calc(100vh - 112px). */
     min-height: calc(100vh - 112px);
   }
 
+  /* Style .sidebar-inner, .workspace to define its appearance and layout. */
   .sidebar-inner,
   .workspace {
+    /* Set the smallest height the element is allowed to use. Value: calc(100vh - 112px). */
     min-height: calc(100vh - 112px);
   }
 }
 
+/* Apply the following responsive styles only when  (prefers-reduced-motion: reduce) is true. */
 @media (prefers-reduced-motion: reduce) {
+  /* Style *, *::before, *::after to define its appearance and layout. */
   *,
   *::before,
   *::after {
+    /* Set scroll-behavior to control the appearance or behavior of this element. Value: auto . */
     scroll-behavior: auto !important;
+    /* Set transition-duration to control the timing of this element. Value: 0.01ms . */
     transition-duration: 0.01ms !important;
+    /* Set animation-duration to control the timing of this element. Value: 0.01ms . */
     animation-duration: 0.01ms !important;
   }
 }
 
 
 /* Confirm destructive viewport drops before disposing destination content. */
+/* Style .viewport-replace-dialog to define its appearance and layout. */
 .viewport-replace-dialog {
+  /* Choose the positioning model used to place this element. Value: fixed. */
   position: fixed;
+  /* Set all four offsets used to place this positioned element. Value: 0. */
   inset: 0;
+  /* Control which overlapping element appears in front. Value: 100. */
   z-index: 100;
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Set place-items to control the appearance or behavior of this element. Value: center. */
   place-items: center;
+  /* Control the space between the element's edge and its contents. Value: 20px. */
   padding: 20px;
+  /* Set the element's background color, image, or combined background. Value: rgb(15 23 42 / 48%). */
   background: rgb(15 23 42 / 48%);
 }
 
+/* Style .viewport-replace-card to define its appearance and layout. */
 .viewport-replace-card {
+  /* Control how wide the element can appear. Value: min(100%, 460px). */
   width: min(100%, 460px);
+  /* Control the space between the element's edge and its contents. Value: 22px. */
   padding: 22px;
+  /* Set the line, thickness, and color around the element. Value: 1px solid var(--control-border). */
   border: 1px solid var(--control-border);
+  /* Round the element's corners. Value: 16px. */
   border-radius: 16px;
+  /* Set the color used for text and current-color graphics. Value: var(--ink). */
   color: var(--ink);
+  /* Set the element's background color, image, or combined background. Value: var(--panel). */
   background: var(--panel);
+  /* Draw a shadow around the element to show depth. Value: 0 24px 72px rgb(15 23 42 / 28%). */
   box-shadow: 0 24px 72px rgb(15 23 42 / 28%);
 }
 
+/* Style .viewport-replace-heading to define its appearance and layout. */
 .viewport-replace-heading {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Define the number and width of grid columns. Value: 36px minmax(0, 1fr). */
   grid-template-columns: 36px minmax(0, 1fr);
+  /* Align child items across the cross-axis of the layout. Value: start. */
   align-items: start;
+  /* Set the spacing between child layout items. Value: 12px. */
   gap: 12px;
 }
 
+/* Style .viewport-replace-warning-icon to define its appearance and layout. */
 .viewport-replace-warning-icon {
+  /* Choose how the element and its children participate in layout. Value: grid. */
   display: grid;
+  /* Control how wide the element can appear. Value: 34px. */
   width: 34px;
+  /* Control the element's height. Value: 34px. */
   height: 34px;
+  /* Set place-items to control the appearance or behavior of this element. Value: center. */
   place-items: center;
+  /* Round the element's corners. Value: 50%. */
   border-radius: 50%;
+  /* Set the color used for text and current-color graphics. Value: #92400e. */
   color: #92400e;
+  /* Set the element's background color, image, or combined background. Value: #fef3c7. */
   background: #fef3c7;
+  /* Set how large the text appears. Value: 20px. */
   font-size: 20px;
+  /* Set how thick or bold the text appears. Value: 800. */
   font-weight: 800;
 }
 
+/* Define shared CSS variables and defaults for the whole document. */
 :root[data-theme="dark"] .viewport-replace-warning-icon {
+  /* Set the color used for text and current-color graphics. Value: #fcd34d. */
   color: #fcd34d;
+  /* Set the element's background color, image, or combined background. Value: #422006. */
   background: #422006;
 }
 
+/* Style .viewport-replace-card h2 to define its appearance and layout. */
 .viewport-replace-card h2 {
+  /* Control the space outside the element. Value: 1px 0 8px. */
   margin: 1px 0 8px;
+  /* Set the color used for text and current-color graphics. Value: var(--brand-name). */
   color: var(--brand-name);
+  /* Set how large the text appears. Value: 18px. */
   font-size: 18px;
+  /* Control the vertical spacing between lines of text. Value: 1.3. */
   line-height: 1.3;
 }
 
+/* Style .viewport-replace-card p to define its appearance and layout. */
 .viewport-replace-card p {
+  /* Control the space outside the element. Value: 0. */
   margin: 0;
+  /* Set the color used for text and current-color graphics. Value: var(--muted). */
   color: var(--muted);
+  /* Set how large the text appears. Value: 13px. */
   font-size: 13px;
+  /* Control the vertical spacing between lines of text. Value: 1.6. */
   line-height: 1.6;
+  /* Set overflow-wrap to control the appearance or behavior of this element. Value: anywhere. */
   overflow-wrap: anywhere;
 }
 
+/* Style .viewport-replace-actions to define its appearance and layout. */
 .viewport-replace-actions {
+  /* Choose how the element and its children participate in layout. Value: flex. */
   display: flex;
+  /* Distribute child items along the main layout axis. Value: flex-end. */
   justify-content: flex-end;
+  /* Set the spacing between child layout items. Value: 9px. */
   gap: 9px;
+  /* Set margin-top to control the appearance or behavior of this element. Value: 22px. */
   margin-top: 22px;
 }
 
+/* Style .viewport-replace-actions button to define its appearance and layout. */
 .viewport-replace-actions button {
+  /* Set the smallest height the element is allowed to use. Value: 38px. */
   min-height: 38px;
+  /* Control the space between the element's edge and its contents. Value: 0 14px. */
   padding: 0 14px;
+  /* Set the line, thickness, and color around the element. Value: 1px solid var(--control-border). */
   border: 1px solid var(--control-border);
+  /* Round the element's corners. Value: 8px. */
   border-radius: 8px;
+  /* Set the color used for text and current-color graphics. Value: var(--control-text). */
   color: var(--control-text);
+  /* Set the element's background color, image, or combined background. Value: var(--control-bg). */
   background: var(--control-bg);
+  /* Choose the pointer shape shown when hovering over the element. Value: pointer. */
   cursor: pointer;
+  /* Set font to control the appearance or behavior of this element. Value: inherit. */
   font: inherit;
+  /* Set how large the text appears. Value: 13px. */
   font-size: 13px;
+  /* Set how thick or bold the text appears. Value: 650. */
   font-weight: 650;
 }
 
+/* Style .viewport-replace-actions button:focus-visible to define its appearance and layout. */
 .viewport-replace-actions button:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 3px solid var(--focus-outline). */
   outline: 3px solid var(--focus-outline);
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 2px. */
   outline-offset: 2px;
 }
 
+/* Style .viewport-replace-actions .viewport-replace-confirm to define its appearance and layout. */
 .viewport-replace-actions .viewport-replace-confirm {
+  /* Set border-color to control the color of this element. Value: #b91c1c. */
   border-color: #b91c1c;
+  /* Set the color used for text and current-color graphics. Value: #ffffff. */
   color: #ffffff;
+  /* Set the element's background color, image, or combined background. Value: #dc2626. */
   background: #dc2626;
 }
 
+/* Style .viewport-replace-actions .viewport-replace-confirm:hover to define its appearance and layout. */
 .viewport-replace-actions .viewport-replace-confirm:hover {
+  /* Set border-color to control the color of this element. Value: #991b1b. */
   border-color: #991b1b;
+  /* Set the element's background color, image, or combined background. Value: #b91c1c. */
   background: #b91c1c;
 }
 
+/* Style .viewport-replace-actions .viewport-replace-cancel:hover to define its appearance and layout. */
 .viewport-replace-actions .viewport-replace-cancel:hover {
+  /* Set border-color to control the color of this element. Value: var(--control-hover-border). */
   border-color: var(--control-hover-border);
+  /* Set the element's background color, image, or combined background. Value: var(--control-hover-bg). */
   background: var(--control-hover-bg);
 }
 
 
 /* Keep the YouTube mark colors in the external stylesheet. */
+/* Style .youtube-sidebar-icon path:first-child to define its appearance and layout. */
 .youtube-sidebar-icon path:first-child {
+  /* Set the fill color of an SVG shape. Value: #ff0033. */
   fill: #ff0033;
 }
 
+/* Style .youtube-sidebar-icon path:nth-child(2) to define its appearance and layout. */
 .youtube-sidebar-icon path:nth-child(2) {
+  /* Set the fill color of an SVG shape. Value: #ffffff. */
   fill: #ffffff;
 }

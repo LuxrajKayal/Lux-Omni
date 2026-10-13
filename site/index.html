@@ -1,72 +1,134 @@
-<!doctype html>
-<html lang="en">
-<head>
+<!doctype html><!-- Declare HTML5 so the browser renders this page in standards mode. -->
+<!-- Start the document's root HTML element. --><html lang="en">
+<!-- Group metadata, stylesheet links, the title, and module loading instructions. --><head>
+  <!-- Supply metadata that helps browsers and search previews interpret the page. -->
   <meta charset="utf-8">
+  <!-- Supply metadata that helps browsers and search previews interpret the page. -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Supply metadata that helps browsers and search previews interpret the page. -->
   <meta name="theme-color" content="#ffffff">
+  <!-- Supply metadata that helps browsers and search previews interpret the page. -->
   <meta name="description" content="Lux Omni">
+  <!-- Link a page resource such as an icon or stylesheet. -->
   <link rel="icon" type="image/svg+xml" href="./icons/lux-pdf-viewer-icon.svg">
+  <!-- Link a page resource such as an icon or stylesheet. -->
   <link rel="icon" type="image/png" sizes="64x64" href="./icons/lux-pdf-viewer-icon-64.png">
+  <!-- Link a page resource such as an icon or stylesheet. -->
   <link rel="icon" type="image/png" sizes="256x256" href="./icons/lux-pdf-viewer-icon-256.png">
-  <title>Lux Omni</title>
+  <!-- Set the title shown in the browser tab. -->
+  <title>Lux Omni<!-- Close the title element and mark the end of its content. --></title>
+  <!-- Load an external stylesheet so presentation stays separate from markup. -->
   <link rel="stylesheet" href="./styles.css">
+  <!-- Load an external stylesheet so presentation stays separate from markup. -->
   <link rel="stylesheet" href="components/pdf-editor.css">
+  <!-- Load an external stylesheet so presentation stays separate from markup. -->
   <link rel="stylesheet" href="components/dropbox-ui.css">
+  <!-- Load an external stylesheet so presentation stays separate from markup. -->
   <link rel="stylesheet" href="components/snipping-tool.css">
+  <!-- Load an external stylesheet so presentation stays separate from markup. -->
   <link rel="stylesheet" href="components/temporary-log.css">
-  <script type="module" src="js/main.js"></script>
-</head>
-<body data-focus-mode="false">
+  <!-- Load the external JavaScript module that provides page behavior. -->
+  <script type="module" src="js/main.js"><!-- Close the script element and mark the end of its content. --></script>
+<!-- Close the head element and mark the end of its content. --></head>
+<!-- Contain all visible application interface elements. --><body data-focus-mode="false">
+  <!-- Create a header element styled with the topbar class for its interface role. -->
   <header class="topbar">
+    <!-- Create a a element styled with the brand class for its interface role. -->
     <a class="brand" href="./" aria-label="Lux Omni home">
+      <!-- Create a span element styled with the brand-mark class for its interface role. -->
       <span class="brand-mark" aria-hidden="true">
+        <!-- Create the img element that forms this part of the Lux Omni page. -->
         <img src="./icons/lux-pdf-viewer-icon.svg" alt="" width="42" height="42">
+      <!-- Close the span element and mark the end of its content. -->
       </span>
+      <!-- Create a span element styled with the brand-copy class for its interface role. -->
       <span class="brand-copy">
-        <span class="brand-name">Lux Omni</span>
-        <span class="brand-slogan">Slogan placeholder — awaiting your wording</span>
+        <!-- Create a span element styled with the brand-name class for its interface role. -->
+        <span class="brand-name">Lux Omni<!-- Close the span element and mark the end of its content. --></span>
+        <!-- Create a span element styled with the brand-slogan class for its interface role. -->
+        <span class="brand-slogan">Slogan placeholder — awaiting your wording<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Close the span element and mark the end of its content. -->
       </span>
+    <!-- Close the a element and mark the end of its content. -->
     </a>
 
+    <!-- Create a div element styled with the topbar-actions class for its interface role. -->
     <div class="topbar-actions">
+      <!-- Provide the top-bar control for connecting to Dropbox or opening its file browser. -->
       <button id="dropbox-topbar-button" class="dropbox-topbar-button" type="button" aria-label="Dropbox disconnected" title="Open Dropbox">
+        <!-- Create a svg element styled with the dropbox-topbar-logo class for its interface role. -->
         <svg class="dropbox-topbar-logo" viewBox="0 0 24 24" aria-hidden="true">
+          <!-- Draw one vector shape inside the SVG icon. -->
           <path d="M7.2 2.8 2.4 5.9l4.8 3 4.8-3-4.8-3Zm9.6 0L12 5.9l4.8 3 4.8-3-4.8-3ZM7.2 9l-4.8 3 4.8 3 4.8-3-4.8-3Zm9.6 0L12 12l4.8 3 4.8-3-4.8-3-4.8 3 4.8 3 4.8-3-4.8-3ZM7.2 15.2l4.8 3 4.8-3-4.8-3-4.8 3Z"/>
+        <!-- Close the svg element and mark the end of its content. -->
         </svg>
-        <span id="dropbox-status-indicator" class="dropbox-topbar-label" data-state="disconnected">Disconnected 🔴</span>
+        <!-- Show whether the Dropbox service is connected. -->
+        <span id="dropbox-status-indicator" class="dropbox-topbar-label" data-state="disconnected">Disconnected 🔴<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Close the button element and mark the end of its content. -->
       </button>
+      <!-- Let the user save available document edits back to Dropbox. -->
       <button id="dropbox-sync-button" class="dropbox-ui-action dropbox-ui-sync" type="button" title="Save current viewport edits to Dropbox" aria-label="Sync edits to Dropbox" disabled>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 9A6.5 6.5 0 0 1 17 6l3 6M4 12l3 6a6.5 6.5 0 0 0 10.9-3"/></svg>
-        <span class="dropbox-ui-action-label">Sync</span>
+        <!-- Define a vector icon that stays crisp at different sizes. -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M20 7v5h-5M4 17v-5h5"/><!-- Draw one vector shape inside the SVG icon. --><path d="M6.1 9A6.5 6.5 0 0 1 17 6l3 6M4 12l3 6a6.5 6.5 0 0 0 10.9-3"/><!-- Close the svg element and mark the end of its content. --></svg>
+        <!-- Create a span element styled with the dropbox-ui-action-label class for its interface role. -->
+        <span class="dropbox-ui-action-label">Sync<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Close the button element and mark the end of its content. -->
       </button>
+      <!-- Let the user disconnect the active Dropbox session. -->
       <button id="dropbox-disconnect-button" class="dropbox-ui-action dropbox-ui-disconnect" type="button" title="Disconnect Dropbox" aria-label="Disconnect Dropbox" disabled>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6V3h6v3M4 6h16M7 6l1 15h8l1-15M10 10v7M14 10v7"/></svg>
-        <span class="dropbox-ui-action-label">Disconnect</span>
+        <!-- Define a vector icon that stays crisp at different sizes. -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M9 6V3h6v3M4 6h16M7 6l1 15h8l1-15M10 10v7M14 10v7"/><!-- Close the svg element and mark the end of its content. --></svg>
+        <!-- Create a span element styled with the dropbox-ui-action-label class for its interface role. -->
+        <span class="dropbox-ui-action-label">Disconnect<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Close the button element and mark the end of its content. -->
       </button>
+      <!-- Switch the application between light and dark themes. -->
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" aria-pressed="false">
+        <!-- Create a svg element styled with the theme-icon-moon class for its interface role. -->
         <svg class="theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20.2 15.4A8.4 8.4 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"></path>
+          <!-- Draw one vector shape inside the SVG icon. -->
+          <path d="M20.2 15.4A8.4 8.4 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"><!-- Close the path element and mark the end of its content. --></path>
+        <!-- Close the svg element and mark the end of its content. -->
         </svg>
+        <!-- Create a svg element styled with the theme-icon-sun class for its interface role. -->
         <svg class="theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+          <!-- Create the circle element that forms this part of the Lux Omni page. -->
+          <circle cx="12" cy="12" r="4"><!-- Close the circle element and mark the end of its content. --></circle>
+          <!-- Draw one vector shape inside the SVG icon. -->
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"><!-- Close the path element and mark the end of its content. --></path>
+        <!-- Close the svg element and mark the end of its content. -->
         </svg>
+      <!-- Close the button element and mark the end of its content. -->
       </button>
+      <!-- Toggle the top bar's Focus Mode behavior. -->
       <button id="focus-mode-toggle" class="focus-toggle" type="button" aria-pressed="false" aria-label="Turn on Focus Mode" title="Turn on Focus Mode">
+        <!-- Create a svg element styled with the focus-icon-enter class for its interface role. -->
         <svg class="focus-icon-enter" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"></path>
+          <!-- Draw one vector shape inside the SVG icon. -->
+          <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"><!-- Close the path element and mark the end of its content. --></path>
+        <!-- Close the svg element and mark the end of its content. -->
         </svg>
+        <!-- Create a svg element styled with the focus-icon-exit class for its interface role. -->
         <svg class="focus-icon-exit" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M9 3v4a2 2 0 0 1-2 2H3M15 3v4a2 2 0 0 0 2 2h4M3 15h4a2 2 0 0 1 2 2v4M21 15h-4a2 2 0 0 0-2 2v4"></path>
+          <!-- Draw one vector shape inside the SVG icon. -->
+          <path d="M9 3v4a2 2 0 0 1-2 2H3M15 3v4a2 2 0 0 0 2 2h4M3 15h4a2 2 0 0 1 2 2v4M21 15h-4a2 2 0 0 0-2 2v4"><!-- Close the path element and mark the end of its content. --></path>
+        <!-- Close the svg element and mark the end of its content. -->
         </svg>
-        <span>Focus Mode</span>
+        <!-- Group a short inline label or icon for styling or accessibility. -->
+        <span>Focus Mode<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Close the button element and mark the end of its content. -->
       </button>
 
+    <!-- Close the div element and mark the end of its content. -->
     </div>
+  <!-- Close the header element and mark the end of its content. -->
   </header>
 
+  <!-- Create a div element styled with the workspace-shell class for its interface role. -->
   <div class="workspace-shell">
+    <!-- Create a div element styled with the sidebar-toggle-row class for its interface role. -->
     <div class="sidebar-toggle-row">
+      <!-- Open or close the application sidebar. -->
       <button
         id="sidebar-toggle"
         class="sidebar-toggle"
@@ -76,257 +138,502 @@
         aria-label="Close sidebar"
         title="Close sidebar"
       >
+        <!-- Define a vector icon that stays crisp at different sizes. -->
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
+          <!-- Draw one vector shape inside the SVG icon. -->
+          <path d="M4 6h16M4 12h16M4 18h16"><!-- Close the path element and mark the end of its content. --></path>
+        <!-- Close the svg element and mark the end of its content. -->
         </svg>
+      <!-- Close the button element and mark the end of its content. -->
       </button>
+    <!-- Close the div element and mark the end of its content. -->
     </div>
+    <!-- Contain the chosen full-screen or split-screen viewport layout. -->
     <div id="viewport-composition" class="viewport-composition" hidden>
+      <!-- Create the #viewport-topbar element used by the div control or region. -->
       <div id="viewport-topbar" class="viewport-topbar" aria-label="Viewport toolbar">
+        <!-- Create the #viewport-toolbar-full element used by the div control or region. -->
         <div id="viewport-toolbar-full" class="viewport-toolbar-section viewport-toolbar-section--full" hidden>
-          <button id="viewport-minimize-full" class="viewport-minimize-button" type="button" aria-label="Minimize full-screen viewport" title="Minimize viewport">−</button>
-          <button id="viewport-close-full" class="viewport-close-button" type="button" data-viewport-close="full" aria-label="Close full-screen viewport" title="Close viewport">×</button>
+          <!-- Create the #viewport-minimize-full element used by the button control or region. -->
+          <button id="viewport-minimize-full" class="viewport-minimize-button" type="button" aria-label="Minimize full-screen viewport" title="Minimize viewport">−<!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create the #viewport-close-full element used by the button control or region. -->
+          <button id="viewport-close-full" class="viewport-close-button" type="button" data-viewport-close="full" aria-label="Close full-screen viewport" title="Close viewport">×<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+        <!-- Create the #viewport-toolbar-left element used by the div control or region. -->
         <div id="viewport-toolbar-left" class="viewport-toolbar-section viewport-toolbar-section--left" hidden>
-          <button id="viewport-minimize-left" class="viewport-minimize-button" type="button" aria-label="Minimize left viewport" title="Minimize left viewport">−</button>
-          <button id="viewport-close-left" class="viewport-close-button" type="button" data-viewport-close="left" aria-label="Close left viewport" title="Close left viewport">×</button>
+          <!-- Create the #viewport-minimize-left element used by the button control or region. -->
+          <button id="viewport-minimize-left" class="viewport-minimize-button" type="button" aria-label="Minimize left viewport" title="Minimize left viewport">−<!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create the #viewport-close-left element used by the button control or region. -->
+          <button id="viewport-close-left" class="viewport-close-button" type="button" data-viewport-close="left" aria-label="Close left viewport" title="Close left viewport">×<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+        <!-- Create the #viewport-toolbar-right element used by the div control or region. -->
         <div id="viewport-toolbar-right" class="viewport-toolbar-section viewport-toolbar-section--right" hidden>
-          <button id="viewport-minimize-right" class="viewport-minimize-button" type="button" aria-label="Minimize right viewport" title="Minimize right viewport">−</button>
-          <button id="viewport-close-right" class="viewport-close-button" type="button" data-viewport-close="right" aria-label="Close right viewport" title="Close right viewport">×</button>
+          <!-- Create the #viewport-minimize-right element used by the button control or region. -->
+          <button id="viewport-minimize-right" class="viewport-minimize-button" type="button" aria-label="Minimize right viewport" title="Minimize right viewport">−<!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create the #viewport-close-right element used by the button control or region. -->
+          <button id="viewport-close-right" class="viewport-close-button" type="button" data-viewport-close="right" aria-label="Close right viewport" title="Close right viewport">×<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+      <!-- Close the div element and mark the end of its content. -->
       </div>
+      <!-- Create the #viewport-fullscreen-layout element used by the div control or region. -->
       <div id="viewport-fullscreen-layout" class="viewport-stage viewport-stage--full" hidden>
-        <div class="viewport" data-viewport-side="full"></div>
+        <!-- Create a div element styled with the viewport class for its interface role. -->
+        <div class="viewport" data-viewport-side="full"><!-- Close the div element and mark the end of its content. --></div>
+      <!-- Close the div element and mark the end of its content. -->
       </div>
+      <!-- Create the #viewport-split-layout element used by the div control or region. -->
       <div id="viewport-split-layout" class="viewport-stage viewport-stage--split" hidden>
-        <div class="viewport viewport--split" data-viewport-side="left"></div>
-        <div class="viewport viewport--split" data-viewport-side="right"></div>
+        <!-- Create a div element styled with the viewport viewport—split class for its interface role. -->
+        <div class="viewport viewport--split" data-viewport-side="left"><!-- Close the div element and mark the end of its content. --></div>
+        <!-- Create a div element styled with the viewport viewport—split class for its interface role. -->
+        <div class="viewport viewport--split" data-viewport-side="right"><!-- Close the div element and mark the end of its content. --></div>
+      <!-- Close the div element and mark the end of its content. -->
       </div>
-      <span id="viewport-number-full" class="viewport-number viewport-number--full" aria-hidden="true" hidden>0</span>
-      <span id="viewport-number-left" class="viewport-number viewport-number--left" aria-hidden="true" hidden>1/2</span>
-      <span id="viewport-number-right" class="viewport-number viewport-number--right" aria-hidden="true" hidden>2/2</span>
-      <div id="viewport-split-divider" class="viewport-split-divider" role="separator" aria-label="Resize viewports" aria-orientation="vertical" aria-valuemin="20" aria-valuemax="80" aria-valuenow="50" tabindex="0" hidden></div>
+      <!-- Create the #viewport-number-full element used by the span control or region. -->
+      <span id="viewport-number-full" class="viewport-number viewport-number--full" aria-hidden="true" hidden>0<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Create the #viewport-number-left element used by the span control or region. -->
+      <span id="viewport-number-left" class="viewport-number viewport-number--left" aria-hidden="true" hidden>1/2<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Create the #viewport-number-right element used by the span control or region. -->
+      <span id="viewport-number-right" class="viewport-number viewport-number--right" aria-hidden="true" hidden>2/2<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Let the user resize the two viewport panes. -->
+      <div id="viewport-split-divider" class="viewport-split-divider" role="separator" aria-label="Resize viewports" aria-orientation="vertical" aria-valuemin="20" aria-valuemax="80" aria-valuenow="50" tabindex="0" hidden><!-- Close the div element and mark the end of its content. --></div>
+      <!-- Create the #viewport-minimized-dock element used by the div control or region. -->
       <div id="viewport-minimized-dock" class="viewport-minimized-dock" aria-label="Minimized viewports" hidden>
-        <div id="viewport-minimized-items" class="viewport-minimized-items"></div>
+        <!-- Create the #viewport-minimized-items element used by the div control or region. -->
+        <div id="viewport-minimized-items" class="viewport-minimized-items"><!-- Close the div element and mark the end of its content. --></div>
+      <!-- Close the div element and mark the end of its content. -->
       </div>
+    <!-- Close the div element and mark the end of its content. -->
     </div>
 
+    <!-- Ask before replacing content that may have unsaved changes. -->
     <section id="viewport-replace-dialog" class="viewport-replace-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="viewport-replace-title" aria-describedby="viewport-replace-message">
+      <!-- Create a div element styled with the viewport-replace-card class for its interface role. -->
       <div class="viewport-replace-card">
+        <!-- Create a div element styled with the viewport-replace-heading class for its interface role. -->
         <div class="viewport-replace-heading">
-          <span class="viewport-replace-warning-icon" aria-hidden="true">!</span>
+          <!-- Create a span element styled with the viewport-replace-warning-icon class for its interface role. -->
+          <span class="viewport-replace-warning-icon" aria-hidden="true">!<!-- Close the span element and mark the end of its content. --></span>
+          <!-- Group related elements so they can be positioned and styled together. -->
           <div>
-            <h2 id="viewport-replace-title">Replace existing content?</h2>
-            <p id="viewport-replace-message">This viewport already contains content. Replacing it may discard unsaved changes.</p>
+            <!-- Create the #viewport-replace-title element used by the h2 control or region. -->
+            <h2 id="viewport-replace-title">Replace existing content?<!-- Close the h2 element and mark the end of its content. --></h2>
+            <!-- Create the #viewport-replace-message element used by the p control or region. -->
+            <p id="viewport-replace-message">This viewport already contains content. Replacing it may discard unsaved changes.<!-- Close the p element and mark the end of its content. --></p>
+          <!-- Close the div element and mark the end of its content. -->
           </div>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+        <!-- Create a div element styled with the viewport-replace-actions class for its interface role. -->
         <div class="viewport-replace-actions">
-          <button id="viewport-replace-cancel" class="viewport-replace-cancel" type="button">Cancel</button>
-          <button id="viewport-replace-confirm" class="viewport-replace-confirm" type="button">Replace</button>
+          <!-- Create the #viewport-replace-cancel element used by the button control or region. -->
+          <button id="viewport-replace-cancel" class="viewport-replace-cancel" type="button">Cancel<!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create the #viewport-replace-confirm element used by the button control or region. -->
+          <button id="viewport-replace-confirm" class="viewport-replace-confirm" type="button">Replace<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+      <!-- Close the div element and mark the end of its content. -->
       </div>
+    <!-- Close the section element and mark the end of its content. -->
     </section>
 
+    <!-- Create a div element styled with the workspace-layout class for its interface role. -->
     <div class="workspace-layout">
+      <!-- Contain the app's side controls and tool shortcuts. -->
       <aside id="sidebar" class="sidebar" aria-label="Sidebar">
+        <!-- Create a div element styled with the sidebar-inner class for its interface role. -->
         <div class="sidebar-inner">
+          <!-- Create a div element styled with the sidebar-cloud-actions class for its interface role. -->
           <div class="sidebar-cloud-actions">
+            <!-- Provide the sidebar shortcut for opening Dropbox. -->
             <button id="dropbox-sidebar-button" class="toolbar-button toolbar-button-primary toolbar-icon-button" type="button" aria-label="Dropbox" title="Dropbox">
+              <!-- Create a svg element styled with the dropbox-logo class for its interface role. -->
               <svg class="dropbox-logo" viewBox="0 0 24 24" aria-hidden="true">
+                <!-- Draw one vector shape inside the SVG icon. -->
                 <path d="M7.2 2.8 2.4 5.9l4.8 3 4.8-3-4.8-3Zm9.6 0L12 5.9l4.8 3 4.8-3-4.8-3ZM7.2 9l-4.8 3 4.8 3 4.8-3-4.8-3Zm9.6 0L12 12l4.8 3 4.8-3-4.8-3-4.8 3 4.8 3 4.8-3-4.8-3ZM7.2 15.2l4.8 3 4.8-3-4.8-3-4.8 3Z"/>
+              <!-- Close the svg element and mark the end of its content. -->
               </svg>
+            <!-- Close the button element and mark the end of its content. -->
             </button>
+            <!-- Create the #sidebar-screenshot element used by the button control or region. -->
             <button id="sidebar-screenshot" class="toolbar-button toolbar-icon-button" type="button" aria-label="Open Lux Omni Snipping Tool" title="Lux Omni Snipping Tool">
+              <!-- Define a vector icon that stays crisp at different sizes. -->
               <svg viewBox="0 0 24 24" aria-hidden="true">
+                <!-- Draw one vector shape inside the SVG icon. -->
                 <path d="M8 4H6a2 2 0 0 0-2 2v2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/>
+                <!-- Draw a rectangular shape inside the SVG icon. -->
                 <rect x="8.5" y="8.5" width="7" height="7" rx="1"/>
+              <!-- Close the svg element and mark the end of its content. -->
               </svg>
+            <!-- Close the button element and mark the end of its content. -->
             </button>
+            <!-- Create the #clipboard-open element used by the a control or region. -->
             <a id="clipboard-open" class="toolbar-button toolbar-icon-button" href="./clipboard.html" target="_blank" rel="noopener noreferrer" aria-label="Open Lux Omni Clipboard in a new tab" title="Lux Omni Clipboard">
+              <!-- Create a svg element styled with the clipboard-icon class for its interface role. -->
               <svg class="clipboard-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="5" y="4" width="14" height="17" rx="2"></rect>
-                <path d="M9 4.5V3.8A1.8 1.8 0 0 1 10.8 2h2.4A1.8 1.8 0 0 1 15 3.8v.7M9 10h6M9 14h6M9 18h4"></path>
+                <!-- Draw a rectangular shape inside the SVG icon. -->
+                <rect x="5" y="4" width="14" height="17" rx="2"><!-- Close the rect element and mark the end of its content. --></rect>
+                <!-- Draw one vector shape inside the SVG icon. -->
+                <path d="M9 4.5V3.8A1.8 1.8 0 0 1 10.8 2h2.4A1.8 1.8 0 0 1 15 3.8v.7M9 10h6M9 14h6M9 18h4"><!-- Close the path element and mark the end of its content. --></path>
+              <!-- Close the svg element and mark the end of its content. -->
               </svg>
+            <!-- Close the a element and mark the end of its content. -->
             </a>
+            <!-- Create the #sidebar-youtube-button element used by the button control or region. -->
             <button id="sidebar-youtube-button" class="toolbar-button toolbar-icon-button youtube-sidebar-button" type="button" aria-label="Load a YouTube video" title="YouTube" aria-controls="youtube-tile" aria-haspopup="dialog" aria-expanded="false">
+              <!-- Create a svg element styled with the youtube-sidebar-icon class for its interface role. -->
               <svg class="youtube-sidebar-icon" viewBox="0 0 24 18" aria-hidden="true">
-                <path d="M23.5 2.8a3 3 0 0 0-2.1-2.1C19.5.2 12 .2 12 .2S4.5.2 2.6.7A3 3 0 0 0 .5 2.8 31 31 0 0 0 0 9s0 3.7.5 6.2a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 9s0-3.7-.5-6.2Z"></path>
-                <path d="m9.6 12.7 6.3-3.7-6.3-3.7v7.4Z"></path>
+                <!-- Draw one vector shape inside the SVG icon. -->
+                <path d="M23.5 2.8a3 3 0 0 0-2.1-2.1C19.5.2 12 .2 12 .2S4.5.2 2.6.7A3 3 0 0 0 .5 2.8 31 31 0 0 0 0 9s0 3.7.5 6.2a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 9s0-3.7-.5-6.2Z"><!-- Close the path element and mark the end of its content. --></path>
+                <!-- Draw one vector shape inside the SVG icon. -->
+                <path d="m9.6 12.7 6.3-3.7-6.3-3.7v7.4Z"><!-- Close the path element and mark the end of its content. --></path>
+              <!-- Close the svg element and mark the end of its content. -->
               </svg>
+            <!-- Close the button element and mark the end of its content. -->
             </button>
+            <!-- Create the #viewport-fullscreen element used by the button control or region. -->
             <button id="viewport-fullscreen" class="toolbar-button toolbar-icon-button viewport-mode-button" type="button" aria-label="Open full-screen viewport" title="Full Screen" aria-pressed="false">
+              <!-- Create a svg element styled with the viewport-mode-icon class for its interface role. -->
               <svg class="viewport-mode-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8 3H4v5M16 3h4v5M20 16v5h-4M8 21H4v-5"></path>
+                <!-- Draw one vector shape inside the SVG icon. -->
+                <path d="M8 3H4v5M16 3h4v5M20 16v5h-4M8 21H4v-5"><!-- Close the path element and mark the end of its content. --></path>
+              <!-- Close the svg element and mark the end of its content. -->
               </svg>
+            <!-- Close the button element and mark the end of its content. -->
             </button>
+            <!-- Create the #viewport-split-screen element used by the button control or region. -->
             <button id="viewport-split-screen" class="toolbar-button toolbar-icon-button viewport-mode-button" type="button" aria-label="Open split-screen viewports" title="Split Screen" aria-pressed="false">
+              <!-- Create a svg element styled with the viewport-mode-icon class for its interface role. -->
               <svg class="viewport-mode-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                <path d="M12 4v16"></path>
+                <!-- Draw a rectangular shape inside the SVG icon. -->
+                <rect x="3" y="4" width="18" height="16" rx="2"><!-- Close the rect element and mark the end of its content. --></rect>
+                <!-- Draw one vector shape inside the SVG icon. -->
+                <path d="M12 4v16"><!-- Close the path element and mark the end of its content. --></path>
+              <!-- Close the svg element and mark the end of its content. -->
               </svg>
+            <!-- Close the button element and mark the end of its content. -->
             </button>
+          <!-- Close the div element and mark the end of its content. -->
           </div>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+      <!-- Close the aside element and mark the end of its content. -->
       </aside>
+      <!-- Create a main element styled with the workspace class for its interface role. -->
       <main class="workspace" aria-label="PDF workspace">
+        <!-- Create a div element styled with the workspace-empty-state class for its interface role. -->
         <div class="workspace-empty-state">
-          <h1>Workspace</h1>
-          <p>Open a document or tool to begin.</p>
+          <!-- Provide the page's primary heading. -->
+          <h1>Workspace<!-- Close the h1 element and mark the end of its content. --></h1>
+          <!-- Display a paragraph of helper, status, or explanatory text. -->
+          <p>Open a document or tool to begin.<!-- Close the p element and mark the end of its content. --></p>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+      <!-- Close the main element and mark the end of its content. -->
       </main>
+    <!-- Close the div element and mark the end of its content. -->
     </div>
+  <!-- Close the div element and mark the end of its content. -->
   </div>
 
+  <!-- Create the #youtube-tile element used by the section control or region. -->
   <section id="youtube-tile" class="youtube-tile" hidden role="dialog" aria-labelledby="youtube-tile-title" aria-describedby="youtube-tile-help" aria-modal="false">
-    <h2 id="youtube-tile-title">Load YouTube video</h2>
-    <p id="youtube-tile-help" class="youtube-tile-help">Paste a video link, then choose where it should open.</p>
-    <label class="youtube-tile-label" for="youtube-video-url">YouTube link</label>
+    <!-- Create the #youtube-tile-title element used by the h2 control or region. -->
+    <h2 id="youtube-tile-title">Load YouTube video<!-- Close the h2 element and mark the end of its content. --></h2>
+    <!-- Create the #youtube-tile-help element used by the p control or region. -->
+    <p id="youtube-tile-help" class="youtube-tile-help">Paste a video link, then choose where it should open.<!-- Close the p element and mark the end of its content. --></p>
+    <!-- Create a label element styled with the youtube-tile-label class for its interface role. -->
+    <label class="youtube-tile-label" for="youtube-video-url">YouTube link<!-- Close the label element and mark the end of its content. --></label>
+    <!-- Create the #youtube-video-url element used by the input control or region. -->
     <input id="youtube-video-url" class="youtube-tile-input" type="url" inputmode="url" autocomplete="url" placeholder="https://youtu.be/…" spellcheck="false">
-    <p id="youtube-tile-feedback" class="youtube-tile-feedback" role="status" aria-live="polite" hidden></p>
+    <!-- Create the #youtube-tile-feedback element used by the p control or region. -->
+    <p id="youtube-tile-feedback" class="youtube-tile-feedback" role="status" aria-live="polite" hidden><!-- Close the p element and mark the end of its content. --></p>
+    <!-- Create a div element styled with the youtube-tile-targets class for its interface role. -->
     <div class="youtube-tile-targets" role="group" aria-label="Video destination">
+      <!-- Create a button element styled with the youtube-target-button class for its interface role. -->
       <button class="youtube-target-button" type="button" data-youtube-target="left" aria-label="Open video in Left viewport">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M12 4v16"></path><path d="M8 8v8"></path></svg>
-        <span>Left</span>
+        <!-- Define a vector icon that stays crisp at different sizes. -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw a rectangular shape inside the SVG icon. --><rect x="3" y="4" width="18" height="16" rx="2"><!-- Close the rect element and mark the end of its content. --></rect><!-- Draw one vector shape inside the SVG icon. --><path d="M12 4v16"><!-- Close the path element and mark the end of its content. --></path><!-- Draw one vector shape inside the SVG icon. --><path d="M8 8v8"><!-- Close the path element and mark the end of its content. --></path><!-- Close the svg element and mark the end of its content. --></svg>
+        <!-- Group a short inline label or icon for styling or accessibility. -->
+        <span>Left<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Close the button element and mark the end of its content. -->
       </button>
+      <!-- Create a button element styled with the youtube-target-button class for its interface role. -->
       <button class="youtube-target-button" type="button" data-youtube-target="right" aria-label="Open video in Right viewport">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M12 4v16"></path><path d="M16 8v8"></path></svg>
-        <span>Right</span>
+        <!-- Define a vector icon that stays crisp at different sizes. -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw a rectangular shape inside the SVG icon. --><rect x="3" y="4" width="18" height="16" rx="2"><!-- Close the rect element and mark the end of its content. --></rect><!-- Draw one vector shape inside the SVG icon. --><path d="M12 4v16"><!-- Close the path element and mark the end of its content. --></path><!-- Draw one vector shape inside the SVG icon. --><path d="M16 8v8"><!-- Close the path element and mark the end of its content. --></path><!-- Close the svg element and mark the end of its content. --></svg>
+        <!-- Group a short inline label or icon for styling or accessibility. -->
+        <span>Right<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Close the button element and mark the end of its content. -->
       </button>
+      <!-- Create a button element styled with the youtube-target-button class for its interface role. -->
       <button class="youtube-target-button" type="button" data-youtube-target="full" aria-label="Open video in Full Screen viewport">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H4v5M16 3h4v5M20 16v5h-4M8 21H4v-5"></path></svg>
-        <span>Full Screen</span>
+        <!-- Define a vector icon that stays crisp at different sizes. -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M8 3H4v5M16 3h4v5M20 16v5h-4M8 21H4v-5"><!-- Close the path element and mark the end of its content. --></path><!-- Close the svg element and mark the end of its content. --></svg>
+        <!-- Group a short inline label or icon for styling or accessibility. -->
+        <span>Full Screen<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Close the button element and mark the end of its content. -->
       </button>
+    <!-- Close the div element and mark the end of its content. -->
     </div>
+  <!-- Close the section element and mark the end of its content. -->
   </section>
 
+  <!-- Create the #lux-snip-capture-panel element used by the div control or region. -->
   <div id="lux-snip-capture-panel" class="lux-snip-capture-panel" hidden role="region" aria-label="Lux Omni Snipping Tool capture options">
-    <p class="lux-snip-panel-title">Lux Omni Snipping Tool</p>
+    <!-- Create a p element styled with the lux-snip-panel-title class for its interface role. -->
+    <p class="lux-snip-panel-title">Lux Omni Snipping Tool<!-- Close the p element and mark the end of its content. --></p>
+    <!-- Create a div element styled with the lux-snip-mode-group class for its interface role. -->
     <div class="lux-snip-mode-group" role="group" aria-label="Snip mode">
-      <button type="button" data-lux-snip-mode="rectangle" class="is-active" aria-pressed="true">Rectangle</button>
-      <button type="button" data-lux-snip-mode="freeform" aria-pressed="false">Freeform</button>
-      <button type="button" data-lux-snip-mode="viewport" aria-pressed="false">Viewport</button>
+      <!-- Create a button element styled with the is-active class for its interface role. -->
+      <button type="button" data-lux-snip-mode="rectangle" class="is-active" aria-pressed="true">Rectangle<!-- Close the button element and mark the end of its content. --></button>
+      <!-- Create a keyboard-accessible button for a user action. -->
+      <button type="button" data-lux-snip-mode="freeform" aria-pressed="false">Freeform<!-- Close the button element and mark the end of its content. --></button>
+      <!-- Create a keyboard-accessible button for a user action. -->
+      <button type="button" data-lux-snip-mode="viewport" aria-pressed="false">Viewport<!-- Close the button element and mark the end of its content. --></button>
+    <!-- Close the div element and mark the end of its content. -->
     </div>
+    <!-- Describe the input control associated with this label. -->
     <label for="lux-snip-delay">Delay
+      <!-- Create the #lux-snip-delay element used by the select control or region. -->
       <select id="lux-snip-delay">
-        <option value="0">None</option><option value="3">3 seconds</option><option value="5">5 seconds</option><option value="10">10 seconds</option>
+        <!-- Provide one selectable value in a choice list. -->
+        <option value="0">None<!-- Close the option element and mark the end of its content. --></option><!-- Provide one selectable value in a choice list. --><option value="3">3 seconds<!-- Close the option element and mark the end of its content. --></option><!-- Provide one selectable value in a choice list. --><option value="5">5 seconds<!-- Close the option element and mark the end of its content. --></option><!-- Provide one selectable value in a choice list. --><option value="10">10 seconds<!-- Close the option element and mark the end of its content. --></option>
+      <!-- Close the select element and mark the end of its content. -->
       </select>
+    <!-- Close the label element and mark the end of its content. -->
     </label>
-    <button id="lux-snip-new" class="primary" type="button">Start Snipping</button>
-    <button id="lux-snip-cancel" class="danger" type="button">Cancel</button>
+    <!-- Create the #lux-snip-new element used by the button control or region. -->
+    <button id="lux-snip-new" class="primary" type="button">Start Snipping<!-- Close the button element and mark the end of its content. --></button>
+    <!-- Create the #lux-snip-cancel element used by the button control or region. -->
+    <button id="lux-snip-cancel" class="danger" type="button">Cancel<!-- Close the button element and mark the end of its content. --></button>
+  <!-- Close the div element and mark the end of its content. -->
   </div>
-  <div id="lux-snip-countdown" hidden role="status" aria-live="polite"></div>
+  <!-- Create the #lux-snip-countdown element used by the div control or region. -->
+  <div id="lux-snip-countdown" hidden role="status" aria-live="polite"><!-- Close the div element and mark the end of its content. --></div>
+  <!-- Create the #lux-snip-selection element used by the div control or region. -->
   <div id="lux-snip-selection" hidden tabindex="-1" aria-label="Select an area of the visible browser viewport">
-    <div id="lux-snip-selection-box" hidden></div>
-    <div id="lux-snip-selection-help">Drag to select the visible viewport area</div>
+    <!-- Create the #lux-snip-selection-box element used by the div control or region. -->
+    <div id="lux-snip-selection-box" hidden><!-- Close the div element and mark the end of its content. --></div>
+    <!-- Create the #lux-snip-selection-help element used by the div control or region. -->
+    <div id="lux-snip-selection-help">Drag to select the visible viewport area<!-- Close the div element and mark the end of its content. --></div>
+    <!-- Create the #lux-snip-selection-toolbar element used by the div control or region. -->
     <div id="lux-snip-selection-toolbar" role="toolbar" aria-label="Capture selection tools" hidden>
-      <span>Lux Omni Snipping Tool</span>
-      <button type="button" data-lux-snip-selection-mode="rectangle">Rectangle</button>
-      <button type="button" data-lux-snip-selection-mode="freeform">Freeform</button>
-      <button type="button" data-lux-snip-selection-mode="viewport">Viewport</button>
-      <button id="lux-snip-selection-cancel" type="button">Cancel</button>
+      <!-- Group a short inline label or icon for styling or accessibility. -->
+      <span>Lux Omni Snipping Tool<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Create a keyboard-accessible button for a user action. -->
+      <button type="button" data-lux-snip-selection-mode="rectangle">Rectangle<!-- Close the button element and mark the end of its content. --></button>
+      <!-- Create a keyboard-accessible button for a user action. -->
+      <button type="button" data-lux-snip-selection-mode="freeform">Freeform<!-- Close the button element and mark the end of its content. --></button>
+      <!-- Create a keyboard-accessible button for a user action. -->
+      <button type="button" data-lux-snip-selection-mode="viewport">Viewport<!-- Close the button element and mark the end of its content. --></button>
+      <!-- Create the #lux-snip-selection-cancel element used by the button control or region. -->
+      <button id="lux-snip-selection-cancel" type="button">Cancel<!-- Close the button element and mark the end of its content. --></button>
+    <!-- Close the div element and mark the end of its content. -->
     </div>
+  <!-- Close the div element and mark the end of its content. -->
   </div>
 
+  <!-- Create the #lux-snip-editor-modal element used by the div control or region. -->
   <div id="lux-snip-editor-modal" class="lux-snip-editor-modal" role="dialog" aria-modal="true" aria-labelledby="lux-snip-editor-title" hidden>
-    <div class="lux-snip-editor-backdrop" aria-hidden="true"></div>
+    <!-- Create a div element styled with the lux-snip-editor-backdrop class for its interface role. -->
+    <div class="lux-snip-editor-backdrop" aria-hidden="true"><!-- Close the div element and mark the end of its content. --></div>
+    <!-- Create a section element styled with the lux-snip-editor-dialog class for its interface role. -->
     <section class="lux-snip-editor-dialog">
+      <!-- Create a header element styled with the lux-snip-editor-header class for its interface role. -->
       <header class="lux-snip-editor-header">
+        <!-- Create a img element styled with the lux-snip-brand-icon class for its interface role. -->
         <img class="lux-snip-brand-icon" src="./icons/lux-pdf-viewer-icon.svg" alt="">
-        <h2 id="lux-snip-editor-title" class="lux-snip-editor-title">Lux Omni Snipping Tool</h2>
+        <!-- Create the #lux-snip-editor-title element used by the h2 control or region. -->
+        <h2 id="lux-snip-editor-title" class="lux-snip-editor-title">Lux Omni Snipping Tool<!-- Close the h2 element and mark the end of its content. --></h2>
+        <!-- Create the #lux-snip-discard element used by the button control or region. -->
         <button id="lux-snip-discard" type="button" aria-label="Discard screenshot and close" title="Discard screenshot and close">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6 18 18M18 6 6 18"></path></svg>
+          <!-- Define a vector icon that stays crisp at different sizes. -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M6 6 18 18M18 6 6 18"><!-- Close the path element and mark the end of its content. --></path><!-- Close the svg element and mark the end of its content. --></svg>
+        <!-- Close the button element and mark the end of its content. -->
         </button>
+      <!-- Close the header element and mark the end of its content. -->
       </header>
+      <!-- Create a div element styled with the lux-snip-editor-toolbar class for its interface role. -->
       <div class="lux-snip-editor-toolbar" role="toolbar" aria-label="Screenshot editing tools">
-        <button type="button" data-lux-snip-tool="pen" class="is-active" aria-pressed="true" title="Pen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 20 4.5-1 11-11a2.1 2.1 0 0 0-3-3l-11 11L4 20Z"/></svg>Pen</button>
-        <button type="button" data-lux-snip-tool="highlighter" aria-pressed="false" title="Highlighter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16 10-10 4 4L8 20H4v-4Z"/><path d="m12 8 4 4M3 22h18"/></svg>Highlight</button>
-        <button type="button" data-lux-snip-tool="eraser" aria-pressed="false" title="Eraser"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 21-5-5a2 2 0 0 1 0-3l9-9a2 2 0 0 1 3 0l7 7a2 2 0 0 1 0 3l-7 7H7Z"/><path d="m8 6 10 10M14 21h8"/></svg>Eraser</button>
-        <button type="button" data-lux-snip-tool="text" aria-pressed="false" title="Insert text"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6V4h16v2M12 4v16M8 20h8"/></svg>Text</button>
-        <button type="button" data-lux-snip-tool="crop" aria-pressed="false" title="Crop screenshot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v12a3 3 0 0 0 3 3h12M3 6h12a3 3 0 0 1 3 3v12"/></svg>Crop</button>
-        <span class="lux-snip-toolbar-divider"></span>
+        <!-- Create a button element styled with the is-active class for its interface role. -->
+        <button type="button" data-lux-snip-tool="pen" class="is-active" aria-pressed="true" title="Pen"><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="m4 20 4.5-1 11-11a2.1 2.1 0 0 0-3-3l-11 11L4 20Z"/><!-- Close the svg element and mark the end of its content. --></svg>Pen<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create a keyboard-accessible button for a user action. -->
+        <button type="button" data-lux-snip-tool="highlighter" aria-pressed="false" title="Highlighter"><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="m4 16 10-10 4 4L8 20H4v-4Z"/><!-- Draw one vector shape inside the SVG icon. --><path d="m12 8 4 4M3 22h18"/><!-- Close the svg element and mark the end of its content. --></svg>Highlight<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create a keyboard-accessible button for a user action. -->
+        <button type="button" data-lux-snip-tool="eraser" aria-pressed="false" title="Eraser"><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="m7 21-5-5a2 2 0 0 1 0-3l9-9a2 2 0 0 1 3 0l7 7a2 2 0 0 1 0 3l-7 7H7Z"/><!-- Draw one vector shape inside the SVG icon. --><path d="m8 6 10 10M14 21h8"/><!-- Close the svg element and mark the end of its content. --></svg>Eraser<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create a keyboard-accessible button for a user action. -->
+        <button type="button" data-lux-snip-tool="text" aria-pressed="false" title="Insert text"><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M4 6V4h16v2M12 4v16M8 20h8"/><!-- Close the svg element and mark the end of its content. --></svg>Text<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create a keyboard-accessible button for a user action. -->
+        <button type="button" data-lux-snip-tool="crop" aria-pressed="false" title="Crop screenshot"><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M6 3v12a3 3 0 0 0 3 3h12M3 6h12a3 3 0 0 1 3 3v12"/><!-- Close the svg element and mark the end of its content. --></svg>Crop<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create a span element styled with the lux-snip-toolbar-divider class for its interface role. -->
+        <span class="lux-snip-toolbar-divider"><!-- Close the span element and mark the end of its content. --></span>
+        <!-- Create a div element styled with the lux-snip-color-row class for its interface role. -->
         <div class="lux-snip-color-row" role="group" aria-label="Annotation color">
-          <button type="button" data-lux-snip-color="#e03131" class="lux-snip-color is-active" aria-label="Red" aria-pressed="true" title="Red"></button>
-          <button type="button" data-lux-snip-color="#ff922b" class="lux-snip-color" aria-label="Orange" aria-pressed="false" title="Orange"></button>
-          <button type="button" data-lux-snip-color="#f08c00" class="lux-snip-color" aria-label="Yellow" aria-pressed="false" title="Yellow"></button>
-          <button type="button" data-lux-snip-color="#2f9e44" class="lux-snip-color" aria-label="Green" aria-pressed="false" title="Green"></button>
-          <button type="button" data-lux-snip-color="#1971c2" class="lux-snip-color" aria-label="Blue" aria-pressed="false" title="Blue"></button>
-          <button type="button" data-lux-snip-color="#7048e8" class="lux-snip-color" aria-label="Purple" aria-pressed="false" title="Purple"></button>
-          <button type="button" data-lux-snip-color="#111827" class="lux-snip-color" aria-label="Black" aria-pressed="false" title="Black"></button>
+          <!-- Create a button element styled with the lux-snip-color is-active class for its interface role. -->
+          <button type="button" data-lux-snip-color="#e03131" class="lux-snip-color is-active" aria-label="Red" aria-pressed="true" title="Red"><!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create a button element styled with the lux-snip-color class for its interface role. -->
+          <button type="button" data-lux-snip-color="#ff922b" class="lux-snip-color" aria-label="Orange" aria-pressed="false" title="Orange"><!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create a button element styled with the lux-snip-color class for its interface role. -->
+          <button type="button" data-lux-snip-color="#f08c00" class="lux-snip-color" aria-label="Yellow" aria-pressed="false" title="Yellow"><!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create a button element styled with the lux-snip-color class for its interface role. -->
+          <button type="button" data-lux-snip-color="#2f9e44" class="lux-snip-color" aria-label="Green" aria-pressed="false" title="Green"><!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create a button element styled with the lux-snip-color class for its interface role. -->
+          <button type="button" data-lux-snip-color="#1971c2" class="lux-snip-color" aria-label="Blue" aria-pressed="false" title="Blue"><!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create a button element styled with the lux-snip-color class for its interface role. -->
+          <button type="button" data-lux-snip-color="#7048e8" class="lux-snip-color" aria-label="Purple" aria-pressed="false" title="Purple"><!-- Close the button element and mark the end of its content. --></button>
+          <!-- Create a button element styled with the lux-snip-color class for its interface role. -->
+          <button type="button" data-lux-snip-color="#111827" class="lux-snip-color" aria-label="Black" aria-pressed="false" title="Black"><!-- Close the button element and mark the end of its content. --></button>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
-        <select id="lux-snip-width" aria-label="Pen thickness" title="Pen thickness"><option value="2">Thin</option><option value="3" selected>Medium</option><option value="6">Thick</option></select>
-        <span class="lux-snip-toolbar-divider"></span>
-        <button id="lux-snip-undo" type="button" title="Undo" aria-label="Undo" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14h-2"/></svg></button>
-        <button id="lux-snip-redo" type="button" title="Redo" aria-label="Redo" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9h-9a7 7 0 0 0 0 14h2"/></svg></button>
-        <button id="lux-snip-zoom-out" type="button" title="Zoom out" aria-label="Zoom out">−</button>
-        <span id="lux-snip-zoom-label" aria-live="polite">100%</span>
-        <button id="lux-snip-zoom-in" type="button" title="Zoom in" aria-label="Zoom in">+</button>
-        <button id="lux-snip-copy" type="button" title="Copy annotated screenshot to the system clipboard"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h3"/></svg>Copy</button>
-        <button id="lux-snip-log" type="button" title="Add this annotated screenshot to Lux Omni Clipboard Log"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/></svg>Add to log</button>
-        <button id="lux-snip-save" type="button" title="Save screenshot as PNG"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/></svg>Save</button>
+        <!-- Create the #lux-snip-width element used by the select control or region. -->
+        <select id="lux-snip-width" aria-label="Pen thickness" title="Pen thickness"><!-- Provide one selectable value in a choice list. --><option value="2">Thin<!-- Close the option element and mark the end of its content. --></option><!-- Provide one selectable value in a choice list. --><option value="3" selected>Medium<!-- Close the option element and mark the end of its content. --></option><!-- Provide one selectable value in a choice list. --><option value="6">Thick<!-- Close the option element and mark the end of its content. --></option><!-- Close the select element and mark the end of its content. --></select>
+        <!-- Create a span element styled with the lux-snip-toolbar-divider class for its interface role. -->
+        <span class="lux-snip-toolbar-divider"><!-- Close the span element and mark the end of its content. --></span>
+        <!-- Create the #lux-snip-undo element used by the button control or region. -->
+        <button id="lux-snip-undo" type="button" title="Undo" aria-label="Undo" disabled><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M9 14 4 9l5-5"/><!-- Draw one vector shape inside the SVG icon. --><path d="M4 9h9a7 7 0 0 1 0 14h-2"/><!-- Close the svg element and mark the end of its content. --></svg><!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create the #lux-snip-redo element used by the button control or region. -->
+        <button id="lux-snip-redo" type="button" title="Redo" aria-label="Redo" disabled><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="m15 14 5-5-5-5"/><!-- Draw one vector shape inside the SVG icon. --><path d="M20 9h-9a7 7 0 0 0 0 14h2"/><!-- Close the svg element and mark the end of its content. --></svg><!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create the #lux-snip-zoom-out element used by the button control or region. -->
+        <button id="lux-snip-zoom-out" type="button" title="Zoom out" aria-label="Zoom out">−<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create the #lux-snip-zoom-label element used by the span control or region. -->
+        <span id="lux-snip-zoom-label" aria-live="polite">100%<!-- Close the span element and mark the end of its content. --></span>
+        <!-- Create the #lux-snip-zoom-in element used by the button control or region. -->
+        <button id="lux-snip-zoom-in" type="button" title="Zoom in" aria-label="Zoom in">+<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create the #lux-snip-copy element used by the button control or region. -->
+        <button id="lux-snip-copy" type="button" title="Copy annotated screenshot to the system clipboard"><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw a rectangular shape inside the SVG icon. --><rect x="8" y="8" width="12" height="13" rx="2"/><!-- Draw one vector shape inside the SVG icon. --><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h3"/><!-- Close the svg element and mark the end of its content. --></svg>Copy<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create the #lux-snip-log element used by the button control or region. -->
+        <button id="lux-snip-log" type="button" title="Add this annotated screenshot to Lux Omni Clipboard Log"><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M12 5v14M5 12h14"/><!-- Draw one vector shape inside the SVG icon. --><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><!-- Close the svg element and mark the end of its content. --></svg>Add to log<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Create the #lux-snip-save element used by the button control or region. -->
+        <button id="lux-snip-save" type="button" title="Save screenshot as PNG"><!-- Define a vector icon that stays crisp at different sizes. --><svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/><!-- Close the svg element and mark the end of its content. --></svg>Save<!-- Close the button element and mark the end of its content. --></button>
+      <!-- Close the div element and mark the end of its content. -->
       </div>
+      <!-- Create the #lux-snip-workarea element used by the div control or region. -->
       <div id="lux-snip-workarea" class="lux-snip-workarea">
+        <!-- Create the #lux-snip-stage element used by the div control or region. -->
         <div id="lux-snip-stage">
-          <canvas id="lux-snip-base" aria-label="Captured screenshot"></canvas>
-          <canvas id="lux-snip-ink" aria-label="Draw or crop on the captured screenshot"></canvas>
-          <div id="lux-snip-crop-box" hidden></div>
+          <!-- Create the #lux-snip-base element used by the canvas control or region. -->
+          <canvas id="lux-snip-base" aria-label="Captured screenshot"><!-- Close the canvas element and mark the end of its content. --></canvas>
+          <!-- Create the #lux-snip-ink element used by the canvas control or region. -->
+          <canvas id="lux-snip-ink" aria-label="Draw or crop on the captured screenshot"><!-- Close the canvas element and mark the end of its content. --></canvas>
+          <!-- Create the #lux-snip-crop-box element used by the div control or region. -->
+          <div id="lux-snip-crop-box" hidden><!-- Close the div element and mark the end of its content. --></div>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+      <!-- Close the div element and mark the end of its content. -->
       </div>
-      <div id="lux-snip-status" role="status" aria-live="polite"></div>
+      <!-- Create the #lux-snip-status element used by the div control or region. -->
+      <div id="lux-snip-status" role="status" aria-live="polite"><!-- Close the div element and mark the end of its content. --></div>
+    <!-- Close the section element and mark the end of its content. -->
     </section>
+  <!-- Close the div element and mark the end of its content. -->
   </div>
-  <div id="lux-snip-notice" role="status" aria-live="polite" hidden></div>
+  <!-- Create the #lux-snip-notice element used by the div control or region. -->
+  <div id="lux-snip-notice" role="status" aria-live="polite" hidden><!-- Close the div element and mark the end of its content. --></div>
 
+  <!-- Contain the Dropbox file browser dialog. -->
   <div id="dropbox-file-manager" class="dropbox-ui-modal" role="dialog" aria-modal="true" aria-labelledby="dropbox-file-manager-title" aria-describedby="dropbox-file-manager-status" hidden>
-    <div class="dropbox-ui-backdrop" data-dropbox-ui-close></div>
+    <!-- Create a div element styled with the dropbox-ui-backdrop class for its interface role. -->
+    <div class="dropbox-ui-backdrop" data-dropbox-ui-close><!-- Close the div element and mark the end of its content. --></div>
+    <!-- Create a section element styled with the dropbox-ui-dialog class for its interface role. -->
     <section class="dropbox-ui-dialog" role="document">
+      <!-- Create a header element styled with the dropbox-ui-header class for its interface role. -->
       <header class="dropbox-ui-header">
+        <!-- Create a div element styled with the dropbox-ui-heading class for its interface role. -->
         <div class="dropbox-ui-heading">
-          <h2 id="dropbox-file-manager-title">Dropbox Files</h2>
-          <p id="dropbox-current-location" class="dropbox-current-location">My Dropbox</p>
+          <!-- Create the #dropbox-file-manager-title element used by the h2 control or region. -->
+          <h2 id="dropbox-file-manager-title">Dropbox Files<!-- Close the h2 element and mark the end of its content. --></h2>
+          <!-- Display the current Dropbox folder path. -->
+          <p id="dropbox-current-location" class="dropbox-current-location">My Dropbox<!-- Close the p element and mark the end of its content. --></p>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+        <!-- Create a div element styled with the dropbox-ui-header-actions class for its interface role. -->
         <div class="dropbox-ui-header-actions">
+          <!-- Choose a local file to upload to Dropbox. -->
           <input id="dropbox-upload-input" class="dropbox-ui-file-input" type="file" aria-label="Choose a file to upload">
+          <!-- Create a label element styled with the dropbox-ui-upload-button class for its interface role. -->
           <label class="dropbox-ui-upload-button" for="dropbox-upload-input" title="Upload a file from this device">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M4 16v4h16v-4"/></svg>
-            <span>Upload File</span>
+            <!-- Define a vector icon that stays crisp at different sizes. -->
+            <svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M12 16V4m-5 5 5-5 5 5"/><!-- Draw one vector shape inside the SVG icon. --><path d="M4 16v4h16v-4"/><!-- Close the svg element and mark the end of its content. --></svg>
+            <!-- Group a short inline label or icon for styling or accessibility. -->
+            <span>Upload File<!-- Close the span element and mark the end of its content. --></span>
+          <!-- Close the label element and mark the end of its content. -->
           </label>
+          <!-- Close the Dropbox file browser dialog. -->
           <button id="dropbox-file-manager-close" class="dropbox-ui-close" type="button" aria-label="Close Dropbox Files" title="Close">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+            <!-- Define a vector icon that stays crisp at different sizes. -->
+            <svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="m6 6 12 12M18 6 6 18"/><!-- Close the svg element and mark the end of its content. --></svg>
+          <!-- Close the button element and mark the end of its content. -->
           </button>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+      <!-- Close the header element and mark the end of its content. -->
       </header>
+      <!-- Create a div element styled with the dropbox-ui-navigation class for its interface role. -->
       <div class="dropbox-ui-navigation">
+        <!-- Navigate to the parent Dropbox folder. -->
         <button id="dropbox-folder-back" class="dropbox-ui-back" type="button" disabled>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7M7 12h14"/></svg>
-          <span>Back</span>
+          <!-- Define a vector icon that stays crisp at different sizes. -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="m14 5-7 7 7 7M7 12h14"/><!-- Close the svg element and mark the end of its content. --></svg>
+          <!-- Group a short inline label or icon for styling or accessibility. -->
+          <span>Back<!-- Close the span element and mark the end of its content. --></span>
+        <!-- Close the button element and mark the end of its content. -->
         </button>
-        <span class="dropbox-ui-navigation-hint">Choose a file, or open a folder to browse its contents.</span>
+        <!-- Create a span element styled with the dropbox-ui-navigation-hint class for its interface role. -->
+        <span class="dropbox-ui-navigation-hint">Choose a file, or open a folder to browse its contents.<!-- Close the span element and mark the end of its content. --></span>
+      <!-- Close the div element and mark the end of its content. -->
       </div>
-      <p id="dropbox-file-manager-status" class="dropbox-ui-status" role="status" aria-live="polite">Checking Dropbox connection…</p>
+      <!-- Announce Dropbox loading, selection, success, and error messages. -->
+      <p id="dropbox-file-manager-status" class="dropbox-ui-status" role="status" aria-live="polite">Checking Dropbox connection…<!-- Close the p element and mark the end of its content. --></p>
+      <!-- Create a div element styled with the dropbox-ui-list-wrap class for its interface role. -->
       <div class="dropbox-ui-list-wrap">
-        <ul id="dropbox-file-list" class="dropbox-ui-file-list" aria-label="Dropbox files and folders"></ul>
+        <!-- Display selectable files and folders returned by Dropbox. -->
+        <ul id="dropbox-file-list" class="dropbox-ui-file-list" aria-label="Dropbox files and folders"><!-- Close the ul element and mark the end of its content. --></ul>
+        <!-- Explain when the current Dropbox folder contains no files. -->
         <div id="dropbox-empty-state" class="dropbox-ui-empty" hidden>
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 14.5A3.5 3.5 0 0 1 10.5 11H20l4 4h13.5A3.5 3.5 0 0 1 41 18.5v18a3.5 3.5 0 0 1-3.5 3.5h-27A3.5 3.5 0 0 1 7 36.5Z"/></svg>
-          <strong>This folder is empty</strong>
-          <span>Upload a file or go back to another folder.</span>
+          <!-- Define a vector icon that stays crisp at different sizes. -->
+          <svg viewBox="0 0 48 48" aria-hidden="true"><!-- Draw one vector shape inside the SVG icon. --><path d="M7 14.5A3.5 3.5 0 0 1 10.5 11H20l4 4h13.5A3.5 3.5 0 0 1 41 18.5v18a3.5 3.5 0 0 1-3.5 3.5h-27A3.5 3.5 0 0 1 7 36.5Z"/><!-- Close the svg element and mark the end of its content. --></svg>
+          <!-- Emphasize the text as an important label. -->
+          <strong>This folder is empty<!-- Close the strong element and mark the end of its content. --></strong>
+          <!-- Group a short inline label or icon for styling or accessibility. -->
+          <span>Upload a file or go back to another folder.<!-- Close the span element and mark the end of its content. --></span>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+      <!-- Close the div element and mark the end of its content. -->
       </div>
+      <!-- Group the actions available after selecting a Dropbox file. -->
       <footer id="dropbox-selection-actions" class="dropbox-ui-selection" hidden>
+        <!-- Create a div element styled with the dropbox-ui-selected-copy class for its interface role. -->
         <div class="dropbox-ui-selected-copy">
-          <span class="dropbox-ui-selected-label">Selected file</span>
-          <strong id="dropbox-selected-name">No file selected</strong>
+          <!-- Create a span element styled with the dropbox-ui-selected-label class for its interface role. -->
+          <span class="dropbox-ui-selected-label">Selected file<!-- Close the span element and mark the end of its content. --></span>
+          <!-- Display the currently selected Dropbox file name. -->
+          <strong id="dropbox-selected-name">No file selected<!-- Close the strong element and mark the end of its content. --></strong>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+        <!-- Create a div element styled with the dropbox-ui-viewport-actions class for its interface role. -->
         <div class="dropbox-ui-viewport-actions">
-          <button id="dropbox-add-left" type="button">Add to Left Viewport</button>
-          <button id="dropbox-add-right" type="button">Add to Right Viewport</button>
-          <button id="dropbox-add-full" type="button">Add to Full Viewport</button>
+          <!-- Request opening the selected file in the left viewport. -->
+          <button id="dropbox-add-left" type="button">Add to Left Viewport<!-- Close the button element and mark the end of its content. --></button>
+          <!-- Request opening the selected file in the right viewport. -->
+          <button id="dropbox-add-right" type="button">Add to Right Viewport<!-- Close the button element and mark the end of its content. --></button>
+          <!-- Request opening the selected file in the full viewport. -->
+          <button id="dropbox-add-full" type="button">Add to Full Viewport<!-- Close the button element and mark the end of its content. --></button>
+        <!-- Close the div element and mark the end of its content. -->
         </div>
+      <!-- Close the footer element and mark the end of its content. -->
       </footer>
+    <!-- Close the section element and mark the end of its content. -->
     </section>
+  <!-- Close the div element and mark the end of its content. -->
   </div>
-  <div id="dropbox-ui-toast" class="dropbox-ui-toast" role="status" aria-live="polite" hidden></div>
+  <!-- Display short status notifications outside the Dropbox dialog. -->
+  <div id="dropbox-ui-toast" class="dropbox-ui-toast" role="status" aria-live="polite" hidden><!-- Close the div element and mark the end of its content. --></div>
 
-  <footer class="site-footer"><a href="./privacy.html">Privacy Policy</a></footer>
-</body>
-</html>
+  <!-- Create a footer element styled with the site-footer class for its interface role. -->
+  <footer class="site-footer"><!-- Create a hyperlink to another page or resource. --><a href="./privacy.html">Privacy Policy<!-- Close the a element and mark the end of its content. --></a><!-- Close the footer element and mark the end of its content. --></footer>
+<!-- Close the body element and mark the end of its content. --></body>
+<!-- Close the html element and mark the end of its content. --></html>

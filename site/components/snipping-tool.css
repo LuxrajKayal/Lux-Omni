@@ -1,199 +1,608 @@
 /* Lux Omni Snipping Tool: sidebar control and capture/editor surfaces */
+/* Style elements matching #sidebar-screenshot svg to define their appearance and layout. */
 #sidebar-screenshot svg {
+  /* Control the element's width. Value: 22px. */
   width: 22px;
+  /* Control the element's height. Value: 22px. */
   height: 22px;
+  /* Set the fill color of a vector shape. Value: none. */
   fill: none;
+  /* Set the outline color of a vector shape. Value: currentColor. */
   stroke: currentColor;
+  /* Set the thickness of a vector outline. Value: 1.8. */
   stroke-width: 1.8;
+  /* Set stroke-linecap to control this element's appearance or behavior. Value: round. */
   stroke-linecap: round;
+  /* Set stroke-linejoin to control this element's appearance or behavior. Value: round. */
   stroke-linejoin: round;
 }
 
 /* Keep the screenshot-selection icon's dashed outline in external CSS. */
+/* Style elements matching #sidebar-screenshot svg rect to define their appearance and layout. */
 #sidebar-screenshot svg rect {
+  /* Set stroke-dasharray to control this element's appearance or behavior. Value: 2 2. */
   stroke-dasharray: 2 2;
 }
-#sidebar-screenshot[aria-busy="true"] { opacity: .6; cursor: progress; }
+/* Style elements matching #sidebar-screenshot[aria-busy="true"] to define their appearance and layout. */
+#sidebar-screenshot[aria-busy="true"] { /* Set how transparent the element appears. Value: .6. */
+opacity: .6; /* Choose the pointer symbol shown over the element. Value: progress. */
+cursor: progress; }
+/* Style elements matching .lux-snip-capture-panel to define their appearance and layout. */
 .lux-snip-capture-panel {
+  /* Choose how the element is positioned on the page. Value: fixed. */
   position: fixed;
+  /* Control which overlapping element appears in front. Value: 5000. */
   z-index: 5000;
+  /* Set the top positioning offset. Value: 16px. */
   top: 16px;
+  /* Set the left positioning offset. Value: 50%. */
   left: 50%;
+  /* Choose how this element participates in layout. Value: flex. */
   display: flex;
+  /* Align children across the layout's cross-axis. Value: center. */
   align-items: center;
+  /* Set the spacing between child items. Value: 8px. */
   gap: 8px;
+  /* Set the maximum allowed width. Value: calc(100vw - 24px). */
   max-width: calc(100vw - 24px);
+  /* Move, rotate, or scale the element visually. Value: translateX(-50%). */
   transform: translateX(-50%);
+  /* Control the space between the element's border and its content. Value: 9px 10px. */
   padding: 9px 10px;
+  /* Set the outline around the element. Value: 1px solid rgb(148 163 184 / 45%). */
   border: 1px solid rgb(148 163 184 / 45%);
+  /* Round the element's corners. Value: 13px. */
   border-radius: 13px;
+  /* Set the element's background appearance. Value: var(--panel, #fff). */
   background: var(--panel, #fff);
+  /* Set the text and current-color icon color. Value: var(--ink, #0f172a). */
   color: var(--ink, #0f172a);
+  /* Draw a shadow to add depth around the element. Value: 0 10px 35px rgb(15 23 42 / 22%). */
   box-shadow: 0 10px 35px rgb(15 23 42 / 22%);
 }
-.lux-snip-panel-title { margin: 0 6px 0 2px; font: 750 13px/1.2 system-ui,sans-serif; white-space: nowrap; }
-.lux-snip-mode-group { display: flex; align-items: center; gap: 3px; }
+/* Style elements matching .lux-snip-panel-title to define their appearance and layout. */
+.lux-snip-panel-title { /* Control the space outside the element. Value: 0 6px 0 2px. */
+margin: 0 6px 0 2px; /* Set font to control this element's appearance or behavior. Value: 750 13px/1.2 system-ui,sans-serif. */
+font: 750 13px/1.2 system-ui,sans-serif; /* Control text wrapping and spaces. Value: nowrap. */
+white-space: nowrap; }
+/* Style elements matching .lux-snip-mode-group to define their appearance and layout. */
+.lux-snip-mode-group { /* Choose how this element participates in layout. Value: flex. */
+display: flex; /* Align children across the layout's cross-axis. Value: center. */
+align-items: center; /* Set the spacing between child items. Value: 3px. */
+gap: 3px; }
+/* Style elements matching .lux-snip-capture-panel button, .lux-snip-capture-panel select to define their appearance and layout. */
 .lux-snip-capture-panel button,
 .lux-snip-capture-panel select {
+  /* Set the minimum allowed height. Value: 34px. */
   min-height: 34px;
+  /* Control the space between the element's border and its content. Value: 6px 9px. */
   padding: 6px 9px;
+  /* Set the outline around the element. Value: 1px solid var(--control-border, #cbd5e1). */
   border: 1px solid var(--control-border, #cbd5e1);
+  /* Round the element's corners. Value: 8px. */
   border-radius: 8px;
+  /* Set the element's background appearance. Value: var(--control-bg, #fff). */
   background: var(--control-bg, #fff);
+  /* Set the text and current-color icon color. Value: var(--control-text, #0f172a). */
   color: var(--control-text, #0f172a);
+  /* Set font to control this element's appearance or behavior. Value: 600 12px/1.2 system-ui,sans-serif. */
   font: 600 12px/1.2 system-ui,sans-serif;
+  /* Choose the pointer symbol shown over the element. Value: pointer. */
   cursor: pointer;
 }
-.lux-snip-capture-panel button.is-active { border-color: #2563eb; background: #dbeafe; color: #1d4ed8; }
-.lux-snip-capture-panel button.primary { border-color: #1d4ed8; background: #2563eb; color: #fff; }
-.lux-snip-capture-panel button.danger { color: #dc2626; }
-.lux-snip-capture-panel label { display:flex; align-items:center; gap:5px; color:var(--muted,#64748b); font:600 11px/1.2 system-ui,sans-serif; white-space:nowrap; }
+/* Style elements matching .lux-snip-capture-panel button.is-active to define their appearance and layout. */
+.lux-snip-capture-panel button.is-active { /* Set border-color to control this element's appearance or behavior. Value: #2563eb. */
+border-color: #2563eb; /* Set the element's background appearance. Value: #dbeafe. */
+background: #dbeafe; /* Set the text and current-color icon color. Value: #1d4ed8. */
+color: #1d4ed8; }
+/* Style elements matching .lux-snip-capture-panel button.primary to define their appearance and layout. */
+.lux-snip-capture-panel button.primary { /* Set border-color to control this element's appearance or behavior. Value: #1d4ed8. */
+border-color: #1d4ed8; /* Set the element's background appearance. Value: #2563eb. */
+background: #2563eb; /* Set the text and current-color icon color. Value: #fff. */
+color: #fff; }
+/* Style elements matching .lux-snip-capture-panel button.danger to define their appearance and layout. */
+.lux-snip-capture-panel button.danger { /* Set the text and current-color icon color. Value: #dc2626. */
+color: #dc2626; }
+/* Style elements matching .lux-snip-capture-panel label to define their appearance and layout. */
+.lux-snip-capture-panel label { /* Choose how this element participates in layout. Value: flex. */
+display:flex; /* Align children across the layout's cross-axis. Value: center. */
+align-items:center; /* Set the spacing between child items. Value: 5px. */
+gap:5px; /* Set the text and current-color icon color. Value: var(--muted,#64748b). */
+color:var(--muted,#64748b); /* Set font to control this element's appearance or behavior. Value: 600 11px/1.2 system-ui,sans-serif. */
+font:600 11px/1.2 system-ui,sans-serif; /* Control text wrapping and spaces. Value: nowrap. */
+white-space:nowrap; }
+/* Style elements matching #lux-snip-selection to define their appearance and layout. */
 #lux-snip-selection {
+  /* Choose how the element is positioned on the page. Value: fixed. */
   position: fixed;
+  /* Control which overlapping element appears in front. Value: 6000. */
   z-index: 6000;
+  /* Set the offsets used to position the element. Value: 0. */
   inset: 0;
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
   overflow: hidden;
+  /* Set the element's background appearance. Value: transparent. */
   background: transparent;
+  /* Choose the pointer symbol shown over the element. Value: crosshair. */
   cursor: crosshair;
+  /* Set touch-action to control this element's appearance or behavior. Value: none. */
   touch-action: none;
+  /* Set user-select to control this element's appearance or behavior. Value: none. */
   user-select: none;
 }
+/* Style elements matching #lux-snip-selection-box to define their appearance and layout. */
 #lux-snip-selection-box {
+  /* Choose how the element is positioned on the page. Value: absolute. */
   position: absolute;
+  /* Set the outline around the element. Value: 2px dashed #2563eb. */
   border: 2px dashed #2563eb;
+  /* Set the element's background appearance. Value: rgb(255 255 255 / 4%). */
   background: rgb(255 255 255 / 4%);
+  /* Draw a shadow to add depth around the element. Value: 0 0 0 9999px rgb(15 23 42 / 40%). */
   box-shadow: 0 0 0 9999px rgb(15 23 42 / 40%);
+  /* Choose whether pointer actions can target the element. Value: none. */
   pointer-events: none;
 }
+/* Style elements matching #lux-snip-selection-box::before, #lux-snip-selection-box::after to define their appearance and layout. */
 #lux-snip-selection-box::before,
 #lux-snip-selection-box::after {
-  content:""; position:absolute; width:8px; height:8px; border:2px solid #fff; border-radius:50%; background:#2563eb;
+  /* Provide generated content for this pseudo-element. Value: "". */
+  content:""; /* Choose how the element is positioned on the page. Value: absolute. */
+  position:absolute; /* Control the element's width. Value: 8px. */
+  width:8px; /* Control the element's height. Value: 8px. */
+  height:8px; /* Set the outline around the element. Value: 2px solid #fff. */
+  border:2px solid #fff; /* Round the element's corners. Value: 50%. */
+  border-radius:50%; /* Set the element's background appearance. Value: #2563eb. */
+  background:#2563eb;
 }
-#lux-snip-selection-box::before { top:-6px; left:-6px; }
-#lux-snip-selection-box::after { right:-6px; bottom:-6px; }
+/* Style elements matching #lux-snip-selection-box::before to define their appearance and layout. */
+#lux-snip-selection-box::before { /* Set the top positioning offset. Value: -6px. */
+top:-6px; /* Set the left positioning offset. Value: -6px. */
+left:-6px; }
+/* Style elements matching #lux-snip-selection-box::after to define their appearance and layout. */
+#lux-snip-selection-box::after { /* Set the right positioning offset. Value: -6px. */
+right:-6px; /* Set the bottom positioning offset. Value: -6px. */
+bottom:-6px; }
+/* Style elements matching #lux-snip-selection-help to define their appearance and layout. */
 #lux-snip-selection-help {
-  position:absolute; top:14px; left:50%; transform:translateX(-50%); max-width:calc(100vw - 24px);
-  padding:8px 12px; border-radius:9px; background:#111827; color:#fff;
-  font:600 12px/1.4 system-ui,sans-serif; box-shadow:0 6px 20px rgb(0 0 0 / 22%);
-  pointer-events:none; white-space:nowrap;
+  /* Choose how the element is positioned on the page. Value: absolute. */
+  position:absolute; /* Set the top positioning offset. Value: 14px. */
+  top:14px; /* Set the left positioning offset. Value: 50%. */
+  left:50%; /* Move, rotate, or scale the element visually. Value: translateX(-50%). */
+  transform:translateX(-50%); /* Set the maximum allowed width. Value: calc(100vw - 24px). */
+  max-width:calc(100vw - 24px);
+  /* Control the space between the element's border and its content. Value: 8px 12px. */
+  padding:8px 12px; /* Round the element's corners. Value: 9px. */
+  border-radius:9px; /* Set the element's background appearance. Value: #111827. */
+  background:#111827; /* Set the text and current-color icon color. Value: #fff. */
+  color:#fff;
+  /* Set font to control this element's appearance or behavior. Value: 600 12px/1.4 system-ui,sans-serif. */
+  font:600 12px/1.4 system-ui,sans-serif; /* Draw a shadow to add depth around the element. Value: 0 6px 20px rgb(0 0 0 / 22%). */
+  box-shadow:0 6px 20px rgb(0 0 0 / 22%);
+  /* Choose whether pointer actions can target the element. Value: none. */
+  pointer-events:none; /* Control text wrapping and spaces. Value: nowrap. */
+  white-space:nowrap;
 }
+/* Style elements matching #lux-snip-selection-toolbar to define their appearance and layout. */
 #lux-snip-selection-toolbar {
-  position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:2;
-  display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:10px;
-  background:#fff; color:#0f172a; box-shadow:0 8px 26px rgb(0 0 0 / 22%);
-  font:600 12px system-ui,sans-serif; cursor:default; touch-action:manipulation;
+  /* Choose how the element is positioned on the page. Value: fixed. */
+  position:fixed; /* Set the top positioning offset. Value: 14px. */
+  top:14px; /* Set the left positioning offset. Value: 50%. */
+  left:50%; /* Move, rotate, or scale the element visually. Value: translateX(-50%). */
+  transform:translateX(-50%); /* Control which overlapping element appears in front. Value: 2. */
+  z-index:2;
+  /* Choose how this element participates in layout. Value: flex. */
+  display:flex; /* Align children across the layout's cross-axis. Value: center. */
+  align-items:center; /* Set the spacing between child items. Value: 8px. */
+  gap:8px; /* Control the space between the element's border and its content. Value: 7px 10px. */
+  padding:7px 10px; /* Round the element's corners. Value: 10px. */
+  border-radius:10px;
+  /* Set the element's background appearance. Value: #fff. */
+  background:#fff; /* Set the text and current-color icon color. Value: #0f172a. */
+  color:#0f172a; /* Draw a shadow to add depth around the element. Value: 0 8px 26px rgb(0 0 0 / 22%). */
+  box-shadow:0 8px 26px rgb(0 0 0 / 22%);
+  /* Set font to control this element's appearance or behavior. Value: 600 12px system-ui,sans-serif. */
+  font:600 12px system-ui,sans-serif; /* Choose the pointer symbol shown over the element. Value: default. */
+  cursor:default; /* Set touch-action to control this element's appearance or behavior. Value: manipulation. */
+  touch-action:manipulation;
 }
-#lux-snip-selection-toolbar button { border:1px solid #cbd5e1; border-radius:7px; padding:6px 9px; background:#fff; cursor:pointer; }
-#lux-snip-selection-toolbar button:hover { background:#eff6ff; }
+/* Style elements matching #lux-snip-selection-toolbar button to define their appearance and layout. */
+#lux-snip-selection-toolbar button { /* Set the outline around the element. Value: 1px solid #cbd5e1. */
+border:1px solid #cbd5e1; /* Round the element's corners. Value: 7px. */
+border-radius:7px; /* Control the space between the element's border and its content. Value: 6px 9px. */
+padding:6px 9px; /* Set the element's background appearance. Value: #fff. */
+background:#fff; /* Choose the pointer symbol shown over the element. Value: pointer. */
+cursor:pointer; }
+/* Style elements matching #lux-snip-selection-toolbar button:hover to define their appearance and layout. */
+#lux-snip-selection-toolbar button:hover { /* Set the element's background appearance. Value: #eff6ff. */
+background:#eff6ff; }
+/* Style elements matching #lux-snip-countdown to define their appearance and layout. */
 #lux-snip-countdown {
-  position:fixed; z-index:5990; top:16px; left:50%; transform:translateX(-50%);
-  padding:10px 16px; border-radius:10px; background:#111827; color:#fff;
-  box-shadow:0 7px 24px rgb(0 0 0 / 22%); font:700 15px system-ui,sans-serif; pointer-events:none;
+  /* Choose how the element is positioned on the page. Value: fixed. */
+  position:fixed; /* Control which overlapping element appears in front. Value: 5990. */
+  z-index:5990; /* Set the top positioning offset. Value: 16px. */
+  top:16px; /* Set the left positioning offset. Value: 50%. */
+  left:50%; /* Move, rotate, or scale the element visually. Value: translateX(-50%). */
+  transform:translateX(-50%);
+  /* Control the space between the element's border and its content. Value: 10px 16px. */
+  padding:10px 16px; /* Round the element's corners. Value: 10px. */
+  border-radius:10px; /* Set the element's background appearance. Value: #111827. */
+  background:#111827; /* Set the text and current-color icon color. Value: #fff. */
+  color:#fff;
+  /* Draw a shadow to add depth around the element. Value: 0 7px 24px rgb(0 0 0 / 22%). */
+  box-shadow:0 7px 24px rgb(0 0 0 / 22%); /* Set font to control this element's appearance or behavior. Value: 700 15px system-ui,sans-serif. */
+  font:700 15px system-ui,sans-serif; /* Choose whether pointer actions can target the element. Value: none. */
+  pointer-events:none;
 }
-#lux-snip-freeform-path { pointer-events:none; }
+/* Style elements matching #lux-snip-freeform-path to define their appearance and layout. */
+#lux-snip-freeform-path { /* Choose whether pointer actions can target the element. Value: none. */
+pointer-events:none; }
+/* Style elements matching .lux-snip-editor-modal to define their appearance and layout. */
 .lux-snip-editor-modal {
-  position:fixed; inset:0; z-index:7000; display:flex; justify-content:center; align-items:stretch;
+  /* Choose how the element is positioned on the page. Value: fixed. */
+  position:fixed; /* Set the offsets used to position the element. Value: 0. */
+  inset:0; /* Control which overlapping element appears in front. Value: 7000. */
+  z-index:7000; /* Choose how this element participates in layout. Value: flex. */
+  display:flex; /* Distribute child items along the main layout axis. Value: center. */
+  justify-content:center; /* Align children across the layout's cross-axis. Value: stretch. */
+  align-items:stretch;
+  /* Control the space between the element's border and its content. Value: 0. */
   padding:0;
 }
+/* Style elements matching .lux-snip-editor-backdrop to define their appearance and layout. */
 .lux-snip-editor-backdrop {
-  position:absolute; inset:0; background:rgb(15 23 42 / 38%);
-  backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);
+  /* Choose how the element is positioned on the page. Value: absolute. */
+  position:absolute; /* Set the offsets used to position the element. Value: 0. */
+  inset:0; /* Set the element's background appearance. Value: rgb(15 23 42 / 38%). */
+  background:rgb(15 23 42 / 38%);
+  /* Set backdrop-filter to control this element's appearance or behavior. Value: blur(7px). */
+  backdrop-filter:blur(7px); /* Set -webkit-backdrop-filter to control this element's appearance or behavior. Value: blur(7px). */
+  -webkit-backdrop-filter:blur(7px);
 }
+/* Style elements matching .lux-snip-editor-dialog to define their appearance and layout. */
 .lux-snip-editor-dialog {
-  position:relative; display:flex; flex-direction:column; overflow:hidden;
-  width:100vw; height:100vh; height:100dvh; min-height:0; max-width:none; max-height:none;
-  border:0; border-radius:0;
-  background:var(--panel,#fff); color:var(--ink,#0f172a);
+  /* Choose how the element is positioned on the page. Value: relative. */
+  position:relative; /* Choose how this element participates in layout. Value: flex. */
+  display:flex; /* Choose the direction flex items flow. Value: column. */
+  flex-direction:column; /* Choose how content beyond the element's box is handled. Value: hidden. */
+  overflow:hidden;
+  /* Control the element's width. Value: 100vw. */
+  width:100vw; /* Control the element's height. Value: 100vh. */
+  height:100vh; /* Control the element's height. Value: 100dvh. */
+  height:100dvh; /* Set the minimum allowed height. Value: 0. */
+  min-height:0; /* Set the maximum allowed width. Value: none. */
+  max-width:none; /* Set the maximum allowed height. Value: none. */
+  max-height:none;
+  /* Set the outline around the element. Value: 0. */
+  border:0; /* Round the element's corners. Value: 0. */
+  border-radius:0;
+  /* Set the element's background appearance. Value: var(--panel,#fff). */
+  background:var(--panel,#fff); /* Set the text and current-color icon color. Value: var(--ink,#0f172a). */
+  color:var(--ink,#0f172a);
+  /* Draw a shadow to add depth around the element. Value: none. */
   box-shadow:none;
 }
-.lux-snip-editor-header { display:flex; align-items:center; gap:10px; min-height:58px; flex:0 0 auto; padding:9px 14px; border-bottom:1px solid var(--line,#e2e8f0); }
-.lux-snip-brand-icon { width:34px; height:34px; flex:0 0 34px; border-radius:9px; }
-.lux-snip-editor-title { margin:0; font:750 17px/1.25 system-ui,sans-serif; letter-spacing:-.02em; }
+/* Style elements matching .lux-snip-editor-header to define their appearance and layout. */
+.lux-snip-editor-header { /* Choose how this element participates in layout. Value: flex. */
+display:flex; /* Align children across the layout's cross-axis. Value: center. */
+align-items:center; /* Set the spacing between child items. Value: 10px. */
+gap:10px; /* Set the minimum allowed height. Value: 58px. */
+min-height:58px; /* Control how this flex item grows or shrinks. Value: 0 0 auto. */
+flex:0 0 auto; /* Control the space between the element's border and its content. Value: 9px 14px. */
+padding:9px 14px; /* Set border-bottom to control this element's appearance or behavior. Value: 1px solid var(--line,#e2e8f0). */
+border-bottom:1px solid var(--line,#e2e8f0); }
+/* Style elements matching .lux-snip-brand-icon to define their appearance and layout. */
+.lux-snip-brand-icon { /* Control the element's width. Value: 34px. */
+width:34px; /* Control the element's height. Value: 34px. */
+height:34px; /* Control how this flex item grows or shrinks. Value: 0 0 34px. */
+flex:0 0 34px; /* Round the element's corners. Value: 9px. */
+border-radius:9px; }
+/* Style elements matching .lux-snip-editor-title to define their appearance and layout. */
+.lux-snip-editor-title { /* Control the space outside the element. Value: 0. */
+margin:0; /* Set font to control this element's appearance or behavior. Value: 750 17px/1.25 system-ui,sans-serif. */
+font:750 17px/1.25 system-ui,sans-serif; /* Set letter-spacing to control this element's appearance or behavior. Value: -.02em. */
+letter-spacing:-.02em; }
+/* Style elements matching #lux-snip-discard to define their appearance and layout. */
 #lux-snip-discard {
-  display:grid; place-items:center; width:36px; height:36px; margin-left:auto; flex:0 0 36px;
-  border:1px solid rgb(220 38 38 / 24%); border-radius:9px; background:#fff1f2; color:#dc2626; cursor:pointer;
+  /* Choose how this element participates in layout. Value: grid. */
+  display:grid; /* Set place-items to control this element's appearance or behavior. Value: center. */
+  place-items:center; /* Control the element's width. Value: 36px. */
+  width:36px; /* Control the element's height. Value: 36px. */
+  height:36px; /* Set margin-left to control this element's appearance or behavior. Value: auto. */
+  margin-left:auto; /* Control how this flex item grows or shrinks. Value: 0 0 36px. */
+  flex:0 0 36px;
+  /* Set the outline around the element. Value: 1px solid rgb(220 38 38 / 24%). */
+  border:1px solid rgb(220 38 38 / 24%); /* Round the element's corners. Value: 9px. */
+  border-radius:9px; /* Set the element's background appearance. Value: #fff1f2. */
+  background:#fff1f2; /* Set the text and current-color icon color. Value: #dc2626. */
+  color:#dc2626; /* Choose the pointer symbol shown over the element. Value: pointer. */
+  cursor:pointer;
 }
-#lux-snip-discard:hover { background:#ffe4e6; }
-#lux-snip-discard svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:2.5; stroke-linecap:round; }
-.lux-snip-editor-toolbar { display:flex; flex:0 0 auto; flex-wrap:wrap; align-items:center; gap:5px; padding:7px 10px; border-bottom:1px solid var(--line,#e2e8f0); }
+/* Style elements matching #lux-snip-discard:hover to define their appearance and layout. */
+#lux-snip-discard:hover { /* Set the element's background appearance. Value: #ffe4e6. */
+background:#ffe4e6; }
+/* Style elements matching #lux-snip-discard svg to define their appearance and layout. */
+#lux-snip-discard svg { /* Control the element's width. Value: 19px. */
+width:19px; /* Control the element's height. Value: 19px. */
+height:19px; /* Set the fill color of a vector shape. Value: none. */
+fill:none; /* Set the outline color of a vector shape. Value: currentColor. */
+stroke:currentColor; /* Set the thickness of a vector outline. Value: 2.5. */
+stroke-width:2.5; /* Set stroke-linecap to control this element's appearance or behavior. Value: round. */
+stroke-linecap:round; }
+/* Style elements matching .lux-snip-editor-toolbar to define their appearance and layout. */
+.lux-snip-editor-toolbar { /* Choose how this element participates in layout. Value: flex. */
+display:flex; /* Control how this flex item grows or shrinks. Value: 0 0 auto. */
+flex:0 0 auto; /* Allow or prevent flex items from wrapping. Value: wrap. */
+flex-wrap:wrap; /* Align children across the layout's cross-axis. Value: center. */
+align-items:center; /* Set the spacing between child items. Value: 5px. */
+gap:5px; /* Control the space between the element's border and its content. Value: 7px 10px. */
+padding:7px 10px; /* Set border-bottom to control this element's appearance or behavior. Value: 1px solid var(--line,#e2e8f0). */
+border-bottom:1px solid var(--line,#e2e8f0); }
+/* Style elements matching .lux-snip-editor-toolbar button, .lux-snip-editor-toolbar select to define their appearance and layout. */
 .lux-snip-editor-toolbar button,
 .lux-snip-editor-toolbar select {
-  display:inline-flex; align-items:center; justify-content:center; gap:5px; min-height:36px; padding:6px 8px;
-  border:1px solid transparent; border-radius:8px; background:transparent; color:var(--ink,#0f172a);
-  font:600 12px/1.2 system-ui,sans-serif; cursor:pointer;
+  /* Choose how this element participates in layout. Value: inline-flex. */
+  display:inline-flex; /* Align children across the layout's cross-axis. Value: center. */
+  align-items:center; /* Distribute child items along the main layout axis. Value: center. */
+  justify-content:center; /* Set the spacing between child items. Value: 5px. */
+  gap:5px; /* Set the minimum allowed height. Value: 36px. */
+  min-height:36px; /* Control the space between the element's border and its content. Value: 6px 8px. */
+  padding:6px 8px;
+  /* Set the outline around the element. Value: 1px solid transparent. */
+  border:1px solid transparent; /* Round the element's corners. Value: 8px. */
+  border-radius:8px; /* Set the element's background appearance. Value: transparent. */
+  background:transparent; /* Set the text and current-color icon color. Value: var(--ink,#0f172a). */
+  color:var(--ink,#0f172a);
+  /* Set font to control this element's appearance or behavior. Value: 600 12px/1.2 system-ui,sans-serif. */
+  font:600 12px/1.2 system-ui,sans-serif; /* Choose the pointer symbol shown over the element. Value: pointer. */
+  cursor:pointer;
 }
-.lux-snip-editor-toolbar button:hover { background:var(--panel-muted,#f1f5f9); }
-.lux-snip-editor-toolbar button.is-active { border-color:#bfdbfe; background:#dbeafe; color:#1d4ed8; }
-.lux-snip-editor-toolbar button:disabled { opacity:.4; cursor:not-allowed; }
-.lux-snip-editor-toolbar button svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-.lux-snip-toolbar-divider { width:1px; height:25px; background:var(--line,#e2e8f0); margin:0 3px; }
-.lux-snip-color-row { display:flex; align-items:center; gap:5px; }
-.lux-snip-editor-toolbar button.lux-snip-color { width:21px; min-width:21px; height:21px; min-height:21px; padding:0; border-radius:50%; box-shadow:inset 0 0 0 1px rgb(15 23 42 / 12%); }
-.lux-snip-editor-toolbar button.lux-snip-color.is-active { outline:2px solid #2563eb; outline-offset:2px; }
-#lux-snip-copy { margin-left:auto; border-color:#2563eb; background:#2563eb; color:#fff; }
-#lux-snip-copy:hover { background:#1d4ed8; }
-#lux-snip-log { border-color:var(--control-border,#cbd5e1); background:var(--control-bg,#fff); }
-#lux-snip-log:hover { background:var(--panel-muted,#f1f5f9); }
-#lux-snip-save { border-color:var(--control-border,#cbd5e1); background:var(--control-bg,#fff); }
-.lux-snip-workarea { flex:1 1 0; min-height:0; max-height:none; overflow:auto; padding:clamp(8px,1.4vw,22px); background:var(--panel-muted,#f8fafc); }
-#lux-snip-stage { position:relative; margin:0 auto; overflow:hidden; background:#fff; box-shadow:0 2px 12px rgb(15 23 42 / 15%); }
-#lux-snip-base,#lux-snip-ink { position:absolute; top:0; left:0; display:block; max-width:none; margin:0; }
-#lux-snip-base { z-index:0; pointer-events:none; }
-#lux-snip-ink { z-index:1; cursor:crosshair; touch-action:none; }
-#lux-snip-ink.is-text-tool { cursor:text; }
-#lux-snip-ink.is-crop-tool { cursor:crosshair; }
-#lux-snip-crop-box { position:absolute; z-index:3; border:2px dashed #2563eb; background:rgb(37 99 235 / 10%); pointer-events:none; }
+/* Style elements matching .lux-snip-editor-toolbar button:hover to define their appearance and layout. */
+.lux-snip-editor-toolbar button:hover { /* Set the element's background appearance. Value: var(--panel-muted,#f1f5f9). */
+background:var(--panel-muted,#f1f5f9); }
+/* Style elements matching .lux-snip-editor-toolbar button.is-active to define their appearance and layout. */
+.lux-snip-editor-toolbar button.is-active { /* Set border-color to control this element's appearance or behavior. Value: #bfdbfe. */
+border-color:#bfdbfe; /* Set the element's background appearance. Value: #dbeafe. */
+background:#dbeafe; /* Set the text and current-color icon color. Value: #1d4ed8. */
+color:#1d4ed8; }
+/* Style elements matching .lux-snip-editor-toolbar button:disabled to define their appearance and layout. */
+.lux-snip-editor-toolbar button:disabled { /* Set how transparent the element appears. Value: .4. */
+opacity:.4; /* Choose the pointer symbol shown over the element. Value: not-allowed. */
+cursor:not-allowed; }
+/* Style elements matching .lux-snip-editor-toolbar button svg to define their appearance and layout. */
+.lux-snip-editor-toolbar button svg { /* Control the element's width. Value: 18px. */
+width:18px; /* Control the element's height. Value: 18px. */
+height:18px; /* Set the fill color of a vector shape. Value: none. */
+fill:none; /* Set the outline color of a vector shape. Value: currentColor. */
+stroke:currentColor; /* Set the thickness of a vector outline. Value: 1.8. */
+stroke-width:1.8; /* Set stroke-linecap to control this element's appearance or behavior. Value: round. */
+stroke-linecap:round; /* Set stroke-linejoin to control this element's appearance or behavior. Value: round. */
+stroke-linejoin:round; }
+/* Style elements matching .lux-snip-toolbar-divider to define their appearance and layout. */
+.lux-snip-toolbar-divider { /* Control the element's width. Value: 1px. */
+width:1px; /* Control the element's height. Value: 25px. */
+height:25px; /* Set the element's background appearance. Value: var(--line,#e2e8f0). */
+background:var(--line,#e2e8f0); /* Control the space outside the element. Value: 0 3px. */
+margin:0 3px; }
+/* Style elements matching .lux-snip-color-row to define their appearance and layout. */
+.lux-snip-color-row { /* Choose how this element participates in layout. Value: flex. */
+display:flex; /* Align children across the layout's cross-axis. Value: center. */
+align-items:center; /* Set the spacing between child items. Value: 5px. */
+gap:5px; }
+/* Style elements matching .lux-snip-editor-toolbar button.lux-snip-color to define their appearance and layout. */
+.lux-snip-editor-toolbar button.lux-snip-color { /* Control the element's width. Value: 21px. */
+width:21px; /* Set the minimum allowed width. Value: 21px. */
+min-width:21px; /* Control the element's height. Value: 21px. */
+height:21px; /* Set the minimum allowed height. Value: 21px. */
+min-height:21px; /* Control the space between the element's border and its content. Value: 0. */
+padding:0; /* Round the element's corners. Value: 50%. */
+border-radius:50%; /* Draw a shadow to add depth around the element. Value: inset 0 0 0 1px rgb(15 23 42 / 12%). */
+box-shadow:inset 0 0 0 1px rgb(15 23 42 / 12%); }
+/* Style elements matching .lux-snip-editor-toolbar button.lux-snip-color.is-active to define their appearance and layout. */
+.lux-snip-editor-toolbar button.lux-snip-color.is-active { /* Set outline to control this element's appearance or behavior. Value: 2px solid #2563eb. */
+outline:2px solid #2563eb; /* Set outline-offset to control this element's appearance or behavior. Value: 2px. */
+outline-offset:2px; }
+/* Style elements matching #lux-snip-copy to define their appearance and layout. */
+#lux-snip-copy { /* Set margin-left to control this element's appearance or behavior. Value: auto. */
+margin-left:auto; /* Set border-color to control this element's appearance or behavior. Value: #2563eb. */
+border-color:#2563eb; /* Set the element's background appearance. Value: #2563eb. */
+background:#2563eb; /* Set the text and current-color icon color. Value: #fff. */
+color:#fff; }
+/* Style elements matching #lux-snip-copy:hover to define their appearance and layout. */
+#lux-snip-copy:hover { /* Set the element's background appearance. Value: #1d4ed8. */
+background:#1d4ed8; }
+/* Style elements matching #lux-snip-log to define their appearance and layout. */
+#lux-snip-log { /* Set border-color to control this element's appearance or behavior. Value: var(--control-border,#cbd5e1). */
+border-color:var(--control-border,#cbd5e1); /* Set the element's background appearance. Value: var(--control-bg,#fff). */
+background:var(--control-bg,#fff); }
+/* Style elements matching #lux-snip-log:hover to define their appearance and layout. */
+#lux-snip-log:hover { /* Set the element's background appearance. Value: var(--panel-muted,#f1f5f9). */
+background:var(--panel-muted,#f1f5f9); }
+/* Style elements matching #lux-snip-save to define their appearance and layout. */
+#lux-snip-save { /* Set border-color to control this element's appearance or behavior. Value: var(--control-border,#cbd5e1). */
+border-color:var(--control-border,#cbd5e1); /* Set the element's background appearance. Value: var(--control-bg,#fff). */
+background:var(--control-bg,#fff); }
+/* Style elements matching .lux-snip-workarea to define their appearance and layout. */
+.lux-snip-workarea { /* Control how this flex item grows or shrinks. Value: 1 1 0. */
+flex:1 1 0; /* Set the minimum allowed height. Value: 0. */
+min-height:0; /* Set the maximum allowed height. Value: none. */
+max-height:none; /* Choose how content beyond the element's box is handled. Value: auto. */
+overflow:auto; /* Control the space between the element's border and its content. Value: clamp(8px,1.4vw,22px). */
+padding:clamp(8px,1.4vw,22px); /* Set the element's background appearance. Value: var(--panel-muted,#f8fafc). */
+background:var(--panel-muted,#f8fafc); }
+/* Style elements matching #lux-snip-stage to define their appearance and layout. */
+#lux-snip-stage { /* Choose how the element is positioned on the page. Value: relative. */
+position:relative; /* Control the space outside the element. Value: 0 auto. */
+margin:0 auto; /* Choose how content beyond the element's box is handled. Value: hidden. */
+overflow:hidden; /* Set the element's background appearance. Value: #fff. */
+background:#fff; /* Draw a shadow to add depth around the element. Value: 0 2px 12px rgb(15 23 42 / 15%). */
+box-shadow:0 2px 12px rgb(15 23 42 / 15%); }
+/* Style elements matching #lux-snip-base,#lux-snip-ink to define their appearance and layout. */
+#lux-snip-base,#lux-snip-ink { /* Choose how the element is positioned on the page. Value: absolute. */
+position:absolute; /* Set the top positioning offset. Value: 0. */
+top:0; /* Set the left positioning offset. Value: 0. */
+left:0; /* Choose how this element participates in layout. Value: block. */
+display:block; /* Set the maximum allowed width. Value: none. */
+max-width:none; /* Control the space outside the element. Value: 0. */
+margin:0; }
+/* Style elements matching #lux-snip-base to define their appearance and layout. */
+#lux-snip-base { /* Control which overlapping element appears in front. Value: 0. */
+z-index:0; /* Choose whether pointer actions can target the element. Value: none. */
+pointer-events:none; }
+/* Style elements matching #lux-snip-ink to define their appearance and layout. */
+#lux-snip-ink { /* Control which overlapping element appears in front. Value: 1. */
+z-index:1; /* Choose the pointer symbol shown over the element. Value: crosshair. */
+cursor:crosshair; /* Set touch-action to control this element's appearance or behavior. Value: none. */
+touch-action:none; }
+/* Style elements matching #lux-snip-ink.is-text-tool to define their appearance and layout. */
+#lux-snip-ink.is-text-tool { /* Choose the pointer symbol shown over the element. Value: text. */
+cursor:text; }
+/* Style elements matching #lux-snip-ink.is-crop-tool to define their appearance and layout. */
+#lux-snip-ink.is-crop-tool { /* Choose the pointer symbol shown over the element. Value: crosshair. */
+cursor:crosshair; }
+/* Style elements matching #lux-snip-crop-box to define their appearance and layout. */
+#lux-snip-crop-box { /* Choose how the element is positioned on the page. Value: absolute. */
+position:absolute; /* Control which overlapping element appears in front. Value: 3. */
+z-index:3; /* Set the outline around the element. Value: 2px dashed #2563eb. */
+border:2px dashed #2563eb; /* Set the element's background appearance. Value: rgb(37 99 235 / 10%). */
+background:rgb(37 99 235 / 10%); /* Choose whether pointer actions can target the element. Value: none. */
+pointer-events:none; }
+/* Style elements matching .lux-snip-text-entry to define their appearance and layout. */
 .lux-snip-text-entry {
-  position:absolute; z-index:4; min-height:30px; min-width:140px; padding:5px 7px; resize:both;
-  border:1px dashed #2563eb; border-radius:4px; outline:none; background:rgb(255 255 255 / 95%);
-  color:#111827; font-family:system-ui,sans-serif; line-height:1.35; box-shadow:0 2px 8px rgb(15 23 42 / 16%);
+  /* Choose how the element is positioned on the page. Value: absolute. */
+  position:absolute; /* Control which overlapping element appears in front. Value: 4. */
+  z-index:4; /* Set the minimum allowed height. Value: 30px. */
+  min-height:30px; /* Set the minimum allowed width. Value: 140px. */
+  min-width:140px; /* Control the space between the element's border and its content. Value: 5px 7px. */
+  padding:5px 7px; /* Set resize to control this element's appearance or behavior. Value: both. */
+  resize:both;
+  /* Set the outline around the element. Value: 1px dashed #2563eb. */
+  border:1px dashed #2563eb; /* Round the element's corners. Value: 4px. */
+  border-radius:4px; /* Set outline to control this element's appearance or behavior. Value: none. */
+  outline:none; /* Set the element's background appearance. Value: rgb(255 255 255 / 95%). */
+  background:rgb(255 255 255 / 95%);
+  /* Set the text and current-color icon color. Value: #111827. */
+  color:#111827; /* Choose the typeface used for text. Value: system-ui,sans-serif. */
+  font-family:system-ui,sans-serif; /* Set the vertical spacing between text lines. Value: 1.35. */
+  line-height:1.35; /* Draw a shadow to add depth around the element. Value: 0 2px 8px rgb(15 23 42 / 16%). */
+  box-shadow:0 2px 8px rgb(15 23 42 / 16%);
 }
-#lux-snip-status { flex:0 0 auto; min-height:30px; padding:7px 12px; border-top:1px solid var(--line,#e2e8f0); color:var(--muted,#64748b); font:12px/1.4 system-ui,sans-serif; }
+/* Style elements matching #lux-snip-status to define their appearance and layout. */
+#lux-snip-status { /* Control how this flex item grows or shrinks. Value: 0 0 auto. */
+flex:0 0 auto; /* Set the minimum allowed height. Value: 30px. */
+min-height:30px; /* Control the space between the element's border and its content. Value: 7px 12px. */
+padding:7px 12px; /* Set border-top to control this element's appearance or behavior. Value: 1px solid var(--line,#e2e8f0). */
+border-top:1px solid var(--line,#e2e8f0); /* Set the text and current-color icon color. Value: var(--muted,#64748b). */
+color:var(--muted,#64748b); /* Set font to control this element's appearance or behavior. Value: 12px/1.4 system-ui,sans-serif. */
+font:12px/1.4 system-ui,sans-serif; }
+/* Style elements matching #lux-snip-notice to define their appearance and layout. */
 #lux-snip-notice {
-  position:fixed; z-index:8000; right:16px; bottom:16px; max-width:min(480px,calc(100vw - 32px));
-  padding:12px 15px; border:1px solid rgb(148 163 184 / 35%); border-radius:10px;
-  background:#111827; color:#fff; font:500 13px/1.45 system-ui,sans-serif; box-shadow:0 10px 30px rgb(0 0 0 / 25%);
+  /* Choose how the element is positioned on the page. Value: fixed. */
+  position:fixed; /* Control which overlapping element appears in front. Value: 8000. */
+  z-index:8000; /* Set the right positioning offset. Value: 16px. */
+  right:16px; /* Set the bottom positioning offset. Value: 16px. */
+  bottom:16px; /* Set the maximum allowed width. Value: min(480px,calc(100vw - 32px)). */
+  max-width:min(480px,calc(100vw - 32px));
+  /* Control the space between the element's border and its content. Value: 12px 15px. */
+  padding:12px 15px; /* Set the outline around the element. Value: 1px solid rgb(148 163 184 / 35%). */
+  border:1px solid rgb(148 163 184 / 35%); /* Round the element's corners. Value: 10px. */
+  border-radius:10px;
+  /* Set the element's background appearance. Value: #111827. */
+  background:#111827; /* Set the text and current-color icon color. Value: #fff. */
+  color:#fff; /* Set font to control this element's appearance or behavior. Value: 500 13px/1.45 system-ui,sans-serif. */
+  font:500 13px/1.45 system-ui,sans-serif; /* Draw a shadow to add depth around the element. Value: 0 10px 30px rgb(0 0 0 / 25%). */
+  box-shadow:0 10px 30px rgb(0 0 0 / 25%);
 }
-#lux-snip-capture-panel[hidden],#lux-snip-selection[hidden],#lux-snip-editor-modal[hidden],#lux-snip-countdown[hidden],#lux-snip-notice[hidden] { display:none !important; }
+/* Style elements matching #lux-snip-capture-panel[hidden],#lux-snip-selection[hidden],#lux-snip-editor-modal[hidden],#lux-snip to define their appearance and layout. */
+#lux-snip-capture-panel[hidden],#lux-snip-selection[hidden],#lux-snip-editor-modal[hidden],#lux-snip-countdown[hidden],#lux-snip-notice[hidden] { /* Choose how this element participates in layout. Value: none . */
+display:none !important; }
+/* Apply these responsive styles only when (max-width:760px) is true. */
 @media(max-width:760px) {
-  .lux-snip-capture-panel { flex-wrap:wrap; justify-content:center; top:8px; }
-  .lux-snip-panel-title { flex-basis:100%; text-align:center; }
-  .lux-snip-editor-modal { padding:0; }
-  .lux-snip-editor-dialog { width:100vw; height:100vh; height:100dvh; max-height:none; border-radius:0; }
-  .lux-snip-editor-title { font-size:14px; }
-  .lux-snip-editor-toolbar { gap:3px; padding:6px; }
-  .lux-snip-editor-toolbar button,.lux-snip-editor-toolbar select { min-height:33px; padding:5px; font-size:10px; }
-  #lux-snip-copy { margin-left:0; }
-  .lux-snip-workarea { min-height:0; max-height:none; padding:8px; }
+  /* Style elements matching .lux-snip-capture-panel to define their appearance and layout. */
+  .lux-snip-capture-panel { /* Allow or prevent flex items from wrapping. Value: wrap. */
+  flex-wrap:wrap; /* Distribute child items along the main layout axis. Value: center. */
+  justify-content:center; /* Set the top positioning offset. Value: 8px. */
+  top:8px; }
+  /* Style elements matching .lux-snip-panel-title to define their appearance and layout. */
+  .lux-snip-panel-title { /* Set flex-basis to control this element's appearance or behavior. Value: 100%. */
+  flex-basis:100%; /* Align text inside its content area. Value: center. */
+  text-align:center; }
+  /* Style elements matching .lux-snip-editor-modal to define their appearance and layout. */
+  .lux-snip-editor-modal { /* Control the space between the element's border and its content. Value: 0. */
+  padding:0; }
+  /* Style elements matching .lux-snip-editor-dialog to define their appearance and layout. */
+  .lux-snip-editor-dialog { /* Control the element's width. Value: 100vw. */
+  width:100vw; /* Control the element's height. Value: 100vh. */
+  height:100vh; /* Control the element's height. Value: 100dvh. */
+  height:100dvh; /* Set the maximum allowed height. Value: none. */
+  max-height:none; /* Round the element's corners. Value: 0. */
+  border-radius:0; }
+  /* Style elements matching .lux-snip-editor-title to define their appearance and layout. */
+  .lux-snip-editor-title { /* Set the displayed text size. Value: 14px. */
+  font-size:14px; }
+  /* Style elements matching .lux-snip-editor-toolbar to define their appearance and layout. */
+  .lux-snip-editor-toolbar { /* Set the spacing between child items. Value: 3px. */
+  gap:3px; /* Control the space between the element's border and its content. Value: 6px. */
+  padding:6px; }
+  /* Style elements matching .lux-snip-editor-toolbar button,.lux-snip-editor-toolbar select to define their appearance and layout. */
+  .lux-snip-editor-toolbar button,.lux-snip-editor-toolbar select { /* Set the minimum allowed height. Value: 33px. */
+  min-height:33px; /* Control the space between the element's border and its content. Value: 5px. */
+  padding:5px; /* Set the displayed text size. Value: 10px. */
+  font-size:10px; }
+  /* Style elements matching #lux-snip-copy to define their appearance and layout. */
+  #lux-snip-copy { /* Set margin-left to control this element's appearance or behavior. Value: 0. */
+  margin-left:0; }
+  /* Style elements matching .lux-snip-workarea to define their appearance and layout. */
+  .lux-snip-workarea { /* Set the minimum allowed height. Value: 0. */
+  min-height:0; /* Set the maximum allowed height. Value: none. */
+  max-height:none; /* Control the space between the element's border and its content. Value: 8px. */
+  padding:8px; }
 }
-@media(prefers-reduced-motion:reduce) { #sidebar-screenshot,.lux-snip-capture-panel button { transition:none; } }
+/* Apply these responsive styles only when (prefers-reduced-motion:reduce) is true. */
+@media(prefers-reduced-motion:reduce) { /* Style elements matching #sidebar-screenshot,.lux-snip-capture-panel button to define their appearance and layout. */
+#sidebar-screenshot,.lux-snip-capture-panel button { /* Smooth supported changes over time. Value: none. */
+transition:none; } }
 
 
 /* Keep screenshot-editor swatch colors in external CSS, not HTML attributes. */
+/* Style elements matching .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#e03131"] to define their appearance and layout. */
 .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#e03131"] {
+  /* Set the element's background appearance. Value: #e03131. */
   background: #e03131;
 }
 
+/* Style elements matching .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#ff922b"] to define their appearance and layout. */
 .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#ff922b"] {
+  /* Set the element's background appearance. Value: #ff922b. */
   background: #ff922b;
 }
 
+/* Style elements matching .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#f08c00"] to define their appearance and layout. */
 .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#f08c00"] {
+  /* Set the element's background appearance. Value: #f08c00. */
   background: #f08c00;
 }
 
+/* Style elements matching .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#2f9e44"] to define their appearance and layout. */
 .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#2f9e44"] {
+  /* Set the element's background appearance. Value: #2f9e44. */
   background: #2f9e44;
 }
 
+/* Style elements matching .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#1971c2"] to define their appearance and layout. */
 .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#1971c2"] {
+  /* Set the element's background appearance. Value: #1971c2. */
   background: #1971c2;
 }
 
+/* Style elements matching .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#7048e8"] to define their appearance and layout. */
 .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#7048e8"] {
+  /* Set the element's background appearance. Value: #7048e8. */
   background: #7048e8;
 }
 
+/* Style elements matching .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#111827"] to define their appearance and layout. */
 .lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#111827"] {
+  /* Set the element's background appearance. Value: #111827. */
   background: #111827;
 }

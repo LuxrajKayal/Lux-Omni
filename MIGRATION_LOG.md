@@ -219,4 +219,20 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Published `FILE_SELECTED` when a file is selected and `FILE_OPEN_REQUESTED` with the downloaded file Blob, metadata, revision, and target viewport when a destination is chosen, avoiding direct viewport calls from the modal class.
   * Published Dropbox connection and sync lifecycle events for other modules to observe, while keeping access tokens inside the Dropbox API service.
   * Updated `site/js/main.js` to instantiate `DropboxModalUI` alongside `WorkspaceUI` after saved preferences are initialized.
+ 
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `docs/build: enforce codebase-wide comments and add dev-tools for comment removal`
+* **Changes — Step 1, study-mode documentation:**
+  * Added beginner-friendly HTML comments around the active document tags in `site/index.html`, explaining the page structure, controls, dialogs, icon shapes, and accessible labels without changing IDs, classes, attributes, or behavior.
+  * Added comments describing every active CSS selector/rule and each CSS property declaration in `site/styles.css` and the four stylesheets under `site/components/`, preserving the original selectors and declarations.
+  * Added a plain-English purpose comment before each executable JavaScript source line in the active modules under `site/js/`, and added intentional-scaffold notes to empty modules so learners know they are not implemented yet.
+  * Added placeholder explanations to the currently empty root-level `clipboard.html` and `privacy.html` pages.
+  * Explicitly excluded `_legacy_reference/` from this documentation pass.
+* **Changes — Step 2, developer utility:**
+  * Created `dev-tools/remove-comments.js` using Node's built-in `fs` and `path` modules to recursively process active HTML, CSS, and JavaScript files, strip comment patterns, and remove empty lines.
+  * Configured the utility to ignore `_legacy_reference/`, `.git/`, `node_modules/`, and `dev-tools/`.
+  * Created `dev-tools/README.md` explaining how to run the utility and restore tracked study-mode files with Git, including a warning that restore commands discard other unstaged tracked edits too.
+  * Documented regex parsing limitations so that template-literal edge cases are not presented as universally safe.
 

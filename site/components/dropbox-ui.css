@@ -1,197 +1,600 @@
 /* Dropbox UI integration — isolated from the main application stylesheet. */
+/* Style elements matching .dropbox-topbar-button to define their appearance and layout. */
 .dropbox-topbar-button {
+  /* Set the spacing between child items. Value: 7px. */
   gap: 7px;
+  /* Set the maximum allowed width. Value: min(250px, 34vw). */
   max-width: min(250px, 34vw);
 }
-.dropbox-topbar-label[data-state="connected"] { color: #17834e; }
-.dropbox-topbar-label[data-state="disconnected"] { color: var(--muted); }
+/* Style elements matching .dropbox-topbar-label[data-state="connected"] to define their appearance and layout. */
+.dropbox-topbar-label[data-state="connected"] { /* Set the text and current-color icon color. Value: #17834e. */
+color: #17834e; }
+/* Style elements matching .dropbox-topbar-label[data-state="disconnected"] to define their appearance and layout. */
+.dropbox-topbar-label[data-state="disconnected"] { /* Set the text and current-color icon color. Value: var(--muted). */
+color: var(--muted); }
 
+/* Style elements matching .dropbox-ui-action, .dropbox-ui-upload-button, .dropbox-ui-back, .dropbox-ui-close, .dropbox-ui-view to define their appearance and layout. */
 .dropbox-ui-action,
 .dropbox-ui-upload-button,
 .dropbox-ui-back,
 .dropbox-ui-close,
 .dropbox-ui-viewport-actions button {
-  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
-  min-height: 38px; padding: 8px 11px; border: 1px solid var(--control-border);
-  border-radius: 9px; color: var(--control-text); background: var(--control-bg);
-  font: inherit; font-size: 12px; font-weight: 650; cursor: pointer;
+  /* Choose how this element participates in layout. Value: inline-flex. */
+  display: inline-flex; /* Align children across the layout's cross-axis. Value: center. */
+  align-items: center; /* Distribute child items along the main layout axis. Value: center. */
+  justify-content: center; /* Set the spacing between child items. Value: 7px. */
+  gap: 7px;
+  /* Set the minimum allowed height. Value: 38px. */
+  min-height: 38px; /* Control the space between the element's border and its content. Value: 8px 11px. */
+  padding: 8px 11px; /* Set the outline around the element. Value: 1px solid var(--control-border). */
+  border: 1px solid var(--control-border);
+  /* Round the element's corners. Value: 9px. */
+  border-radius: 9px; /* Set the text and current-color icon color. Value: var(--control-text). */
+  color: var(--control-text); /* Set the element's background appearance. Value: var(--control-bg). */
+  background: var(--control-bg);
+  /* Set font to control this element's appearance or behavior. Value: inherit. */
+  font: inherit; /* Set the displayed text size. Value: 12px. */
+  font-size: 12px; /* Set the thickness of the text. Value: 650. */
+  font-weight: 650; /* Choose the pointer symbol shown over the element. Value: pointer. */
+  cursor: pointer;
+  /* Smooth supported changes over time. Value: background-color 160ms ease, border-color 160ms ease, opacity 160. */
   transition: background-color 160ms ease, border-color 160ms ease, opacity 160ms ease;
 }
+/* Style elements matching .dropbox-ui-action:hover:not(:disabled), .dropbox-ui-upload-button:hover, .dropbox-ui-back:hover:not to define their appearance and layout. */
 .dropbox-ui-action:hover:not(:disabled),
 .dropbox-ui-upload-button:hover,
 .dropbox-ui-back:hover:not(:disabled),
 .dropbox-ui-close:hover,
 .dropbox-ui-viewport-actions button:hover:not(:disabled) {
-  border-color: var(--control-hover-border); background: var(--control-hover-bg);
+  /* Set border-color to control this element's appearance or behavior. Value: var(--control-hover-border). */
+  border-color: var(--control-hover-border); /* Set the element's background appearance. Value: var(--control-hover-bg). */
+  background: var(--control-hover-bg);
 }
+/* Style elements matching .dropbox-ui-action:focus-visible, .dropbox-ui-upload-button:focus-visible, .dropbox-ui-back:focus-vi to define their appearance and layout. */
 .dropbox-ui-action:focus-visible, .dropbox-ui-upload-button:focus-visible,
 .dropbox-ui-back:focus-visible, .dropbox-ui-close:focus-visible,
 .dropbox-ui-viewport-actions button:focus-visible,
 .dropbox-ui-file-row:focus-visible {
-  outline: 3px solid var(--focus-outline); outline-offset: 2px;
+  /* Set outline to control this element's appearance or behavior. Value: 3px solid var(--focus-outline). */
+  outline: 3px solid var(--focus-outline); /* Set outline-offset to control this element's appearance or behavior. Value: 2px. */
+  outline-offset: 2px;
 }
+/* Style elements matching .dropbox-ui-action:disabled, .dropbox-ui-back:disabled, .dropbox-ui-viewport-actions button:disabled to define their appearance and layout. */
 .dropbox-ui-action:disabled, .dropbox-ui-back:disabled,
-.dropbox-ui-viewport-actions button:disabled { cursor: not-allowed; opacity: .48; }
+.dropbox-ui-viewport-actions button:disabled { /* Choose the pointer symbol shown over the element. Value: not-allowed. */
+cursor: not-allowed; /* Set how transparent the element appears. Value: .48. */
+opacity: .48; }
+/* Style elements matching .dropbox-ui-action svg, .dropbox-ui-upload-button svg, .dropbox-ui-back svg, .dropbox-ui-close svg to define their appearance and layout. */
 .dropbox-ui-action svg, .dropbox-ui-upload-button svg,
 .dropbox-ui-back svg, .dropbox-ui-close svg {
-  width: 16px; height: 16px; flex: 0 0 16px; fill: none; stroke: currentColor;
-  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  /* Control the element's width. Value: 16px. */
+  width: 16px; /* Control the element's height. Value: 16px. */
+  height: 16px; /* Control how this flex item grows or shrinks. Value: 0 0 16px. */
+  flex: 0 0 16px; /* Set the fill color of a vector shape. Value: none. */
+  fill: none; /* Set the outline color of a vector shape. Value: currentColor. */
+  stroke: currentColor;
+  /* Set the thickness of a vector outline. Value: 1.8. */
+  stroke-width: 1.8; /* Set stroke-linecap to control this element's appearance or behavior. Value: round. */
+  stroke-linecap: round; /* Set stroke-linejoin to control this element's appearance or behavior. Value: round. */
+  stroke-linejoin: round;
 }
-.dropbox-ui-sync { border-color: #2469dc; color: #fff; background: #2469dc; }
-.dropbox-ui-sync:hover:not(:disabled) { border-color: #1e5ec9; background: #1e5ec9; }
+/* Style elements matching .dropbox-ui-sync to define their appearance and layout. */
+.dropbox-ui-sync { /* Set border-color to control this element's appearance or behavior. Value: #2469dc. */
+border-color: #2469dc; /* Set the text and current-color icon color. Value: #fff. */
+color: #fff; /* Set the element's background appearance. Value: #2469dc. */
+background: #2469dc; }
+/* Style elements matching .dropbox-ui-sync:hover:not(:disabled) to define their appearance and layout. */
+.dropbox-ui-sync:hover:not(:disabled) { /* Set border-color to control this element's appearance or behavior. Value: #1e5ec9. */
+border-color: #1e5ec9; /* Set the element's background appearance. Value: #1e5ec9. */
+background: #1e5ec9; }
+/* Style elements matching .dropbox-ui-modal[hidden], .dropbox-ui-toast[hidden], .dropbox-ui-empty[hidden], .dropbox-ui-selecti to define their appearance and layout. */
 .dropbox-ui-modal[hidden], .dropbox-ui-toast[hidden],
-.dropbox-ui-empty[hidden], .dropbox-ui-selection[hidden] { display: none !important; }
+.dropbox-ui-empty[hidden], .dropbox-ui-selection[hidden] { /* Choose how this element participates in layout. Value: none . */
+display: none !important; }
+/* Style elements matching .dropbox-ui-modal to define their appearance and layout. */
 .dropbox-ui-modal {
-  position: fixed; inset: 0; z-index: 1500; display: grid; place-items: center;
+  /* Choose how the element is positioned on the page. Value: fixed. */
+  position: fixed; /* Set the offsets used to position the element. Value: 0. */
+  inset: 0; /* Control which overlapping element appears in front. Value: 1500. */
+  z-index: 1500; /* Choose how this element participates in layout. Value: grid. */
+  display: grid; /* Set place-items to control this element's appearance or behavior. Value: center. */
+  place-items: center;
+  /* Control the space between the element's border and its content. Value: clamp(10px, 3vw, 28px). */
   padding: clamp(10px, 3vw, 28px);
 }
+/* Style elements matching .dropbox-ui-backdrop to define their appearance and layout. */
 .dropbox-ui-backdrop {
-  position: absolute; inset: 0; background: rgb(8 13 25 / 62%);
-  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+  /* Choose how the element is positioned on the page. Value: absolute. */
+  position: absolute; /* Set the offsets used to position the element. Value: 0. */
+  inset: 0; /* Set the element's background appearance. Value: rgb(8 13 25 / 62%). */
+  background: rgb(8 13 25 / 62%);
+  /* Set backdrop-filter to control this element's appearance or behavior. Value: blur(5px). */
+  backdrop-filter: blur(5px); /* Set -webkit-backdrop-filter to control this element's appearance or behavior. Value: blur(5px). */
+  -webkit-backdrop-filter: blur(5px);
 }
+/* Style elements matching .dropbox-ui-dialog to define their appearance and layout. */
 .dropbox-ui-dialog {
-  position: relative; z-index: 1; display: flex; flex-direction: column;
-  width: min(100%, 900px); max-height: min(88vh, 820px);
-  min-height: min(360px, 75vh); overflow: hidden; border: 1px solid var(--line);
-  border-radius: 18px; color: var(--ink); background: var(--panel);
-  box-shadow: 0 24px 85px rgb(0 0 0 / 32%); animation: dropbox-ui-appear 160ms ease-out;
+  /* Choose how the element is positioned on the page. Value: relative. */
+  position: relative; /* Control which overlapping element appears in front. Value: 1. */
+  z-index: 1; /* Choose how this element participates in layout. Value: flex. */
+  display: flex; /* Choose the direction flex items flow. Value: column. */
+  flex-direction: column;
+  /* Control the element's width. Value: min(100%, 900px). */
+  width: min(100%, 900px); /* Set the maximum allowed height. Value: min(88vh, 820px). */
+  max-height: min(88vh, 820px);
+  /* Set the minimum allowed height. Value: min(360px, 75vh). */
+  min-height: min(360px, 75vh); /* Choose how content beyond the element's box is handled. Value: hidden. */
+  overflow: hidden; /* Set the outline around the element. Value: 1px solid var(--line). */
+  border: 1px solid var(--line);
+  /* Round the element's corners. Value: 18px. */
+  border-radius: 18px; /* Set the text and current-color icon color. Value: var(--ink). */
+  color: var(--ink); /* Set the element's background appearance. Value: var(--panel). */
+  background: var(--panel);
+  /* Draw a shadow to add depth around the element. Value: 0 24px 85px rgb(0 0 0 / 32%). */
+  box-shadow: 0 24px 85px rgb(0 0 0 / 32%); /* Apply an animation and its timing. Value: dropbox-ui-appear 160ms ease-out. */
+  animation: dropbox-ui-appear 160ms ease-out;
 }
+/* Define the animation stages named dropbox-ui-appear. */
 @keyframes dropbox-ui-appear {
-  from { opacity: 0; transform: translateY(8px) scale(.99); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  /* Style elements matching from to define their appearance and layout. */
+  from { /* Set how transparent the element appears. Value: 0. */
+  opacity: 0; /* Move, rotate, or scale the element visually. Value: translateY(8px) scale(.99). */
+  transform: translateY(8px) scale(.99); }
+  /* Style elements matching to to define their appearance and layout. */
+  to { /* Set how transparent the element appears. Value: 1. */
+  opacity: 1; /* Move, rotate, or scale the element visually. Value: translateY(0) scale(1). */
+  transform: translateY(0) scale(1); }
 }
+/* Style elements matching .dropbox-ui-header to define their appearance and layout. */
 .dropbox-ui-header {
-  display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between;
-  gap: 18px; padding: 21px 24px 17px; border-bottom: 1px solid var(--line);
+  /* Choose how this element participates in layout. Value: flex. */
+  display: flex; /* Control how this flex item grows or shrinks. Value: 0 0 auto. */
+  flex: 0 0 auto; /* Align children across the layout's cross-axis. Value: center. */
+  align-items: center; /* Distribute child items along the main layout axis. Value: space-between. */
+  justify-content: space-between;
+  /* Set the spacing between child items. Value: 18px. */
+  gap: 18px; /* Control the space between the element's border and its content. Value: 21px 24px 17px. */
+  padding: 21px 24px 17px; /* Set border-bottom to control this element's appearance or behavior. Value: 1px solid var(--line). */
+  border-bottom: 1px solid var(--line);
 }
-.dropbox-ui-heading { min-width: 0; }
+/* Style elements matching .dropbox-ui-heading to define their appearance and layout. */
+.dropbox-ui-heading { /* Set the minimum allowed width. Value: 0. */
+min-width: 0; }
+/* Style elements matching .dropbox-ui-heading h2 to define their appearance and layout. */
 .dropbox-ui-heading h2 {
-  margin: 0; color: var(--brand-name); font-size: 22px; font-weight: 750; letter-spacing: -.035em;
+  /* Control the space outside the element. Value: 0. */
+  margin: 0; /* Set the text and current-color icon color. Value: var(--brand-name). */
+  color: var(--brand-name); /* Set the displayed text size. Value: 22px. */
+  font-size: 22px; /* Set the thickness of the text. Value: 750. */
+  font-weight: 750; /* Set letter-spacing to control this element's appearance or behavior. Value: -.035em. */
+  letter-spacing: -.035em;
 }
+/* Style elements matching .dropbox-current-location to define their appearance and layout. */
 .dropbox-current-location {
-  overflow: hidden; margin: 5px 0 0; color: var(--muted); font-size: 12px;
-  text-overflow: ellipsis; white-space: nowrap;
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
+  overflow: hidden; /* Control the space outside the element. Value: 5px 0 0. */
+  margin: 5px 0 0; /* Set the text and current-color icon color. Value: var(--muted). */
+  color: var(--muted); /* Set the displayed text size. Value: 12px. */
+  font-size: 12px;
+  /* Choose how clipped text is displayed. Value: ellipsis. */
+  text-overflow: ellipsis; /* Control text wrapping and spaces. Value: nowrap. */
+  white-space: nowrap;
 }
-.dropbox-ui-header-actions { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 9px; }
-.dropbox-ui-upload-button { border-color: #2469dc; color: #fff; background: #2469dc; cursor: pointer; }
-.dropbox-ui-upload-button:hover { border-color: #1e5ec9; background: #1e5ec9; }
+/* Style elements matching .dropbox-ui-header-actions to define their appearance and layout. */
+.dropbox-ui-header-actions { /* Choose how this element participates in layout. Value: inline-flex. */
+display: inline-flex; /* Control how this flex item grows or shrinks. Value: 0 0 auto. */
+flex: 0 0 auto; /* Align children across the layout's cross-axis. Value: center. */
+align-items: center; /* Set the spacing between child items. Value: 9px. */
+gap: 9px; }
+/* Style elements matching .dropbox-ui-upload-button to define their appearance and layout. */
+.dropbox-ui-upload-button { /* Set border-color to control this element's appearance or behavior. Value: #2469dc. */
+border-color: #2469dc; /* Set the text and current-color icon color. Value: #fff. */
+color: #fff; /* Set the element's background appearance. Value: #2469dc. */
+background: #2469dc; /* Choose the pointer symbol shown over the element. Value: pointer. */
+cursor: pointer; }
+/* Style elements matching .dropbox-ui-upload-button:hover to define their appearance and layout. */
+.dropbox-ui-upload-button:hover { /* Set border-color to control this element's appearance or behavior. Value: #1e5ec9. */
+border-color: #1e5ec9; /* Set the element's background appearance. Value: #1e5ec9. */
+background: #1e5ec9; }
+/* Style elements matching .dropbox-ui-file-input to define their appearance and layout. */
 .dropbox-ui-file-input {
-  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%); white-space: nowrap;
+  /* Choose how the element is positioned on the page. Value: absolute. */
+  position: absolute; /* Control the element's width. Value: 1px. */
+  width: 1px; /* Control the element's height. Value: 1px. */
+  height: 1px; /* Choose how content beyond the element's box is handled. Value: hidden. */
+  overflow: hidden; /* Set clip to control this element's appearance or behavior. Value: rect(0, 0, 0, 0). */
+  clip: rect(0, 0, 0, 0);
+  /* Set clip-path to control this element's appearance or behavior. Value: inset(50%). */
+  clip-path: inset(50%); /* Control text wrapping and spaces. Value: nowrap. */
+  white-space: nowrap;
 }
+/* Style elements matching .dropbox-ui-file-input:focus-visible + .dropbox-ui-upload-button to define their appearance and layout. */
 .dropbox-ui-file-input:focus-visible + .dropbox-ui-upload-button {
-  outline: 3px solid var(--focus-outline); outline-offset: 2px;
+  /* Set outline to control this element's appearance or behavior. Value: 3px solid var(--focus-outline). */
+  outline: 3px solid var(--focus-outline); /* Set outline-offset to control this element's appearance or behavior. Value: 2px. */
+  outline-offset: 2px;
 }
-.dropbox-ui-close { width: 38px; min-width: 38px; height: 38px; padding: 0; }
+/* Style elements matching .dropbox-ui-close to define their appearance and layout. */
+.dropbox-ui-close { /* Control the element's width. Value: 38px. */
+width: 38px; /* Set the minimum allowed width. Value: 38px. */
+min-width: 38px; /* Control the element's height. Value: 38px. */
+height: 38px; /* Control the space between the element's border and its content. Value: 0. */
+padding: 0; }
+/* Style elements matching .dropbox-ui-navigation to define their appearance and layout. */
 .dropbox-ui-navigation {
-  display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between;
-  gap: 12px; padding: 12px 24px; border-bottom: 1px solid var(--line); background: var(--workspace);
+  /* Choose how this element participates in layout. Value: flex. */
+  display: flex; /* Control how this flex item grows or shrinks. Value: 0 0 auto. */
+  flex: 0 0 auto; /* Align children across the layout's cross-axis. Value: center. */
+  align-items: center; /* Distribute child items along the main layout axis. Value: space-between. */
+  justify-content: space-between;
+  /* Set the spacing between child items. Value: 12px. */
+  gap: 12px; /* Control the space between the element's border and its content. Value: 12px 24px. */
+  padding: 12px 24px; /* Set border-bottom to control this element's appearance or behavior. Value: 1px solid var(--line). */
+  border-bottom: 1px solid var(--line); /* Set the element's background appearance. Value: var(--workspace). */
+  background: var(--workspace);
 }
-.dropbox-ui-back { min-height: 32px; padding: 6px 10px; }
-.dropbox-ui-navigation-hint { color: var(--muted); font-size: 12px; }
+/* Style elements matching .dropbox-ui-back to define their appearance and layout. */
+.dropbox-ui-back { /* Set the minimum allowed height. Value: 32px. */
+min-height: 32px; /* Control the space between the element's border and its content. Value: 6px 10px. */
+padding: 6px 10px; }
+/* Style elements matching .dropbox-ui-navigation-hint to define their appearance and layout. */
+.dropbox-ui-navigation-hint { /* Set the text and current-color icon color. Value: var(--muted). */
+color: var(--muted); /* Set the displayed text size. Value: 12px. */
+font-size: 12px; }
+/* Style elements matching .dropbox-ui-status to define their appearance and layout. */
 .dropbox-ui-status {
-  flex: 0 0 auto; min-height: 18px; margin: 0; padding: 11px 24px;
-  color: var(--muted); font-size: 12px; line-height: 1.45;
+  /* Control how this flex item grows or shrinks. Value: 0 0 auto. */
+  flex: 0 0 auto; /* Set the minimum allowed height. Value: 18px. */
+  min-height: 18px; /* Control the space outside the element. Value: 0. */
+  margin: 0; /* Control the space between the element's border and its content. Value: 11px 24px. */
+  padding: 11px 24px;
+  /* Set the text and current-color icon color. Value: var(--muted). */
+  color: var(--muted); /* Set the displayed text size. Value: 12px. */
+  font-size: 12px; /* Set the vertical spacing between text lines. Value: 1.45. */
+  line-height: 1.45;
 }
-.dropbox-ui-status[data-kind="error"] { color: #c33d4a; }
-.dropbox-ui-status[data-kind="success"] { color: #17834e; }
-.dropbox-ui-list-wrap { position: relative; min-height: 0; flex: 1 1 auto; overflow: auto; overscroll-behavior: contain; }
+/* Style elements matching .dropbox-ui-status[data-kind="error"] to define their appearance and layout. */
+.dropbox-ui-status[data-kind="error"] { /* Set the text and current-color icon color. Value: #c33d4a. */
+color: #c33d4a; }
+/* Style elements matching .dropbox-ui-status[data-kind="success"] to define their appearance and layout. */
+.dropbox-ui-status[data-kind="success"] { /* Set the text and current-color icon color. Value: #17834e. */
+color: #17834e; }
+/* Style elements matching .dropbox-ui-list-wrap to define their appearance and layout. */
+.dropbox-ui-list-wrap { /* Choose how the element is positioned on the page. Value: relative. */
+position: relative; /* Set the minimum allowed height. Value: 0. */
+min-height: 0; /* Control how this flex item grows or shrinks. Value: 1 1 auto. */
+flex: 1 1 auto; /* Choose how content beyond the element's box is handled. Value: auto. */
+overflow: auto; /* Set overscroll-behavior to control this element's appearance or behavior. Value: contain. */
+overscroll-behavior: contain; }
+/* Style elements matching .dropbox-ui-file-list to define their appearance and layout. */
 .dropbox-ui-file-list {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 255px), 1fr));
-  align-content: start; gap: 9px; margin: 0; padding: 0 24px 22px; list-style: none;
+  /* Choose how this element participates in layout. Value: grid. */
+  display: grid; /* Define the grid's columns and their widths. Value: repeat(auto-fill, minmax(min(100%, 255px), 1fr)). */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 255px), 1fr));
+  /* Set align-content to control this element's appearance or behavior. Value: start. */
+  align-content: start; /* Set the spacing between child items. Value: 9px. */
+  gap: 9px; /* Control the space outside the element. Value: 0. */
+  margin: 0; /* Control the space between the element's border and its content. Value: 0 24px 22px. */
+  padding: 0 24px 22px; /* Set list-style to control this element's appearance or behavior. Value: none. */
+  list-style: none;
 }
-.dropbox-ui-file-item { min-width: 0; }
+/* Style elements matching .dropbox-ui-file-item to define their appearance and layout. */
+.dropbox-ui-file-item { /* Set the minimum allowed width. Value: 0. */
+min-width: 0; }
+/* Style elements matching .dropbox-ui-file-row to define their appearance and layout. */
 .dropbox-ui-file-row {
-  display: flex; width: 100%; min-width: 0; min-height: 62px; align-items: center; gap: 12px;
-  padding: 10px 12px; border: 1px solid var(--line); border-radius: 11px;
-  color: var(--control-text); background: var(--control-bg); text-align: left; cursor: pointer;
+  /* Choose how this element participates in layout. Value: flex. */
+  display: flex; /* Control the element's width. Value: 100%. */
+  width: 100%; /* Set the minimum allowed width. Value: 0. */
+  min-width: 0; /* Set the minimum allowed height. Value: 62px. */
+  min-height: 62px; /* Align children across the layout's cross-axis. Value: center. */
+  align-items: center; /* Set the spacing between child items. Value: 12px. */
+  gap: 12px;
+  /* Control the space between the element's border and its content. Value: 10px 12px. */
+  padding: 10px 12px; /* Set the outline around the element. Value: 1px solid var(--line). */
+  border: 1px solid var(--line); /* Round the element's corners. Value: 11px. */
+  border-radius: 11px;
+  /* Set the text and current-color icon color. Value: var(--control-text). */
+  color: var(--control-text); /* Set the element's background appearance. Value: var(--control-bg). */
+  background: var(--control-bg); /* Align text inside its content area. Value: left. */
+  text-align: left; /* Choose the pointer symbol shown over the element. Value: pointer. */
+  cursor: pointer;
+  /* Smooth supported changes over time. Value: background-color 140ms ease, border-color 140ms ease, box-shadow . */
   transition: background-color 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
 }
-.dropbox-ui-file-row:hover { border-color: var(--control-hover-border); background: var(--control-hover-bg); }
+/* Style elements matching .dropbox-ui-file-row:hover to define their appearance and layout. */
+.dropbox-ui-file-row:hover { /* Set border-color to control this element's appearance or behavior. Value: var(--control-hover-border). */
+border-color: var(--control-hover-border); /* Set the element's background appearance. Value: var(--control-hover-bg). */
+background: var(--control-hover-bg); }
+/* Style elements matching .dropbox-ui-file-row[aria-pressed="true"] to define their appearance and layout. */
 .dropbox-ui-file-row[aria-pressed="true"] {
-  border-color: #2469dc; background: rgb(36 105 220 / 9%);
+  /* Set border-color to control this element's appearance or behavior. Value: #2469dc. */
+  border-color: #2469dc; /* Set the element's background appearance. Value: rgb(36 105 220 / 9%). */
+  background: rgb(36 105 220 / 9%);
+  /* Draw a shadow to add depth around the element. Value: inset 0 0 0 1px rgb(36 105 220 / 28%). */
   box-shadow: inset 0 0 0 1px rgb(36 105 220 / 28%);
 }
+/* Style elements matching .dropbox-ui-file-icon to define their appearance and layout. */
 .dropbox-ui-file-icon {
-  display: grid; width: 38px; height: 38px; flex: 0 0 38px; place-items: center;
-  border-radius: 10px; color: #2469dc; background: rgb(36 105 220 / 10%);
+  /* Choose how this element participates in layout. Value: grid. */
+  display: grid; /* Control the element's width. Value: 38px. */
+  width: 38px; /* Control the element's height. Value: 38px. */
+  height: 38px; /* Control how this flex item grows or shrinks. Value: 0 0 38px. */
+  flex: 0 0 38px; /* Set place-items to control this element's appearance or behavior. Value: center. */
+  place-items: center;
+  /* Round the element's corners. Value: 10px. */
+  border-radius: 10px; /* Set the text and current-color icon color. Value: #2469dc. */
+  color: #2469dc; /* Set the element's background appearance. Value: rgb(36 105 220 / 10%). */
+  background: rgb(36 105 220 / 10%);
 }
-.dropbox-ui-file-icon[data-kind="folder"] { color: #be8508; background: rgb(190 133 8 / 12%); }
+/* Style elements matching .dropbox-ui-file-icon[data-kind="folder"] to define their appearance and layout. */
+.dropbox-ui-file-icon[data-kind="folder"] { /* Set the text and current-color icon color. Value: #be8508. */
+color: #be8508; /* Set the element's background appearance. Value: rgb(190 133 8 / 12%). */
+background: rgb(190 133 8 / 12%); }
+/* Style elements matching .dropbox-ui-file-icon svg to define their appearance and layout. */
 .dropbox-ui-file-icon svg {
-  width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7;
-  stroke-linecap: round; stroke-linejoin: round;
+  /* Control the element's width. Value: 22px. */
+  width: 22px; /* Control the element's height. Value: 22px. */
+  height: 22px; /* Set the fill color of a vector shape. Value: none. */
+  fill: none; /* Set the outline color of a vector shape. Value: currentColor. */
+  stroke: currentColor; /* Set the thickness of a vector outline. Value: 1.7. */
+  stroke-width: 1.7;
+  /* Set stroke-linecap to control this element's appearance or behavior. Value: round. */
+  stroke-linecap: round; /* Set stroke-linejoin to control this element's appearance or behavior. Value: round. */
+  stroke-linejoin: round;
 }
-.dropbox-ui-file-copy { display: flex; min-width: 0; flex: 1 1 auto; flex-direction: column; gap: 4px; }
+/* Style elements matching .dropbox-ui-file-copy to define their appearance and layout. */
+.dropbox-ui-file-copy { /* Choose how this element participates in layout. Value: flex. */
+display: flex; /* Set the minimum allowed width. Value: 0. */
+min-width: 0; /* Control how this flex item grows or shrinks. Value: 1 1 auto. */
+flex: 1 1 auto; /* Choose the direction flex items flow. Value: column. */
+flex-direction: column; /* Set the spacing between child items. Value: 4px. */
+gap: 4px; }
+/* Style elements matching .dropbox-ui-file-name to define their appearance and layout. */
 .dropbox-ui-file-name {
-  overflow: hidden; color: var(--ink); font-size: 13px; font-weight: 650;
-  text-overflow: ellipsis; white-space: nowrap;
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
+  overflow: hidden; /* Set the text and current-color icon color. Value: var(--ink). */
+  color: var(--ink); /* Set the displayed text size. Value: 13px. */
+  font-size: 13px; /* Set the thickness of the text. Value: 650. */
+  font-weight: 650;
+  /* Choose how clipped text is displayed. Value: ellipsis. */
+  text-overflow: ellipsis; /* Control text wrapping and spaces. Value: nowrap. */
+  white-space: nowrap;
 }
+/* Style elements matching .dropbox-ui-file-meta to define their appearance and layout. */
 .dropbox-ui-file-meta {
-  overflow: hidden; color: var(--muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap;
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
+  overflow: hidden; /* Set the text and current-color icon color. Value: var(--muted). */
+  color: var(--muted); /* Set the displayed text size. Value: 11px. */
+  font-size: 11px; /* Choose how clipped text is displayed. Value: ellipsis. */
+  text-overflow: ellipsis; /* Control text wrapping and spaces. Value: nowrap. */
+  white-space: nowrap;
 }
+/* Style elements matching .dropbox-ui-empty to define their appearance and layout. */
 .dropbox-ui-empty {
-  display: grid; min-height: 190px; justify-items: center; align-content: center;
-  gap: 8px; padding: 24px; color: var(--muted); text-align: center;
+  /* Choose how this element participates in layout. Value: grid. */
+  display: grid; /* Set the minimum allowed height. Value: 190px. */
+  min-height: 190px; /* Set justify-items to control this element's appearance or behavior. Value: center. */
+  justify-items: center; /* Set align-content to control this element's appearance or behavior. Value: center. */
+  align-content: center;
+  /* Set the spacing between child items. Value: 8px. */
+  gap: 8px; /* Control the space between the element's border and its content. Value: 24px. */
+  padding: 24px; /* Set the text and current-color icon color. Value: var(--muted). */
+  color: var(--muted); /* Align text inside its content area. Value: center. */
+  text-align: center;
 }
+/* Style elements matching .dropbox-ui-empty svg to define their appearance and layout. */
 .dropbox-ui-empty svg {
-  width: 44px; height: 44px; margin-bottom: 6px; fill: none; stroke: currentColor;
-  stroke-width: 1.6; stroke-linejoin: round;
+  /* Control the element's width. Value: 44px. */
+  width: 44px; /* Control the element's height. Value: 44px. */
+  height: 44px; /* Set margin-bottom to control this element's appearance or behavior. Value: 6px. */
+  margin-bottom: 6px; /* Set the fill color of a vector shape. Value: none. */
+  fill: none; /* Set the outline color of a vector shape. Value: currentColor. */
+  stroke: currentColor;
+  /* Set the thickness of a vector outline. Value: 1.6. */
+  stroke-width: 1.6; /* Set stroke-linejoin to control this element's appearance or behavior. Value: round. */
+  stroke-linejoin: round;
 }
-.dropbox-ui-empty strong { color: var(--ink); font-size: 14px; }
-.dropbox-ui-empty span { font-size: 12px; }
+/* Style elements matching .dropbox-ui-empty strong to define their appearance and layout. */
+.dropbox-ui-empty strong { /* Set the text and current-color icon color. Value: var(--ink). */
+color: var(--ink); /* Set the displayed text size. Value: 14px. */
+font-size: 14px; }
+/* Style elements matching .dropbox-ui-empty span to define their appearance and layout. */
+.dropbox-ui-empty span { /* Set the displayed text size. Value: 12px. */
+font-size: 12px; }
+/* Style elements matching .dropbox-ui-selection to define their appearance and layout. */
 .dropbox-ui-selection {
-  display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between;
-  gap: 16px; padding: 14px 20px; border-top: 1px solid var(--line); background: var(--panel);
+  /* Choose how this element participates in layout. Value: flex. */
+  display: flex; /* Control how this flex item grows or shrinks. Value: 0 0 auto. */
+  flex: 0 0 auto; /* Align children across the layout's cross-axis. Value: center. */
+  align-items: center; /* Distribute child items along the main layout axis. Value: space-between. */
+  justify-content: space-between;
+  /* Set the spacing between child items. Value: 16px. */
+  gap: 16px; /* Control the space between the element's border and its content. Value: 14px 20px. */
+  padding: 14px 20px; /* Set border-top to control this element's appearance or behavior. Value: 1px solid var(--line). */
+  border-top: 1px solid var(--line); /* Set the element's background appearance. Value: var(--panel). */
+  background: var(--panel);
 }
-.dropbox-ui-selected-copy { display: flex; min-width: 0; flex-direction: column; gap: 4px; }
+/* Style elements matching .dropbox-ui-selected-copy to define their appearance and layout. */
+.dropbox-ui-selected-copy { /* Choose how this element participates in layout. Value: flex. */
+display: flex; /* Set the minimum allowed width. Value: 0. */
+min-width: 0; /* Choose the direction flex items flow. Value: column. */
+flex-direction: column; /* Set the spacing between child items. Value: 4px. */
+gap: 4px; }
+/* Style elements matching .dropbox-ui-selected-label to define their appearance and layout. */
 .dropbox-ui-selected-label {
-  color: var(--muted); font-size: 10px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase;
+  /* Set the text and current-color icon color. Value: var(--muted). */
+  color: var(--muted); /* Set the displayed text size. Value: 10px. */
+  font-size: 10px; /* Set the thickness of the text. Value: 750. */
+  font-weight: 750; /* Set letter-spacing to control this element's appearance or behavior. Value: .07em. */
+  letter-spacing: .07em; /* Set text-transform to control this element's appearance or behavior. Value: uppercase. */
+  text-transform: uppercase;
 }
+/* Style elements matching .dropbox-ui-selected-copy strong to define their appearance and layout. */
 .dropbox-ui-selected-copy strong {
-  overflow: hidden; max-width: 220px; color: var(--ink); font-size: 12px;
-  text-overflow: ellipsis; white-space: nowrap;
+  /* Choose how content beyond the element's box is handled. Value: hidden. */
+  overflow: hidden; /* Set the maximum allowed width. Value: 220px. */
+  max-width: 220px; /* Set the text and current-color icon color. Value: var(--ink). */
+  color: var(--ink); /* Set the displayed text size. Value: 12px. */
+  font-size: 12px;
+  /* Choose how clipped text is displayed. Value: ellipsis. */
+  text-overflow: ellipsis; /* Control text wrapping and spaces. Value: nowrap. */
+  white-space: nowrap;
 }
-.dropbox-ui-viewport-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
-.dropbox-ui-viewport-actions button { min-height: 34px; padding: 7px 9px; font-size: 11px; }
+/* Style elements matching .dropbox-ui-viewport-actions to define their appearance and layout. */
+.dropbox-ui-viewport-actions { /* Choose how this element participates in layout. Value: flex. */
+display: flex; /* Allow or prevent flex items from wrapping. Value: wrap. */
+flex-wrap: wrap; /* Distribute child items along the main layout axis. Value: flex-end. */
+justify-content: flex-end; /* Set the spacing between child items. Value: 7px. */
+gap: 7px; }
+/* Style elements matching .dropbox-ui-viewport-actions button to define their appearance and layout. */
+.dropbox-ui-viewport-actions button { /* Set the minimum allowed height. Value: 34px. */
+min-height: 34px; /* Control the space between the element's border and its content. Value: 7px 9px. */
+padding: 7px 9px; /* Set the displayed text size. Value: 11px. */
+font-size: 11px; }
+/* Style elements matching .dropbox-ui-toast to define their appearance and layout. */
 .dropbox-ui-toast {
-  position: fixed; right: 18px; bottom: 18px; z-index: 1600;
-  max-width: min(440px, calc(100vw - 36px)); padding: 12px 15px; border: 1px solid var(--line);
-  border-radius: 12px; color: var(--ink); background: var(--panel);
-  box-shadow: 0 12px 40px rgb(0 0 0 / 18%); font-size: 12px; line-height: 1.5;
+  /* Choose how the element is positioned on the page. Value: fixed. */
+  position: fixed; /* Set the right positioning offset. Value: 18px. */
+  right: 18px; /* Set the bottom positioning offset. Value: 18px. */
+  bottom: 18px; /* Control which overlapping element appears in front. Value: 1600. */
+  z-index: 1600;
+  /* Set the maximum allowed width. Value: min(440px, calc(100vw - 36px)). */
+  max-width: min(440px, calc(100vw - 36px)); /* Control the space between the element's border and its content. Value: 12px 15px. */
+  padding: 12px 15px; /* Set the outline around the element. Value: 1px solid var(--line). */
+  border: 1px solid var(--line);
+  /* Round the element's corners. Value: 12px. */
+  border-radius: 12px; /* Set the text and current-color icon color. Value: var(--ink). */
+  color: var(--ink); /* Set the element's background appearance. Value: var(--panel). */
+  background: var(--panel);
+  /* Draw a shadow to add depth around the element. Value: 0 12px 40px rgb(0 0 0 / 18%). */
+  box-shadow: 0 12px 40px rgb(0 0 0 / 18%); /* Set the displayed text size. Value: 12px. */
+  font-size: 12px; /* Set the vertical spacing between text lines. Value: 1.5. */
+  line-height: 1.5;
 }
-.dropbox-ui-toast[data-kind="error"] { border-color: #d95d67; }
-.dropbox-ui-toast[data-kind="success"] { border-color: #2a9d69; }
-body.dropbox-ui-open { overflow: hidden; }
+/* Style elements matching .dropbox-ui-toast[data-kind="error"] to define their appearance and layout. */
+.dropbox-ui-toast[data-kind="error"] { /* Set border-color to control this element's appearance or behavior. Value: #d95d67. */
+border-color: #d95d67; }
+/* Style elements matching .dropbox-ui-toast[data-kind="success"] to define their appearance and layout. */
+.dropbox-ui-toast[data-kind="success"] { /* Set border-color to control this element's appearance or behavior. Value: #2a9d69. */
+border-color: #2a9d69; }
+/* Style elements matching body.dropbox-ui-open to define their appearance and layout. */
+body.dropbox-ui-open { /* Choose how content beyond the element's box is handled. Value: hidden. */
+overflow: hidden; }
 
+/* Apply these responsive styles only when  (max-width: 760px) is true. */
 @media (max-width: 760px) {
-  .dropbox-ui-selection { align-items: stretch; flex-direction: column; }
-  .dropbox-ui-selected-copy strong { max-width: none; }
-  .dropbox-ui-viewport-actions { justify-content: stretch; }
-  .dropbox-ui-viewport-actions button { flex: 1 1 150px; }
+  /* Style elements matching .dropbox-ui-selection to define their appearance and layout. */
+  .dropbox-ui-selection { /* Align children across the layout's cross-axis. Value: stretch. */
+  align-items: stretch; /* Choose the direction flex items flow. Value: column. */
+  flex-direction: column; }
+  /* Style elements matching .dropbox-ui-selected-copy strong to define their appearance and layout. */
+  .dropbox-ui-selected-copy strong { /* Set the maximum allowed width. Value: none. */
+  max-width: none; }
+  /* Style elements matching .dropbox-ui-viewport-actions to define their appearance and layout. */
+  .dropbox-ui-viewport-actions { /* Distribute child items along the main layout axis. Value: stretch. */
+  justify-content: stretch; }
+  /* Style elements matching .dropbox-ui-viewport-actions button to define their appearance and layout. */
+  .dropbox-ui-viewport-actions button { /* Control how this flex item grows or shrinks. Value: 1 1 150px. */
+  flex: 1 1 150px; }
 }
+/* Apply these responsive styles only when  (max-width: 560px) is true. */
 @media (max-width: 560px) {
-  .topbar { gap: 6px; padding-right: 8px; padding-left: 8px; }
-  .brand { flex: 1 1 80px; min-width: 0; gap: 5px; }
-  .brand-mark { width: 32px; height: 32px; flex-basis: 32px; }
-  .brand-slogan { display: none; }
-  .topbar-actions { gap: 3px; }
-  .dropbox-topbar-button { max-width: 105px; min-width: 0; gap: 4px; padding: 0 3px; }
-  .dropbox-topbar-logo { width: 16px; height: 16px; flex-basis: 16px; }
-  .dropbox-topbar-label { max-width: 82px; font-size: 10px; }
-  .dropbox-ui-action { width: 34px; min-width: 34px; flex: 0 0 34px; padding: 0; }
-  .theme-toggle, .focus-toggle { width: 34px; min-width: 34px; flex: 0 0 34px; }
-  .dropbox-ui-action svg { width: 15px; height: 15px; }
-  .dropbox-ui-action-label { display: none; }
-  .dropbox-ui-dialog { min-height: min(330px, 78vh); max-height: 90vh; border-radius: 14px; }
-  .dropbox-ui-header { align-items: flex-start; padding: 16px; gap: 10px; }
-  .dropbox-ui-heading h2 { font-size: 18px; }
-  .dropbox-ui-header-actions { gap: 6px; }
-  .dropbox-ui-upload-button { min-height: 36px; padding: 7px 8px; font-size: 11px; }
-  .dropbox-ui-upload-button span { max-width: 66px; }
-  .dropbox-ui-navigation { padding: 10px 16px; }
-  .dropbox-ui-navigation-hint { display: none; }
-  .dropbox-ui-status { padding: 10px 16px; }
-  .dropbox-ui-file-list { grid-template-columns: 1fr; padding: 0 16px 16px; }
-  .dropbox-ui-selection { padding: 12px 16px; }
-  .dropbox-ui-viewport-actions button { flex-basis: 100%; }
+  /* Style elements matching .topbar to define their appearance and layout. */
+  .topbar { /* Set the spacing between child items. Value: 6px. */
+  gap: 6px; /* Set padding-right to control this element's appearance or behavior. Value: 8px. */
+  padding-right: 8px; /* Set padding-left to control this element's appearance or behavior. Value: 8px. */
+  padding-left: 8px; }
+  /* Style elements matching .brand to define their appearance and layout. */
+  .brand { /* Control how this flex item grows or shrinks. Value: 1 1 80px. */
+  flex: 1 1 80px; /* Set the minimum allowed width. Value: 0. */
+  min-width: 0; /* Set the spacing between child items. Value: 5px. */
+  gap: 5px; }
+  /* Style elements matching .brand-mark to define their appearance and layout. */
+  .brand-mark { /* Control the element's width. Value: 32px. */
+  width: 32px; /* Control the element's height. Value: 32px. */
+  height: 32px; /* Set flex-basis to control this element's appearance or behavior. Value: 32px. */
+  flex-basis: 32px; }
+  /* Style elements matching .brand-slogan to define their appearance and layout. */
+  .brand-slogan { /* Choose how this element participates in layout. Value: none. */
+  display: none; }
+  /* Style elements matching .topbar-actions to define their appearance and layout. */
+  .topbar-actions { /* Set the spacing between child items. Value: 3px. */
+  gap: 3px; }
+  /* Style elements matching .dropbox-topbar-button to define their appearance and layout. */
+  .dropbox-topbar-button { /* Set the maximum allowed width. Value: 105px. */
+  max-width: 105px; /* Set the minimum allowed width. Value: 0. */
+  min-width: 0; /* Set the spacing between child items. Value: 4px. */
+  gap: 4px; /* Control the space between the element's border and its content. Value: 0 3px. */
+  padding: 0 3px; }
+  /* Style elements matching .dropbox-topbar-logo to define their appearance and layout. */
+  .dropbox-topbar-logo { /* Control the element's width. Value: 16px. */
+  width: 16px; /* Control the element's height. Value: 16px. */
+  height: 16px; /* Set flex-basis to control this element's appearance or behavior. Value: 16px. */
+  flex-basis: 16px; }
+  /* Style elements matching .dropbox-topbar-label to define their appearance and layout. */
+  .dropbox-topbar-label { /* Set the maximum allowed width. Value: 82px. */
+  max-width: 82px; /* Set the displayed text size. Value: 10px. */
+  font-size: 10px; }
+  /* Style elements matching .dropbox-ui-action to define their appearance and layout. */
+  .dropbox-ui-action { /* Control the element's width. Value: 34px. */
+  width: 34px; /* Set the minimum allowed width. Value: 34px. */
+  min-width: 34px; /* Control how this flex item grows or shrinks. Value: 0 0 34px. */
+  flex: 0 0 34px; /* Control the space between the element's border and its content. Value: 0. */
+  padding: 0; }
+  /* Style elements matching .theme-toggle, .focus-toggle to define their appearance and layout. */
+  .theme-toggle, .focus-toggle { /* Control the element's width. Value: 34px. */
+  width: 34px; /* Set the minimum allowed width. Value: 34px. */
+  min-width: 34px; /* Control how this flex item grows or shrinks. Value: 0 0 34px. */
+  flex: 0 0 34px; }
+  /* Style elements matching .dropbox-ui-action svg to define their appearance and layout. */
+  .dropbox-ui-action svg { /* Control the element's width. Value: 15px. */
+  width: 15px; /* Control the element's height. Value: 15px. */
+  height: 15px; }
+  /* Style elements matching .dropbox-ui-action-label to define their appearance and layout. */
+  .dropbox-ui-action-label { /* Choose how this element participates in layout. Value: none. */
+  display: none; }
+  /* Style elements matching .dropbox-ui-dialog to define their appearance and layout. */
+  .dropbox-ui-dialog { /* Set the minimum allowed height. Value: min(330px, 78vh). */
+  min-height: min(330px, 78vh); /* Set the maximum allowed height. Value: 90vh. */
+  max-height: 90vh; /* Round the element's corners. Value: 14px. */
+  border-radius: 14px; }
+  /* Style elements matching .dropbox-ui-header to define their appearance and layout. */
+  .dropbox-ui-header { /* Align children across the layout's cross-axis. Value: flex-start. */
+  align-items: flex-start; /* Control the space between the element's border and its content. Value: 16px. */
+  padding: 16px; /* Set the spacing between child items. Value: 10px. */
+  gap: 10px; }
+  /* Style elements matching .dropbox-ui-heading h2 to define their appearance and layout. */
+  .dropbox-ui-heading h2 { /* Set the displayed text size. Value: 18px. */
+  font-size: 18px; }
+  /* Style elements matching .dropbox-ui-header-actions to define their appearance and layout. */
+  .dropbox-ui-header-actions { /* Set the spacing between child items. Value: 6px. */
+  gap: 6px; }
+  /* Style elements matching .dropbox-ui-upload-button to define their appearance and layout. */
+  .dropbox-ui-upload-button { /* Set the minimum allowed height. Value: 36px. */
+  min-height: 36px; /* Control the space between the element's border and its content. Value: 7px 8px. */
+  padding: 7px 8px; /* Set the displayed text size. Value: 11px. */
+  font-size: 11px; }
+  /* Style elements matching .dropbox-ui-upload-button span to define their appearance and layout. */
+  .dropbox-ui-upload-button span { /* Set the maximum allowed width. Value: 66px. */
+  max-width: 66px; }
+  /* Style elements matching .dropbox-ui-navigation to define their appearance and layout. */
+  .dropbox-ui-navigation { /* Control the space between the element's border and its content. Value: 10px 16px. */
+  padding: 10px 16px; }
+  /* Style elements matching .dropbox-ui-navigation-hint to define their appearance and layout. */
+  .dropbox-ui-navigation-hint { /* Choose how this element participates in layout. Value: none. */
+  display: none; }
+  /* Style elements matching .dropbox-ui-status to define their appearance and layout. */
+  .dropbox-ui-status { /* Control the space between the element's border and its content. Value: 10px 16px. */
+  padding: 10px 16px; }
+  /* Style elements matching .dropbox-ui-file-list to define their appearance and layout. */
+  .dropbox-ui-file-list { /* Define the grid's columns and their widths. Value: 1fr. */
+  grid-template-columns: 1fr; /* Control the space between the element's border and its content. Value: 0 16px 16px. */
+  padding: 0 16px 16px; }
+  /* Style elements matching .dropbox-ui-selection to define their appearance and layout. */
+  .dropbox-ui-selection { /* Control the space between the element's border and its content. Value: 12px 16px. */
+  padding: 12px 16px; }
+  /* Style elements matching .dropbox-ui-viewport-actions button to define their appearance and layout. */
+  .dropbox-ui-viewport-actions button { /* Set flex-basis to control this element's appearance or behavior. Value: 100%. */
+  flex-basis: 100%; }
 }
