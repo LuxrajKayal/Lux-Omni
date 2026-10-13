@@ -112,3 +112,16 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Added `setState(updates)` to merge updates, preserve unmodified viewport slots, publish `STATE_CHANGED` immediately, and return a copy of the updated state.
   * Added `init()` to read the legacy `lux-pdf-viewer-theme`, `lux-pdf-viewer-focus-mode`, and `lux-pdf-viewer-sidebar-open` localStorage keys and restore recognized values safely.
   * Added beginner-friendly explanatory comments throughout both core modules; no other application modules were changed.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `feat(ui): implement WorkspaceUI and main.js to handle Theme and Focus Mode via EventBus`
+* **Changes:**
+  * Implemented `site/js/ui/WorkspaceUI.js` as an ES6 class that caches `#theme-toggle` and `#focus-mode-toggle` and safely handles pages where either button is absent.
+  * Connected theme and focus-mode click listeners to `Store.setState()`; click handlers request state changes rather than manipulating the DOM directly.
+  * Subscribed `WorkspaceUI` to `STATE_CHANGED` through the shared EventBus and applied the initial state at construction.
+  * Added state-driven document attributes for dark theme and focus mode, accessible labels and pressed state, and optional theme-icon updates.
+  * Made `handleStateChange()` accept both EventBus payloads shaped as `{ updates, state }` and the raw state snapshot returned by `Store.getState()`.
+  * Implemented `site/js/main.js` to wait for `DOMContentLoaded`, call `Store.init()`, and instantiate `WorkspaceUI`.
+  * Added beginner-friendly explanatory comments throughout both files; no other application modules were changed.
