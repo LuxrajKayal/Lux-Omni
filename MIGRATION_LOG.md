@@ -157,3 +157,12 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Ported the existing page markup into `site/index.html` while preserving visible UI text, class names, DOM IDs, and layout markup.
   * Repointed component stylesheet links to `components/` and replaced the scattered script blocks with the single `js/main.js` module entry point.
   * Kept the CSS files byte-for-byte identical to their reference copies; no interface redesign was made.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `chore(deploy): add GitHub Pages workflow for Lux Omni`
+* **Changes:**
+  * Added `.github/workflows/pages.yml` to publish the contents of `site/` through GitHub Actions when relevant changes reach `main`, with a manual workflow-dispatch option.
+  * Restored the three icon assets used by the page into `site/icons/` using exact copies from the reference snapshot.
+  * Configured the workflow with the permissions required by GitHub Pages deployment and the `github-pages` deployment environment.
