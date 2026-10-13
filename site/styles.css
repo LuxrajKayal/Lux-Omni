@@ -1260,3 +1260,13 @@ body[data-focus-mode="true"] .workspace {
   border-color: var(--control-hover-border);
   background: var(--control-hover-bg);
 }
+
+
+/* Keep the YouTube mark colors in the external stylesheet. */
+.youtube-sidebar-icon path:first-child {
+  fill: #ff0033;
+}
+
+.youtube-sidebar-icon path:nth-child(2) {
+  fill: #ffffff;
+}

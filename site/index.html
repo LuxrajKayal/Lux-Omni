@@ -140,7 +140,7 @@
             <button id="sidebar-screenshot" class="toolbar-button toolbar-icon-button" type="button" aria-label="Open Lux Omni Snipping Tool" title="Lux Omni Snipping Tool">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M8 4H6a2 2 0 0 0-2 2v2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/>
-                <rect x="8.5" y="8.5" width="7" height="7" rx="1" stroke-dasharray="2 2"/>
+                <rect x="8.5" y="8.5" width="7" height="7" rx="1"/>
               </svg>
             </button>
             <a id="clipboard-open" class="toolbar-button toolbar-icon-button" href="./clipboard.html" target="_blank" rel="noopener noreferrer" aria-label="Open Lux Omni Clipboard in a new tab" title="Lux Omni Clipboard">
@@ -151,8 +151,8 @@
             </a>
             <button id="sidebar-youtube-button" class="toolbar-button toolbar-icon-button youtube-sidebar-button" type="button" aria-label="Load a YouTube video" title="YouTube" aria-controls="youtube-tile" aria-haspopup="dialog" aria-expanded="false">
               <svg class="youtube-sidebar-icon" viewBox="0 0 24 18" aria-hidden="true">
-                <path d="M23.5 2.8a3 3 0 0 0-2.1-2.1C19.5.2 12 .2 12 .2S4.5.2 2.6.7A3 3 0 0 0 .5 2.8 31 31 0 0 0 0 9s0 3.7.5 6.2a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 9s0-3.7-.5-6.2Z" fill="#ff0033"></path>
-                <path d="m9.6 12.7 6.3-3.7-6.3-3.7v7.4Z" fill="#ffffff"></path>
+                <path d="M23.5 2.8a3 3 0 0 0-2.1-2.1C19.5.2 12 .2 12 .2S4.5.2 2.6.7A3 3 0 0 0 .5 2.8 31 31 0 0 0 0 9s0 3.7.5 6.2a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 9s0-3.7-.5-6.2Z"></path>
+                <path d="m9.6 12.7 6.3-3.7-6.3-3.7v7.4Z"></path>
               </svg>
             </button>
             <button id="viewport-fullscreen" class="toolbar-button toolbar-icon-button viewport-mode-button" type="button" aria-label="Open full-screen viewport" title="Full Screen" aria-pressed="false">
@@ -246,13 +246,13 @@
         <button type="button" data-lux-snip-tool="crop" aria-pressed="false" title="Crop screenshot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v12a3 3 0 0 0 3 3h12M3 6h12a3 3 0 0 1 3 3v12"/></svg>Crop</button>
         <span class="lux-snip-toolbar-divider"></span>
         <div class="lux-snip-color-row" role="group" aria-label="Annotation color">
-          <button type="button" data-lux-snip-color="#e03131" class="lux-snip-color is-active" aria-label="Red" aria-pressed="true" title="Red" style="background:#e03131"></button>
-          <button type="button" data-lux-snip-color="#ff922b" class="lux-snip-color" aria-label="Orange" aria-pressed="false" title="Orange" style="background:#ff922b"></button>
-          <button type="button" data-lux-snip-color="#f08c00" class="lux-snip-color" aria-label="Yellow" aria-pressed="false" title="Yellow" style="background:#f08c00"></button>
-          <button type="button" data-lux-snip-color="#2f9e44" class="lux-snip-color" aria-label="Green" aria-pressed="false" title="Green" style="background:#2f9e44"></button>
-          <button type="button" data-lux-snip-color="#1971c2" class="lux-snip-color" aria-label="Blue" aria-pressed="false" title="Blue" style="background:#1971c2"></button>
-          <button type="button" data-lux-snip-color="#7048e8" class="lux-snip-color" aria-label="Purple" aria-pressed="false" title="Purple" style="background:#7048e8"></button>
-          <button type="button" data-lux-snip-color="#111827" class="lux-snip-color" aria-label="Black" aria-pressed="false" title="Black" style="background:#111827"></button>
+          <button type="button" data-lux-snip-color="#e03131" class="lux-snip-color is-active" aria-label="Red" aria-pressed="true" title="Red"></button>
+          <button type="button" data-lux-snip-color="#ff922b" class="lux-snip-color" aria-label="Orange" aria-pressed="false" title="Orange"></button>
+          <button type="button" data-lux-snip-color="#f08c00" class="lux-snip-color" aria-label="Yellow" aria-pressed="false" title="Yellow"></button>
+          <button type="button" data-lux-snip-color="#2f9e44" class="lux-snip-color" aria-label="Green" aria-pressed="false" title="Green"></button>
+          <button type="button" data-lux-snip-color="#1971c2" class="lux-snip-color" aria-label="Blue" aria-pressed="false" title="Blue"></button>
+          <button type="button" data-lux-snip-color="#7048e8" class="lux-snip-color" aria-label="Purple" aria-pressed="false" title="Purple"></button>
+          <button type="button" data-lux-snip-color="#111827" class="lux-snip-color" aria-label="Black" aria-pressed="false" title="Black"></button>
         </div>
         <select id="lux-snip-width" aria-label="Pen thickness" title="Pen thickness"><option value="2">Thin</option><option value="3" selected>Medium</option><option value="6">Thick</option></select>
         <span class="lux-snip-toolbar-divider"></span>

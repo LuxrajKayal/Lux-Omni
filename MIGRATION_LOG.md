@@ -187,3 +187,14 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Restored the mouse-near-top reveal check at `event.clientY <= 10`, plus the top bar's `mouseenter`, `mouseleave`, and keyboard `focusin` behavior.
   * Bound reveal and hide behavior to the shared `Store.getState().focusMode` value so the handlers are inactive during normal browsing.
   * Cleared the reveal class when Focus Mode is turned off and added beginner-friendly comments for the new event handling.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(security): remove inline scripts and styles from HTML`
+* **Changes:**
+  * Audited `site/index.html` for inline scripts, HTML event-handler attributes, style blocks, and style attributes; the page already used one external module entry point and contained no inline JavaScript or event-handler attributes.
+  * Removed seven inline swatch background styles and moved their exact colors to `site/components/snipping-tool.css`.
+  * Moved the YouTube icon fill colors into `site/styles.css` and the screenshot-selection icon's dashed outline into `site/components/snipping-tool.css`, preserving the existing appearance.
+  * Reviewed the active JavaScript import boundaries: UI code consumes Core state/events, Core does not import UI or Services, and the Dropbox service remains isolated from UI modules.
+  * Confirmed that non-empty JavaScript modules contain frequent beginner-friendly explanatory comments; empty scaffold modules remain intentionally unimplemented.

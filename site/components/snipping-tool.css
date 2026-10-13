@@ -8,6 +8,11 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* Keep the screenshot-selection icon's dashed outline in external CSS. */
+#sidebar-screenshot svg rect {
+  stroke-dasharray: 2 2;
+}
 #sidebar-screenshot[aria-busy="true"] { opacity: .6; cursor: progress; }
 .lux-snip-capture-panel {
   position: fixed;
@@ -162,3 +167,33 @@
   .lux-snip-workarea { min-height:0; max-height:none; padding:8px; }
 }
 @media(prefers-reduced-motion:reduce) { #sidebar-screenshot,.lux-snip-capture-panel button { transition:none; } }
+
+
+/* Keep screenshot-editor swatch colors in external CSS, not HTML attributes. */
+.lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#e03131"] {
+  background: #e03131;
+}
+
+.lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#ff922b"] {
+  background: #ff922b;
+}
+
+.lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#f08c00"] {
+  background: #f08c00;
+}
+
+.lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#2f9e44"] {
+  background: #2f9e44;
+}
+
+.lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#1971c2"] {
+  background: #1971c2;
+}
+
+.lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#7048e8"] {
+  background: #7048e8;
+}
+
+.lux-snip-editor-toolbar button.lux-snip-color[data-lux-snip-color="#111827"] {
+  background: #111827;
+}
