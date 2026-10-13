@@ -135,3 +135,14 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Created `_legacy_reference/REFERENCE_SNAPSHOT.md` with the source blob SHA, source size, and a clear note that this is a partial snapshot rather than a full repository clone.
   * Did not modify the source `LuxrajKayal/Luxy` repository.
   * Documented that the current connector cannot copy binary PNG assets or check out the PDF.js and pdf-lib Git submodules.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `feat(ui): implement WorkspaceUI with sidebar, layout switching, and divider, and wire main.js`
+* **Changes:**
+  * Expanded `site/js/ui/WorkspaceUI.js` to manage the sidebar, Full Screen and Split Screen layout buttons, and the split divider through the shared Store and EventBus.
+  * Read the exact workspace control IDs from `_legacy_reference/site/index.html` and ported the original divider pointer-position formula, pointer-capture lifecycle, 20–80% clamp, and ArrowLeft/ArrowRight/Home/End keyboard behavior from `_legacy_reference/site/app.js`.
+  * Preserved the existing theme and focus-mode state handling and added sidebar width, grid, and accessibility updates driven by `sidebarOpen`.
+  * Added layout visibility, divider visibility, and `aria-pressed` updates driven by `activeLayout`.
+  * Updated `site/js/main.js` to initialize saved preferences before creating `WorkspaceUI`, with beginner-friendly comments throughout the updated UI code.
