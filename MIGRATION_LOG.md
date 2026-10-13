@@ -146,3 +146,14 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Preserved the existing theme and focus-mode state handling and added sidebar width, grid, and accessibility updates driven by `sidebarOpen`.
   * Added layout visibility, divider visibility, and `aria-pressed` updates driven by `activeLayout`.
   * Updated `site/js/main.js` to initialize saved preferences before creating `WorkspaceUI`, with beginner-friendly comments throughout the updated UI code.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `feat(ui): port legacy HTML/CSS to new modular structure and repoint asset paths`
+* **Changes:**
+  * Copied the existing workspace stylesheet into `site/styles.css` without changing its contents.
+  * Copied the PDF editor, cloud integration, snipping tool, and temporary log stylesheets into `site/components/` without changing their CSS rules.
+  * Ported the existing page markup into `site/index.html` while preserving visible UI text, class names, DOM IDs, and layout markup.
+  * Repointed component stylesheet links to `components/` and replaced the scattered script blocks with the single `js/main.js` module entry point.
+  * Kept the CSS files byte-for-byte identical to their reference copies; no interface redesign was made.

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Lux Omni">
+  <link rel="icon" type="image/svg+xml" href="./icons/lux-pdf-viewer-icon.svg">
+  <link rel="icon" type="image/png" sizes="64x64" href="./icons/lux-pdf-viewer-icon-64.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="./icons/lux-pdf-viewer-icon-256.png">
+  <title>Lux Omni</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="components/pdf-editor.css">
+  <link rel="stylesheet" href="components/dropbox-ui.css">
+  <link rel="stylesheet" href="components/snipping-tool.css">
+  <link rel="stylesheet" href="components/temporary-log.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body data-focus-mode="false">
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Lux Omni home">
+      <span class="brand-mark" aria-hidden="true">
+        <img src="./icons/lux-pdf-viewer-icon.svg" alt="" width="42" height="42">
+      </span>
+      <span class="brand-copy">
+        <span class="brand-name">Lux Omni</span>
+        <span class="brand-slogan">Slogan placeholder — awaiting your wording</span>
+      </span>
+    </a>
+
+    <div class="topbar-actions">
+      <button id="dropbox-topbar-button" class="dropbox-topbar-button" type="button" aria-label="Dropbox disconnected" title="Open Dropbox">
+        <svg class="dropbox-topbar-logo" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7.2 2.8 2.4 5.9l4.8 3 4.8-3-4.8-3Zm9.6 0L12 5.9l4.8 3 4.8-3-4.8-3ZM7.2 9l-4.8 3 4.8 3 4.8-3-4.8-3Zm9.6 0L12 12l4.8 3 4.8-3-4.8-3-4.8 3 4.8 3 4.8-3-4.8-3ZM7.2 15.2l4.8 3 4.8-3-4.8-3-4.8 3Z"/>
+        </svg>
+        <span id="dropbox-status-indicator" class="dropbox-topbar-label" data-state="disconnected">Disconnected 🔴</span>
+      </button>
+      <button id="dropbox-sync-button" class="dropbox-ui-action dropbox-ui-sync" type="button" title="Save current viewport edits to Dropbox" aria-label="Sync edits to Dropbox" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 9A6.5 6.5 0 0 1 17 6l3 6M4 12l3 6a6.5 6.5 0 0 0 10.9-3"/></svg>
+        <span class="dropbox-ui-action-label">Sync</span>
+      </button>
+      <button id="dropbox-disconnect-button" class="dropbox-ui-action dropbox-ui-disconnect" type="button" title="Disconnect Dropbox" aria-label="Disconnect Dropbox" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6V3h6v3M4 6h16M7 6l1 15h8l1-15M10 10v7M14 10v7"/></svg>
+        <span class="dropbox-ui-action-label">Disconnect</span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" aria-pressed="false">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.2 15.4A8.4 8.4 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"></path>
+        </svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+        </svg>
+      </button>
+      <button id="focus-mode-toggle" class="focus-toggle" type="button" aria-pressed="false" aria-label="Turn on Focus Mode" title="Turn on Focus Mode">
+        <svg class="focus-icon-enter" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"></path>
+        </svg>
+        <svg class="focus-icon-exit" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 3v4a2 2 0 0 1-2 2H3M15 3v4a2 2 0 0 0 2 2h4M3 15h4a2 2 0 0 1 2 2v4M21 15h-4a2 2 0 0 0-2 2v4"></path>
+        </svg>
+        <span>Focus Mode</span>
+      </button>
+
+    </div>
+  </header>
+
+  <div class="workspace-shell">
+    <div class="sidebar-toggle-row">
+      <button
+        id="sidebar-toggle"
+        class="sidebar-toggle"
+        type="button"
+        aria-controls="sidebar"
+        aria-expanded="true"
+        aria-label="Close sidebar"
+        title="Close sidebar"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="viewport-composition" class="viewport-composition" hidden>
+      <div id="viewport-topbar" class="viewport-topbar" aria-label="Viewport toolbar">
+        <div id="viewport-toolbar-full" class="viewport-toolbar-section viewport-toolbar-section--full" hidden>
+          <button id="viewport-minimize-full" class="viewport-minimize-button" type="button" aria-label="Minimize full-screen viewport" title="Minimize viewport">−</button>
+          <button id="viewport-close-full" class="viewport-close-button" type="button" data-viewport-close="full" aria-label="Close full-screen viewport" title="Close viewport">×</button>
+        </div>
+        <div id="viewport-toolbar-left" class="viewport-toolbar-section viewport-toolbar-section--left" hidden>
+          <button id="viewport-minimize-left" class="viewport-minimize-button" type="button" aria-label="Minimize left viewport" title="Minimize left viewport">−</button>
+          <button id="viewport-close-left" class="viewport-close-button" type="button" data-viewport-close="left" aria-label="Close left viewport" title="Close left viewport">×</button>
+        </div>
+        <div id="viewport-toolbar-right" class="viewport-toolbar-section viewport-toolbar-section--right" hidden>
+          <button id="viewport-minimize-right" class="viewport-minimize-button" type="button" aria-label="Minimize right viewport" title="Minimize right viewport">−</button>
+          <button id="viewport-close-right" class="viewport-close-button" type="button" data-viewport-close="right" aria-label="Close right viewport" title="Close right viewport">×</button>
+        </div>
+      </div>
+      <div id="viewport-fullscreen-layout" class="viewport-stage viewport-stage--full" hidden>
+        <div class="viewport" data-viewport-side="full"></div>
+      </div>
+      <div id="viewport-split-layout" class="viewport-stage viewport-stage--split" hidden>
+        <div class="viewport viewport--split" data-viewport-side="left"></div>
+        <div class="viewport viewport--split" data-viewport-side="right"></div>
+      </div>
+      <span id="viewport-number-full" class="viewport-number viewport-number--full" aria-hidden="true" hidden>0</span>
+      <span id="viewport-number-left" class="viewport-number viewport-number--left" aria-hidden="true" hidden>1/2</span>
+      <span id="viewport-number-right" class="viewport-number viewport-number--right" aria-hidden="true" hidden>2/2</span>
+      <div id="viewport-split-divider" class="viewport-split-divider" role="separator" aria-label="Resize viewports" aria-orientation="vertical" aria-valuemin="20" aria-valuemax="80" aria-valuenow="50" tabindex="0" hidden></div>
+      <div id="viewport-minimized-dock" class="viewport-minimized-dock" aria-label="Minimized viewports" hidden>
+        <div id="viewport-minimized-items" class="viewport-minimized-items"></div>
+      </div>
+    </div>
+
+    <section id="viewport-replace-dialog" class="viewport-replace-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="viewport-replace-title" aria-describedby="viewport-replace-message">
+      <div class="viewport-replace-card">
+        <div class="viewport-replace-heading">
+          <span class="viewport-replace-warning-icon" aria-hidden="true">!</span>
+          <div>
+            <h2 id="viewport-replace-title">Replace existing content?</h2>
+            <p id="viewport-replace-message">This viewport already contains content. Replacing it may discard unsaved changes.</p>
+          </div>
+        </div>
+        <div class="viewport-replace-actions">
+          <button id="viewport-replace-cancel" class="viewport-replace-cancel" type="button">Cancel</button>
+          <button id="viewport-replace-confirm" class="viewport-replace-confirm" type="button">Replace</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="workspace-layout">
+      <aside id="sidebar" class="sidebar" aria-label="Sidebar">
+        <div class="sidebar-inner">
+          <div class="sidebar-cloud-actions">
+            <button id="dropbox-sidebar-button" class="toolbar-button toolbar-button-primary toolbar-icon-button" type="button" aria-label="Dropbox" title="Dropbox">
+              <svg class="dropbox-logo" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.2 2.8 2.4 5.9l4.8 3 4.8-3-4.8-3Zm9.6 0L12 5.9l4.8 3 4.8-3-4.8-3ZM7.2 9l-4.8 3 4.8 3 4.8-3-4.8-3Zm9.6 0L12 12l4.8 3 4.8-3-4.8-3-4.8 3 4.8 3 4.8-3-4.8-3ZM7.2 15.2l4.8 3 4.8-3-4.8-3-4.8 3Z"/>
+              </svg>
+            </button>
+            <button id="sidebar-screenshot" class="toolbar-button toolbar-icon-button" type="button" aria-label="Open Lux Omni Snipping Tool" title="Lux Omni Snipping Tool">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 4H6a2 2 0 0 0-2 2v2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/>
+                <rect x="8.5" y="8.5" width="7" height="7" rx="1" stroke-dasharray="2 2"/>
+              </svg>
+            </button>
+            <a id="clipboard-open" class="toolbar-button toolbar-icon-button" href="./clipboard.html" target="_blank" rel="noopener noreferrer" aria-label="Open Lux Omni Clipboard in a new tab" title="Lux Omni Clipboard">
+              <svg class="clipboard-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="4" width="14" height="17" rx="2"></rect>
+                <path d="M9 4.5V3.8A1.8 1.8 0 0 1 10.8 2h2.4A1.8 1.8 0 0 1 15 3.8v.7M9 10h6M9 14h6M9 18h4"></path>
+              </svg>
+            </a>
+            <button id="sidebar-youtube-button" class="toolbar-button toolbar-icon-button youtube-sidebar-button" type="button" aria-label="Load a YouTube video" title="YouTube" aria-controls="youtube-tile" aria-haspopup="dialog" aria-expanded="false">
+              <svg class="youtube-sidebar-icon" viewBox="0 0 24 18" aria-hidden="true">
+                <path d="M23.5 2.8a3 3 0 0 0-2.1-2.1C19.5.2 12 .2 12 .2S4.5.2 2.6.7A3 3 0 0 0 .5 2.8 31 31 0 0 0 0 9s0 3.7.5 6.2a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 9s0-3.7-.5-6.2Z" fill="#ff0033"></path>
+                <path d="m9.6 12.7 6.3-3.7-6.3-3.7v7.4Z" fill="#ffffff"></path>
+              </svg>
+            </button>
+            <button id="viewport-fullscreen" class="toolbar-button toolbar-icon-button viewport-mode-button" type="button" aria-label="Open full-screen viewport" title="Full Screen" aria-pressed="false">
+              <svg class="viewport-mode-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 3H4v5M16 3h4v5M20 16v5h-4M8 21H4v-5"></path>
+              </svg>
+            </button>
+            <button id="viewport-split-screen" class="toolbar-button toolbar-icon-button viewport-mode-button" type="button" aria-label="Open split-screen viewports" title="Split Screen" aria-pressed="false">
+              <svg class="viewport-mode-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                <path d="M12 4v16"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+      <main class="workspace" aria-label="PDF workspace">
+        <div class="workspace-empty-state">
+          <h1>Workspace</h1>
+          <p>Open a document or tool to begin.</p>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <section id="youtube-tile" class="youtube-tile" hidden role="dialog" aria-labelledby="youtube-tile-title" aria-describedby="youtube-tile-help" aria-modal="false">
+    <h2 id="youtube-tile-title">Load YouTube video</h2>
+    <p id="youtube-tile-help" class="youtube-tile-help">Paste a video link, then choose where it should open.</p>
+    <label class="youtube-tile-label" for="youtube-video-url">YouTube link</label>
+    <input id="youtube-video-url" class="youtube-tile-input" type="url" inputmode="url" autocomplete="url" placeholder="https://youtu.be/…" spellcheck="false">
+    <p id="youtube-tile-feedback" class="youtube-tile-feedback" role="status" aria-live="polite" hidden></p>
+    <div class="youtube-tile-targets" role="group" aria-label="Video destination">
+      <button class="youtube-target-button" type="button" data-youtube-target="left" aria-label="Open video in Left viewport">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M12 4v16"></path><path d="M8 8v8"></path></svg>
+        <span>Left</span>
+      </button>
+      <button class="youtube-target-button" type="button" data-youtube-target="right" aria-label="Open video in Right viewport">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M12 4v16"></path><path d="M16 8v8"></path></svg>
+        <span>Right</span>
+      </button>
+      <button class="youtube-target-button" type="button" data-youtube-target="full" aria-label="Open video in Full Screen viewport">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H4v5M16 3h4v5M20 16v5h-4M8 21H4v-5"></path></svg>
+        <span>Full Screen</span>
+      </button>
+    </div>
+  </section>
+
+  <div id="lux-snip-capture-panel" class="lux-snip-capture-panel" hidden role="region" aria-label="Lux Omni Snipping Tool capture options">
+    <p class="lux-snip-panel-title">Lux Omni Snipping Tool</p>
+    <div class="lux-snip-mode-group" role="group" aria-label="Snip mode">
+      <button type="button" data-lux-snip-mode="rectangle" class="is-active" aria-pressed="true">Rectangle</button>
+      <button type="button" data-lux-snip-mode="freeform" aria-pressed="false">Freeform</button>
+      <button type="button" data-lux-snip-mode="viewport" aria-pressed="false">Viewport</button>
+    </div>
+    <label for="lux-snip-delay">Delay
+      <select id="lux-snip-delay">
+        <option value="0">None</option><option value="3">3 seconds</option><option value="5">5 seconds</option><option value="10">10 seconds</option>
+      </select>
+    </label>
+    <button id="lux-snip-new" class="primary" type="button">Start Snipping</button>
+    <button id="lux-snip-cancel" class="danger" type="button">Cancel</button>
+  </div>
+  <div id="lux-snip-countdown" hidden role="status" aria-live="polite"></div>
+  <div id="lux-snip-selection" hidden tabindex="-1" aria-label="Select an area of the visible browser viewport">
+    <div id="lux-snip-selection-box" hidden></div>
+    <div id="lux-snip-selection-help">Drag to select the visible viewport area</div>
+    <div id="lux-snip-selection-toolbar" role="toolbar" aria-label="Capture selection tools" hidden>
+      <span>Lux Omni Snipping Tool</span>
+      <button type="button" data-lux-snip-selection-mode="rectangle">Rectangle</button>
+      <button type="button" data-lux-snip-selection-mode="freeform">Freeform</button>
+      <button type="button" data-lux-snip-selection-mode="viewport">Viewport</button>
+      <button id="lux-snip-selection-cancel" type="button">Cancel</button>
+    </div>
+  </div>
+
+  <div id="lux-snip-editor-modal" class="lux-snip-editor-modal" role="dialog" aria-modal="true" aria-labelledby="lux-snip-editor-title" hidden>
+    <div class="lux-snip-editor-backdrop" aria-hidden="true"></div>
+    <section class="lux-snip-editor-dialog">
+      <header class="lux-snip-editor-header">
+        <img class="lux-snip-brand-icon" src="./icons/lux-pdf-viewer-icon.svg" alt="">
+        <h2 id="lux-snip-editor-title" class="lux-snip-editor-title">Lux Omni Snipping Tool</h2>
+        <button id="lux-snip-discard" type="button" aria-label="Discard screenshot and close" title="Discard screenshot and close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6 18 18M18 6 6 18"></path></svg>
+        </button>
+      </header>
+      <div class="lux-snip-editor-toolbar" role="toolbar" aria-label="Screenshot editing tools">
+        <button type="button" data-lux-snip-tool="pen" class="is-active" aria-pressed="true" title="Pen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 20 4.5-1 11-11a2.1 2.1 0 0 0-3-3l-11 11L4 20Z"/></svg>Pen</button>
+        <button type="button" data-lux-snip-tool="highlighter" aria-pressed="false" title="Highlighter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16 10-10 4 4L8 20H4v-4Z"/><path d="m12 8 4 4M3 22h18"/></svg>Highlight</button>
+        <button type="button" data-lux-snip-tool="eraser" aria-pressed="false" title="Eraser"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 21-5-5a2 2 0 0 1 0-3l9-9a2 2 0 0 1 3 0l7 7a2 2 0 0 1 0 3l-7 7H7Z"/><path d="m8 6 10 10M14 21h8"/></svg>Eraser</button>
+        <button type="button" data-lux-snip-tool="text" aria-pressed="false" title="Insert text"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6V4h16v2M12 4v16M8 20h8"/></svg>Text</button>
+        <button type="button" data-lux-snip-tool="crop" aria-pressed="false" title="Crop screenshot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v12a3 3 0 0 0 3 3h12M3 6h12a3 3 0 0 1 3 3v12"/></svg>Crop</button>
+        <span class="lux-snip-toolbar-divider"></span>
+        <div class="lux-snip-color-row" role="group" aria-label="Annotation color">
+          <button type="button" data-lux-snip-color="#e03131" class="lux-snip-color is-active" aria-label="Red" aria-pressed="true" title="Red" style="background:#e03131"></button>
+          <button type="button" data-lux-snip-color="#ff922b" class="lux-snip-color" aria-label="Orange" aria-pressed="false" title="Orange" style="background:#ff922b"></button>
+          <button type="button" data-lux-snip-color="#f08c00" class="lux-snip-color" aria-label="Yellow" aria-pressed="false" title="Yellow" style="background:#f08c00"></button>
+          <button type="button" data-lux-snip-color="#2f9e44" class="lux-snip-color" aria-label="Green" aria-pressed="false" title="Green" style="background:#2f9e44"></button>
+          <button type="button" data-lux-snip-color="#1971c2" class="lux-snip-color" aria-label="Blue" aria-pressed="false" title="Blue" style="background:#1971c2"></button>
+          <button type="button" data-lux-snip-color="#7048e8" class="lux-snip-color" aria-label="Purple" aria-pressed="false" title="Purple" style="background:#7048e8"></button>
+          <button type="button" data-lux-snip-color="#111827" class="lux-snip-color" aria-label="Black" aria-pressed="false" title="Black" style="background:#111827"></button>
+        </div>
+        <select id="lux-snip-width" aria-label="Pen thickness" title="Pen thickness"><option value="2">Thin</option><option value="3" selected>Medium</option><option value="6">Thick</option></select>
+        <span class="lux-snip-toolbar-divider"></span>
+        <button id="lux-snip-undo" type="button" title="Undo" aria-label="Undo" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14h-2"/></svg></button>
+        <button id="lux-snip-redo" type="button" title="Redo" aria-label="Redo" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9h-9a7 7 0 0 0 0 14h2"/></svg></button>
+        <button id="lux-snip-zoom-out" type="button" title="Zoom out" aria-label="Zoom out">−</button>
+        <span id="lux-snip-zoom-label" aria-live="polite">100%</span>
+        <button id="lux-snip-zoom-in" type="button" title="Zoom in" aria-label="Zoom in">+</button>
+        <button id="lux-snip-copy" type="button" title="Copy annotated screenshot to the system clipboard"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h3"/></svg>Copy</button>
+        <button id="lux-snip-log" type="button" title="Add this annotated screenshot to Lux Omni Clipboard Log"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/></svg>Add to log</button>
+        <button id="lux-snip-save" type="button" title="Save screenshot as PNG"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/></svg>Save</button>
+      </div>
+      <div id="lux-snip-workarea" class="lux-snip-workarea">
+        <div id="lux-snip-stage">
+          <canvas id="lux-snip-base" aria-label="Captured screenshot"></canvas>
+          <canvas id="lux-snip-ink" aria-label="Draw or crop on the captured screenshot"></canvas>
+          <div id="lux-snip-crop-box" hidden></div>
+        </div>
+      </div>
+      <div id="lux-snip-status" role="status" aria-live="polite"></div>
+    </section>
+  </div>
+  <div id="lux-snip-notice" role="status" aria-live="polite" hidden></div>
+
+  <div id="dropbox-file-manager" class="dropbox-ui-modal" role="dialog" aria-modal="true" aria-labelledby="dropbox-file-manager-title" aria-describedby="dropbox-file-manager-status" hidden>
+    <div class="dropbox-ui-backdrop" data-dropbox-ui-close></div>
+    <section class="dropbox-ui-dialog" role="document">
+      <header class="dropbox-ui-header">
+        <div class="dropbox-ui-heading">
+          <h2 id="dropbox-file-manager-title">Dropbox Files</h2>
+          <p id="dropbox-current-location" class="dropbox-current-location">My Dropbox</p>
+        </div>
+        <div class="dropbox-ui-header-actions">
+          <input id="dropbox-upload-input" class="dropbox-ui-file-input" type="file" aria-label="Choose a file to upload">
+          <label class="dropbox-ui-upload-button" for="dropbox-upload-input" title="Upload a file from this device">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M4 16v4h16v-4"/></svg>
+            <span>Upload File</span>
+          </label>
+          <button id="dropbox-file-manager-close" class="dropbox-ui-close" type="button" aria-label="Close Dropbox Files" title="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="dropbox-ui-navigation">
+        <button id="dropbox-folder-back" class="dropbox-ui-back" type="button" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7M7 12h14"/></svg>
+          <span>Back</span>
+        </button>
+        <span class="dropbox-ui-navigation-hint">Choose a file, or open a folder to browse its contents.</span>
+      </div>
+      <p id="dropbox-file-manager-status" class="dropbox-ui-status" role="status" aria-live="polite">Checking Dropbox connection…</p>
+      <div class="dropbox-ui-list-wrap">
+        <ul id="dropbox-file-list" class="dropbox-ui-file-list" aria-label="Dropbox files and folders"></ul>
+        <div id="dropbox-empty-state" class="dropbox-ui-empty" hidden>
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 14.5A3.5 3.5 0 0 1 10.5 11H20l4 4h13.5A3.5 3.5 0 0 1 41 18.5v18a3.5 3.5 0 0 1-3.5 3.5h-27A3.5 3.5 0 0 1 7 36.5Z"/></svg>
+          <strong>This folder is empty</strong>
+          <span>Upload a file or go back to another folder.</span>
+        </div>
+      </div>
+      <footer id="dropbox-selection-actions" class="dropbox-ui-selection" hidden>
+        <div class="dropbox-ui-selected-copy">
+          <span class="dropbox-ui-selected-label">Selected file</span>
+          <strong id="dropbox-selected-name">No file selected</strong>
+        </div>
+        <div class="dropbox-ui-viewport-actions">
+          <button id="dropbox-add-left" type="button">Add to Left Viewport</button>
+          <button id="dropbox-add-right" type="button">Add to Right Viewport</button>
+          <button id="dropbox-add-full" type="button">Add to Full Viewport</button>
+        </div>
+      </footer>
+    </section>
+  </div>
+  <div id="dropbox-ui-toast" class="dropbox-ui-toast" role="status" aria-live="polite" hidden></div>
+
+  <footer class="site-footer"><a href="./privacy.html">Privacy Policy</a></footer>
+</body>
+</html>
