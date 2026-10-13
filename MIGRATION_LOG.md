@@ -177,3 +177,13 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Stored the active access token and its expiry exclusively in private in-memory class fields; did not migrate, read, or write access tokens or token expiry values in browser storage.
   * Limited `localStorage` usage to temporary state-specific OAuth PKCE state and verifier keys, and removed those keys after callback handling, sign-out, or revocation.
   * Added beginner-friendly comments, consistent Dropbox API errors, path validation, and safe Dropbox-API-Arg header encoding; no other application files were changed.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(ui): restore top bar hover and scroll reveal logic for Focus Mode`
+* **Changes:**
+  * Cached the existing `.topbar` element in `WorkspaceUI` and ported the legacy scroll direction logic using the current and previous scroll positions.
+  * Restored the mouse-near-top reveal check at `event.clientY <= 10`, plus the top bar's `mouseenter`, `mouseleave`, and keyboard `focusin` behavior.
+  * Bound reveal and hide behavior to the shared `Store.getState().focusMode` value so the handlers are inactive during normal browsing.
+  * Cleared the reveal class when Focus Mode is turned off and added beginner-friendly comments for the new event handling.

@@ -11,6 +11,10 @@ export class WorkspaceUI {
     this.themeToggle = document.querySelector('#theme-toggle');
     // Keep the existing focus-mode control available to this class.
     this.focusModeToggle = document.querySelector('#focus-mode-toggle');
+    // Cache the top bar so Focus Mode can reveal it when needed.
+    this.topbar = document.querySelector('.topbar');
+    // Remember the last scroll position to detect whether the page moves up or down.
+    this.lastScrollY = window.scrollY;
 
     // Find the button that opens or closes the sidebar.
     this.sidebarToggle = document.querySelector('#sidebar-toggle');
@@ -73,6 +77,9 @@ export class WorkspaceUI {
       Store.setState({ activeLayout: 'split' });
     });
 
+    // Restore the top bar reveal behavior used while Focus Mode is active.
+    this.installFocusModeTopbarListeners();
+
     // Attach the legacy-compatible pointer and keyboard behavior to the divider.
     this.installSplitDividerControls();
 
@@ -81,6 +88,82 @@ export class WorkspaceUI {
 
     // Apply the current state once so the page is correct at startup.
     this.handleStateChange({ state: Store.getState() });
+  }
+
+  // Show the top bar only while Focus Mode is enabled.
+  showTopbar() {
+    // Read the latest shared setting before revealing the top bar.
+    if (Store.getState().focusMode === true) {
+      // Apply the existing CSS class that slides the top bar into view.
+      this.topbar?.classList.add('is-visible');
+    }
+  }
+
+  // Hide the top bar only while Focus Mode is enabled.
+  hideTopbar() {
+    // Check the current setting so normal browsing remains unchanged.
+    if (Store.getState().focusMode === true) {
+      // Remove the reveal class so the top bar slides out of view again.
+      this.topbar?.classList.remove('is-visible');
+    }
+  }
+
+  // Restore the legacy scroll and mouse triggers for the top bar.
+  installFocusModeTopbarListeners() {
+    // Watch scroll changes so moving up reveals the bar and moving down hides it.
+    window.addEventListener('scroll', () => {
+      // Read the current vertical scroll position from the browser.
+      const currentScrollY = window.scrollY;
+      // Check the shared setting instead of maintaining another Focus Mode flag.
+      const isFocusMode = Store.getState().focusMode === true;
+
+      // Use the legacy direction logic only while Focus Mode is active.
+      if (isFocusMode) {
+        // Reveal the top bar when scrolling up or staying near the top.
+        if (currentScrollY < this.lastScrollY || currentScrollY <= 10) {
+          // Add the class that exposes the top bar.
+          this.showTopbar();
+        // Hide the top bar when the user scrolls down the page.
+        } else if (currentScrollY > this.lastScrollY) {
+          // Remove the class while downward scrolling continues.
+          this.hideTopbar();
+        }
+      // Clear the reveal class when Focus Mode is turned off.
+      } else {
+        // Keep ordinary browsing independent from the Focus Mode reveal class.
+        this.topbar?.classList.remove('is-visible');
+      }
+
+      // Save this position so the next scroll event can detect direction.
+      this.lastScrollY = currentScrollY;
+    }, { passive: true });
+
+    // Reveal the top bar when the pointer reaches the top edge of the screen.
+    document.addEventListener('mousemove', (event) => {
+      // Require Focus Mode and the same ten-pixel boundary as the legacy code.
+      if (Store.getState().focusMode === true && event.clientY <= 10) {
+        // Show the bar without affecting normal browsing.
+        this.showTopbar();
+      }
+    });
+
+    // Reveal the bar when the pointer enters its area during Focus Mode.
+    this.topbar?.addEventListener('mouseenter', () => {
+      // The method checks Focus Mode before changing the class.
+      this.showTopbar();
+    });
+
+    // Hide the bar when the pointer leaves its area during Focus Mode.
+    this.topbar?.addEventListener('mouseleave', () => {
+      // The method checks Focus Mode before changing the class.
+      this.hideTopbar();
+    });
+
+    // Also reveal the bar when keyboard focus moves into its controls.
+    this.topbar?.addEventListener('focusin', () => {
+      // Keep keyboard navigation convenient without changing the legacy design.
+      this.showTopbar();
+    });
   }
 
   // Add the same resize math and key controls used by the original workspace.
@@ -242,6 +325,8 @@ export class WorkspaceUI {
     } else {
       // Remove the attribute to restore the regular workspace layout.
       document.body.removeAttribute('data-focus-mode');
+      // Clear any earlier reveal so normal browsing starts with no Focus Mode class.
+      this.topbar?.classList.remove('is-visible');
     }
 
     // Update the focus button only when it is present in the document.
