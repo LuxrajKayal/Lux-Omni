@@ -208,4 +208,15 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Added current application-specific storage keys for the theme, Focus Mode, and sidebar state, while retaining fallback reads so existing preferences can be migrated.
   * Centralized preference persistence in the shared Store, validating values and catching storage errors so the interface remains usable when browser storage is unavailable.
   * Confirmed that restoring Focus Mode applies the saved state before the workspace UI is initialized, allowing the top bar to start hidden and reveal on the same pointer and scroll triggers as before.
+ 
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `feat(ui): implement DropboxModalUI and connect top bar to Dropbox API`
+* **Changes:**
+  * Implemented `site/js/ui/DropboxModalUI.js` as a commented ES6 class that reads the exact Dropbox control and modal IDs from the legacy UI and page markup.
+  * Connected the top-bar and sidebar Dropbox buttons to the current service's authorization flow; added connection verification, status text, OAuth callback cleanup, folder browsing, file selection, file uploads, disconnect, and revision-aware Sync behavior.
+  * Published `FILE_SELECTED` when a file is selected and `FILE_OPEN_REQUESTED` with the downloaded file Blob, metadata, revision, and target viewport when a destination is chosen, avoiding direct viewport calls from the modal class.
+  * Published Dropbox connection and sync lifecycle events for other modules to observe, while keeping access tokens inside the Dropbox API service.
+  * Updated `site/js/main.js` to instantiate `DropboxModalUI` alongside `WorkspaceUI` after saved preferences are initialized.
 
