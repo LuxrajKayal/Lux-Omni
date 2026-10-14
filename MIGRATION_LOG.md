@@ -314,3 +314,48 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Changed the default `sidebarOpen` state in `site/js/core/Store.js` from `false` to `true`, so first-time visitors see the sidebar and top-bar controls.
   * Preserved preference persistence and migration compatibility: saved values under the current Lux Omni key or prior legacy key still override the default, and sidebar toggles continue saving the user's choice.
   * Left the future Settings UI, theme and Focus Mode behavior, and viewport behavior unchanged.
+
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(dropbox): restore session across page refreshes`
+* **Changes:**
+  * Compared the migrated `DropboxApi.js` with the read-only legacy Dropbox API's session lookup, expiry validation, current-account check, and cleanup flow.
+  * Added the same short-lived access-token and expiry storage keys used by the legacy implementation: `lux-omni-dropbox-access-token` and `lux-omni-dropbox-expires-at`.
+  * Kept credential access inside the modular `DropboxApi` service. The service restores only a token with a valid future expiry, then `DropboxModalUI` verifies the account through the existing live connection check before showing Connected.
+  * Persisted the short-lived token and expiry after PKCE callback validation; removed persisted credentials on token expiry, Dropbox HTTP 401 responses, explicit disconnect/revoke, and session clearing.
+  * Kept the existing authorization endpoint, PKCE state/verifier validation, scopes, callback cleanup, and account verification flow.
+  * Security note: the requested legacy-compatible behavior stores a short-lived access token in `localStorage`; this is vulnerable to access by injected same-origin scripts. No refresh token or indefinite connection guarantee was introduced.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(ui): make Dropbox topbar a status-only region`
+* **Changes:**
+  * Changed the UI reference from an actionable top-bar button to a status-only region.
+  * Removed the top-bar click handler. The sidebar Dropbox button remains the only Dropbox UI shortcut that starts authorization or opens the file manager.
+  * Kept the existing Sync and Disconnect buttons as separate actions and preserved EventBus connection-status notifications.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(html): mark Dropbox topbar as status-only`
+* **Changes:**
+  * Replaced the top-bar Dropbox `button` with a non-interactive `div` using `role="status"` and `aria-live="polite"`, with an accessible connection-status label.
+  * Renamed the element ID and class to `dropbox-topbar-status` to make its role explicit in the migrated markup.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(css): remove interactive styling from Dropbox status`
+* **Changes:**
+  * Renamed the main stylesheet selectors to `.dropbox-topbar-status`, removed hover and focus styling intended for a clickable control, and changed its cursor to the normal default.
+  * Updated the responsive selector to use the status-region class.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(css): rename Dropbox connection status selector`
+* **Changes:**
+  * Updated the Dropbox component stylesheet to target `.dropbox-topbar-status`, keeping the connection label's green/red state colors and responsive width rule in the modular CSS layer.
