@@ -38,9 +38,9 @@ class Store {
     // Start with focus mode turned off.
     // Purpose: Set this named property in the surrounding object or configuration.
     focusMode: false,
-    // Start with the sidebar visible or hidden according to this flag: closed.
+    // Show the sidebar by default for first-time visitors who have no saved preference.
     // Purpose: Set this named property in the surrounding object or configuration.
-    sidebarOpen: false,
+    sidebarOpen: true,
     // Keep the workspace in its welcome state until a control explicitly opens a viewport.
     // Purpose: Set this named property in the surrounding object or configuration.
     activeLayout: null,
