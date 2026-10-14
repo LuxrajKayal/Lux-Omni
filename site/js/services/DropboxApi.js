@@ -427,8 +427,6 @@ class DropboxApi {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-
-
   // Forget an access token if Dropbox reports that the token is unauthorized.
   // Purpose: Run this statement as the next step in the surrounding operation.
   #expireSessionOnUnauthorized(status) {
