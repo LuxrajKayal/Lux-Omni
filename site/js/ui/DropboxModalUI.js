@@ -18,7 +18,7 @@ export class DropboxModalUI {
     // Cache the non-interactive top-bar region that reports Dropbox connection status.
     // Purpose: Find the HTML element or elements used by this part of the interface.
     this.topbarStatus = document.querySelector('#dropbox-topbar-status');
-    // Cache the connection label displayed inside the status region.
+    // Cache the connection label displayed inside that button.
     // Purpose: Find the HTML element or elements used by this part of the interface.
     this.statusIndicator = document.querySelector('#dropbox-status-indicator');
     // Cache the action that saves edited viewport content back to Dropbox.
@@ -267,7 +267,7 @@ export class DropboxModalUI {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-  // Ask Dropbox to verify the short-lived token restored or cached by the service.
+  // Ask the Dropbox service to verify that its in-memory token still works.
   // Purpose: Run this statement as the next step in the surrounding operation.
   async refreshConnectionStatus({ notifyOnError = false } = {}) {
     // Purpose: Start a protected operation so failures can be handled cleanly.
@@ -301,7 +301,7 @@ export class DropboxModalUI {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-  // Handle the OAuth callback or verify the saved session on a normal page load.
+  // Restore a valid callback session or check the session already in memory.
   // Purpose: Run this statement as the next step in the surrounding operation.
   async initialize() {
     // Look for the authorization code or error returned by Dropbox.
@@ -356,7 +356,7 @@ export class DropboxModalUI {
     // Purpose: Close the current block, handler, object, or expression.
     }
 
-    // Normal page loads restore a valid saved session when available, then verify it with Dropbox.
+    // Normal page loads simply verify whether a valid in-memory token exists.
     // Purpose: Wait for the asynchronous operation to finish before continuing.
     await this.refreshConnectionStatus();
   // Purpose: Close the current block, handler, object, or expression.

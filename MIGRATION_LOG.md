@@ -396,3 +396,14 @@ This log chronologically records file creation, removal, moves, modifications, a
 * **Commit:** `style(css): normalize Dropbox status spacing`
 * **Changes:**
   * Normalized spacing after removing the obsolete hover and focus styles from the non-interactive connection status region.
+
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `revert(dropbox): restore pre-status-box-removal checkpoint`
+* **Changes:**
+  * Restored `site/index.html`, `site/styles.css`, and `site/components/dropbox-ui.css` to the exact source snapshot at commit `c15be22693865c7e85a8fe2d35c5c1465429e8a4`, before the top-bar button box was replaced with a non-interactive `div`.
+  * Restored `site/js/ui/DropboxModalUI.js` and `site/js/services/DropboxApi.js` to the same checkpoint to avoid retaining extra edits made after that point.
+  * This keeps the short-lived Dropbox session persistence introduced before the checkpoint, while undoing the subsequent top-bar markup/style changes that did not match the observed live result.
+  * Preserved the existing title, approved slogan, sidebar default/persistence, and the earlier commit history. The legacy reference folder remains untouched.

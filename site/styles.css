@@ -262,8 +262,8 @@ a {
   gap: 8px;
 }
 
-/* Style .dropbox-topbar-status to define its appearance and layout. */
-.dropbox-topbar-status {
+/* Style .dropbox-topbar-button to define its appearance and layout. */
+.dropbox-topbar-button {
   /* Choose how the element and its children participate in layout. Value: inline-flex. */
   display: inline-flex;
   /* Set the smallest width the element is allowed to use. Value: 0. */
@@ -286,14 +286,30 @@ a {
   color: var(--control-text);
   /* Set the element's background color, image, or combined background. Value: transparent. */
   background: transparent;
-  /* Use the normal cursor because this status region does not perform an action. Value: default. */
-  cursor: default;
+  /* Choose the pointer shape shown when hovering over the element. Value: pointer. */
+  cursor: pointer;
   /* Set font to control the appearance or behavior of this element. Value: inherit. */
   font: inherit;
   /* Control how spaces and line breaks in text are handled. Value: nowrap. */
   white-space: nowrap;
   /* Smooth the listed property changes over time. Value: background-color 180ms ease, border-color 180ms ease. */
   transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+/* Style .dropbox-topbar-button:hover to define its appearance and layout. */
+.dropbox-topbar-button:hover {
+  /* Set border-color to control the color of this element. Value: var(--control-border). */
+  border-color: var(--control-border);
+  /* Set the element's background color, image, or combined background. Value: var(--control-hover-bg). */
+  background: var(--control-hover-bg);
+}
+
+/* Style .dropbox-topbar-button:focus-visible to define its appearance and layout. */
+.dropbox-topbar-button:focus-visible {
+  /* Set outline to control the appearance or behavior of this element. Value: 3px solid var(--focus-outline). */
+  outline: 3px solid var(--focus-outline);
+  /* Set outline-offset to control the appearance or behavior of this element. Value: 2px. */
+  outline-offset: 2px;
 }
 
 /* Style .dropbox-topbar-logo to define its appearance and layout. */
@@ -2324,8 +2340,8 @@ body[data-focus-mode="true"] .workspace {
     gap: 5px;
   }
 
-  /* Style .dropbox-topbar-status to define its appearance and layout. */
-  .dropbox-topbar-status {
+  /* Style .dropbox-topbar-button to define its appearance and layout. */
+  .dropbox-topbar-button {
     /* Set the spacing between child layout items. Value: 4px. */
     gap: 4px;
     /* Control the space between the element's edge and its contents. Value: 0. */

@@ -1,6 +1,6 @@
 /* Dropbox UI integration — isolated from the main application stylesheet. */
-/* Style elements matching .dropbox-topbar-status to define their appearance and layout. */
-.dropbox-topbar-status {
+/* Style elements matching .dropbox-topbar-button to define their appearance and layout. */
+.dropbox-topbar-button {
   /* Set the spacing between child items. Value: 7px. */
   gap: 7px;
   /* Set the maximum allowed width. Value: min(250px, 34vw). */
@@ -521,8 +521,8 @@ overflow: hidden; }
   /* Style elements matching .topbar-actions to define their appearance and layout. */
   .topbar-actions { /* Set the spacing between child items. Value: 3px. */
   gap: 3px; }
-  /* Style elements matching .dropbox-topbar-status to define their appearance and layout. */
-  .dropbox-topbar-status { /* Set the maximum allowed width. Value: 105px. */
+  /* Style elements matching .dropbox-topbar-button to define their appearance and layout. */
+  .dropbox-topbar-button { /* Set the maximum allowed width. Value: 105px. */
   max-width: 105px; /* Set the minimum allowed width. Value: 0. */
   min-width: 0; /* Set the spacing between child items. Value: 4px. */
   gap: 4px; /* Control the space between the element's border and its content. Value: 0 3px. */
