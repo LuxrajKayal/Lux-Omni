@@ -367,3 +367,32 @@ This log chronologically records file creation, removal, moves, modifications, a
 * **Commit:** `docs(dropbox): clarify restored session status check`
 * **Changes:**
   * Updated `DropboxModalUI.js` comments to describe live verification of a restored or cached session after page load.
+
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `docs(dropbox): align service comments with restored sessions`
+* **Changes:**
+  * Corrected service comments that still described the access token as memory-only after the legacy-compatible storage restoration was implemented.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `docs(ui): clarify Dropbox status region ownership`
+* **Changes:**
+  * Corrected UI comments to refer to the non-interactive status region rather than a clickable button, and clarified that page-load initialization verifies the saved session.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `style(dropbox): normalize session helper spacing`
+* **Changes:**
+  * Normalized spacing around the new private token-restoration and expiry-handling methods.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `style(css): normalize Dropbox status spacing`
+* **Changes:**
+  * Normalized spacing after removing the obsolete hover and focus styles from the non-interactive connection status region.
