@@ -289,3 +289,28 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Added a rendering-frame boundary after attaching the PDF shell and an explicit computed-position check before constructing `PDFViewer`, turning stylesheet timing or path regressions into a targeted diagnostic.
   * Audited the complete legacy viewport state machine, fixed-slot layout, minimized dock, drag/drop replacement flow, PDF mount lifecycle, and the new migration's EventBus ownership boundaries.
   * Created a Word design document with a viewport lifecycle flowchart, module connection map, mode transitions, drag/drop replacement rules, naming/identity requirements, regression scenarios, and source references.
+
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(html): remove tangled comment from page title`
+* **Changes:**
+  * Moved the explanatory HTML comment outside the `<title>` element in `site/index.html` so the browser tab title is exactly `Lux Omni`.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `feat(branding): set Lux Omni slogan`
+* **Changes:**
+  * Replaced the slogan placeholder in `site/index.html` with the approved brand line: `One Ecosystem. Endless Possibilities.`.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(ui): open sidebar by default for first-time visitors`
+* **Changes:**
+  * Compared the active Store startup state with the read-only legacy HTML and sidebar controller. The legacy page opens the sidebar by default when no saved preference exists.
+  * Changed the default `sidebarOpen` state in `site/js/core/Store.js` from `false` to `true`, so first-time visitors see the sidebar and top-bar controls.
+  * Preserved preference persistence and migration compatibility: saved values under the current Lux Omni key or prior legacy key still override the default, and sidebar toggles continue saving the user's choice.
+  * Left the future Settings UI, theme and Focus Mode behavior, and viewport behavior unchanged.
