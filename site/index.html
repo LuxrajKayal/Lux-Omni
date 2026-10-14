@@ -54,8 +54,8 @@
 
     <!-- Create a div element styled with the topbar-actions class for its interface role. -->
     <div class="topbar-actions">
-      <!-- Provide the top-bar control for connecting to Dropbox or opening its file browser. -->
-      <button id="dropbox-topbar-button" class="dropbox-topbar-button" type="button" aria-label="Dropbox disconnected" title="Open Dropbox">
+      <!-- Display the live Dropbox connection state without attaching an action to this region. -->
+      <div id="dropbox-topbar-status" class="dropbox-topbar-status" role="status" aria-live="polite" aria-label="Dropbox connection status: Disconnected" title="Dropbox connection status">
         <!-- Create a svg element styled with the dropbox-topbar-logo class for its interface role. -->
         <svg class="dropbox-topbar-logo" viewBox="0 0 24 24" aria-hidden="true">
           <!-- Draw one vector shape inside the SVG icon. -->
@@ -64,8 +64,8 @@
         </svg>
         <!-- Show whether the Dropbox service is connected. -->
         <span id="dropbox-status-indicator" class="dropbox-topbar-label" data-state="disconnected">Disconnected 🔴<!-- Close the span element and mark the end of its content. --></span>
-      <!-- Close the button element and mark the end of its content. -->
-      </button>
+      <!-- Close the div element and mark the end of its content. -->
+      </div>
       <!-- Let the user save available document edits back to Dropbox. -->
       <button id="dropbox-sync-button" class="dropbox-ui-action dropbox-ui-sync" type="button" title="Save current viewport edits to Dropbox" aria-label="Sync edits to Dropbox" disabled>
         <!-- Define a vector icon that stays crisp at different sizes. -->
