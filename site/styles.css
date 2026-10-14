@@ -296,10 +296,6 @@ a {
   transition: background-color 180ms ease, border-color 180ms ease;
 }
 
-
-
-
-
 /* Style .dropbox-topbar-logo to define its appearance and layout. */
 .dropbox-topbar-logo {
   /* Choose how the element and its children participate in layout. Value: block. */
