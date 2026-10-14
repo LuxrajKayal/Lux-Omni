@@ -9,6 +9,16 @@
   min-height: 0 !important;
   /* Control the space between the element's border and its content. Value: 0. */
   padding: 0;
+  /* Let PDF editor content stretch across the host's cross-axis. */
+  align-items: stretch;
+  /* Start the editor content at the beginning of the vertical layout. */
+  justify-content: flex-start;
+  /* Stack the PDF toolbar above the page viewer. */
+  flex-direction: column;
+  /* Keep PDF pages and toolbar content clipped within the viewport. */
+  overflow: hidden;
+  /* Preserve the background used by the legacy PDF editor. */
+  background: #e9edf3;
 }
 /* Style elements matching .lux-pdf-editor to define their appearance and layout. */
 .lux-pdf-editor {

@@ -235,4 +235,16 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Configured the utility to ignore `_legacy_reference/`, `.git/`, `node_modules/`, and `dev-tools/`.
   * Created `dev-tools/README.md` explaining how to run the utility and restore tracked study-mode files with Git, including a warning that restore commands discard other unstaged tracked edits too.
   * Documented regex parsing limitations so that template-literal edge cases are not presented as universally safe.
+ 
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `feat(adapters): implement event-driven PdfAdapter with strict separation and commenting`
+* **Changes:**
+  * Read `_legacy_reference/site/pdf-engine.js` and the matching viewport markup in `_legacy_reference/site/index.html` before implementing the adapter.
+  * Ported the Mozilla PDF.js viewing and annotation workflow into `site/js/adapters/PdfAdapter.js`, including page navigation, zoom, rotation, search, supported annotation tools, export, dirty-state tracking, and PDF document cleanup.
+  * Added the `PdfAdapter` ES6 class, which subscribes to `FILE_OPEN_REQUESTED`, identifies PDFs from MIME type, filename, or file signature, and renders to the requested Full, Left, or Right viewport.
+  * Added cancellation checks so a slow or superseded PDF load cannot overwrite a newer document, and added `PDF_OPENED`, `PDF_DOCUMENT_DIRTY`, `PDF_DOCUMENT_EDITED`, and `FILE_OPEN_FAILED` events for decoupled consumers.
+  * Removed the legacy JavaScript `root.style` assignments and moved the equivalent host layout and background values into `site/components/pdf-editor.css`; the viewer loads CSS files rather than injecting CSS text.
+  * Wired `PdfAdapter` into `site/js/main.js` alongside the UI classes and maintained beginner-friendly explanations for new executable lines and CSS declarations.
 

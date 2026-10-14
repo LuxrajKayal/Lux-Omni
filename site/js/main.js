@@ -7,6 +7,8 @@ import WorkspaceUI from './ui/WorkspaceUI.js';
 // Import the Dropbox connection status, file browser, and upload/sync controls.
 // Purpose: Import a shared module so this file can reuse its functionality.
 import DropboxModalUI from './ui/DropboxModalUI.js';
+// Import the PDF adapter that handles shared file-open requests.
+import PdfAdapter from './adapters/PdfAdapter.js';
 
 // Wait until the browser has parsed the page before finding its controls.
 // Purpose: Register a handler so the application reacts when this event occurs.
@@ -22,5 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Wire Dropbox buttons and initialize its OAuth/session status.
   // Purpose: Run this statement as the next step in the surrounding operation.
   new DropboxModalUI();
+
+  // Subscribe to file-open requests so PDF documents can be rendered in the selected viewport.
+  new PdfAdapter();
 // Purpose: Close the current block, handler, object, or expression.
 });
