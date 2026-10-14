@@ -248,3 +248,20 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Removed the legacy JavaScript `root.style` assignments and moved the equivalent host layout and background values into `site/components/pdf-editor.css`; the viewer loads CSS files rather than injecting CSS text.
   * Wired `PdfAdapter` into `site/js/main.js` alongside the UI classes and maintained beginner-friendly explanations for new executable lines and CSS declarations.
 
+
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(ui): restore viewport window controls, sidebar viewport toggles, and initial empty state`
+* **Changes — legacy investigation:**
+  * Read `_legacy_reference/site/app.js` and `_legacy_reference/site/index.html` before editing active files; the reference snapshot remains unchanged.
+  * Confirmed the legacy controller began with `activeViewportMode = null` and hid `#viewport-composition` when no active window or minimized restore tile existed, preserving `.workspace-empty-state`.
+  * Confirmed the window-control IDs are `#viewport-minimize-full`, `#viewport-minimize-left`, `#viewport-minimize-right`, `#viewport-close-full`, `#viewport-close-left`, and `#viewport-close-right`. Restore entries live in `#viewport-minimized-items` inside `#viewport-minimized-dock`.
+  * Confirmed the sidebar layout buttons are `#viewport-fullscreen` and `#viewport-split-screen`, routed by the legacy controller to `setViewportMode("full")` and `setViewportMode("split")`.
+* **Changes — active implementation:**
+  * Changed `Store.activeLayout` from `"full"` to `null` so startup remains a welcome/empty workspace.
+  * Restored minimize/close click handlers, minimized dock restore buttons, Full/Split layout transitions, and the solo-pane Split Screen state in `WorkspaceUI`.
+  * Subscribed the workspace to `FILE_OPEN_REQUESTED` and `PDF_OPENED` so it activates at the request stage and remains active after a PDF renderer confirms success.
+  * Added `VIEWPORT_CLOSE_REQUESTED` handling to `PdfAdapter` so closing a viewport invalidates pending PDF renders and releases the active PDF.js renderer. The adapter stores and clears the viewport filename for restore labels.
+  * Removed direct JavaScript style-property writes from `WorkspaceUI`; the sidebar remains CSS-controlled and split-pane resizing selects stylesheet classes in `site/styles.css`.

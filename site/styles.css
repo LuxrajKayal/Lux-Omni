@@ -585,6 +585,496 @@ body[data-focus-mode="true"] .workspace-shell {
   grid-template-rows: 44px minmax(0, 1fr) auto;
 }
 
+/* Define Split Screen pane widths through classes instead of JavaScript inline styles. */
+
+/* Style .viewport-composition.split-ratio-20 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-20 {
+  /* Allocate 20 relative grid units to the Left pane. */
+  --split-left-share: 20fr;
+  /* Allocate 80 relative grid units to the Right pane. */
+  --split-right-share: 80fr;
+}
+
+/* Style .viewport-composition.split-ratio-21 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-21 {
+  /* Allocate 21 relative grid units to the Left pane. */
+  --split-left-share: 21fr;
+  /* Allocate 79 relative grid units to the Right pane. */
+  --split-right-share: 79fr;
+}
+
+/* Style .viewport-composition.split-ratio-22 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-22 {
+  /* Allocate 22 relative grid units to the Left pane. */
+  --split-left-share: 22fr;
+  /* Allocate 78 relative grid units to the Right pane. */
+  --split-right-share: 78fr;
+}
+
+/* Style .viewport-composition.split-ratio-23 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-23 {
+  /* Allocate 23 relative grid units to the Left pane. */
+  --split-left-share: 23fr;
+  /* Allocate 77 relative grid units to the Right pane. */
+  --split-right-share: 77fr;
+}
+
+/* Style .viewport-composition.split-ratio-24 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-24 {
+  /* Allocate 24 relative grid units to the Left pane. */
+  --split-left-share: 24fr;
+  /* Allocate 76 relative grid units to the Right pane. */
+  --split-right-share: 76fr;
+}
+
+/* Style .viewport-composition.split-ratio-25 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-25 {
+  /* Allocate 25 relative grid units to the Left pane. */
+  --split-left-share: 25fr;
+  /* Allocate 75 relative grid units to the Right pane. */
+  --split-right-share: 75fr;
+}
+
+/* Style .viewport-composition.split-ratio-26 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-26 {
+  /* Allocate 26 relative grid units to the Left pane. */
+  --split-left-share: 26fr;
+  /* Allocate 74 relative grid units to the Right pane. */
+  --split-right-share: 74fr;
+}
+
+/* Style .viewport-composition.split-ratio-27 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-27 {
+  /* Allocate 27 relative grid units to the Left pane. */
+  --split-left-share: 27fr;
+  /* Allocate 73 relative grid units to the Right pane. */
+  --split-right-share: 73fr;
+}
+
+/* Style .viewport-composition.split-ratio-28 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-28 {
+  /* Allocate 28 relative grid units to the Left pane. */
+  --split-left-share: 28fr;
+  /* Allocate 72 relative grid units to the Right pane. */
+  --split-right-share: 72fr;
+}
+
+/* Style .viewport-composition.split-ratio-29 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-29 {
+  /* Allocate 29 relative grid units to the Left pane. */
+  --split-left-share: 29fr;
+  /* Allocate 71 relative grid units to the Right pane. */
+  --split-right-share: 71fr;
+}
+
+/* Style .viewport-composition.split-ratio-30 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-30 {
+  /* Allocate 30 relative grid units to the Left pane. */
+  --split-left-share: 30fr;
+  /* Allocate 70 relative grid units to the Right pane. */
+  --split-right-share: 70fr;
+}
+
+/* Style .viewport-composition.split-ratio-31 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-31 {
+  /* Allocate 31 relative grid units to the Left pane. */
+  --split-left-share: 31fr;
+  /* Allocate 69 relative grid units to the Right pane. */
+  --split-right-share: 69fr;
+}
+
+/* Style .viewport-composition.split-ratio-32 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-32 {
+  /* Allocate 32 relative grid units to the Left pane. */
+  --split-left-share: 32fr;
+  /* Allocate 68 relative grid units to the Right pane. */
+  --split-right-share: 68fr;
+}
+
+/* Style .viewport-composition.split-ratio-33 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-33 {
+  /* Allocate 33 relative grid units to the Left pane. */
+  --split-left-share: 33fr;
+  /* Allocate 67 relative grid units to the Right pane. */
+  --split-right-share: 67fr;
+}
+
+/* Style .viewport-composition.split-ratio-34 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-34 {
+  /* Allocate 34 relative grid units to the Left pane. */
+  --split-left-share: 34fr;
+  /* Allocate 66 relative grid units to the Right pane. */
+  --split-right-share: 66fr;
+}
+
+/* Style .viewport-composition.split-ratio-35 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-35 {
+  /* Allocate 35 relative grid units to the Left pane. */
+  --split-left-share: 35fr;
+  /* Allocate 65 relative grid units to the Right pane. */
+  --split-right-share: 65fr;
+}
+
+/* Style .viewport-composition.split-ratio-36 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-36 {
+  /* Allocate 36 relative grid units to the Left pane. */
+  --split-left-share: 36fr;
+  /* Allocate 64 relative grid units to the Right pane. */
+  --split-right-share: 64fr;
+}
+
+/* Style .viewport-composition.split-ratio-37 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-37 {
+  /* Allocate 37 relative grid units to the Left pane. */
+  --split-left-share: 37fr;
+  /* Allocate 63 relative grid units to the Right pane. */
+  --split-right-share: 63fr;
+}
+
+/* Style .viewport-composition.split-ratio-38 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-38 {
+  /* Allocate 38 relative grid units to the Left pane. */
+  --split-left-share: 38fr;
+  /* Allocate 62 relative grid units to the Right pane. */
+  --split-right-share: 62fr;
+}
+
+/* Style .viewport-composition.split-ratio-39 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-39 {
+  /* Allocate 39 relative grid units to the Left pane. */
+  --split-left-share: 39fr;
+  /* Allocate 61 relative grid units to the Right pane. */
+  --split-right-share: 61fr;
+}
+
+/* Style .viewport-composition.split-ratio-40 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-40 {
+  /* Allocate 40 relative grid units to the Left pane. */
+  --split-left-share: 40fr;
+  /* Allocate 60 relative grid units to the Right pane. */
+  --split-right-share: 60fr;
+}
+
+/* Style .viewport-composition.split-ratio-41 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-41 {
+  /* Allocate 41 relative grid units to the Left pane. */
+  --split-left-share: 41fr;
+  /* Allocate 59 relative grid units to the Right pane. */
+  --split-right-share: 59fr;
+}
+
+/* Style .viewport-composition.split-ratio-42 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-42 {
+  /* Allocate 42 relative grid units to the Left pane. */
+  --split-left-share: 42fr;
+  /* Allocate 58 relative grid units to the Right pane. */
+  --split-right-share: 58fr;
+}
+
+/* Style .viewport-composition.split-ratio-43 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-43 {
+  /* Allocate 43 relative grid units to the Left pane. */
+  --split-left-share: 43fr;
+  /* Allocate 57 relative grid units to the Right pane. */
+  --split-right-share: 57fr;
+}
+
+/* Style .viewport-composition.split-ratio-44 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-44 {
+  /* Allocate 44 relative grid units to the Left pane. */
+  --split-left-share: 44fr;
+  /* Allocate 56 relative grid units to the Right pane. */
+  --split-right-share: 56fr;
+}
+
+/* Style .viewport-composition.split-ratio-45 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-45 {
+  /* Allocate 45 relative grid units to the Left pane. */
+  --split-left-share: 45fr;
+  /* Allocate 55 relative grid units to the Right pane. */
+  --split-right-share: 55fr;
+}
+
+/* Style .viewport-composition.split-ratio-46 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-46 {
+  /* Allocate 46 relative grid units to the Left pane. */
+  --split-left-share: 46fr;
+  /* Allocate 54 relative grid units to the Right pane. */
+  --split-right-share: 54fr;
+}
+
+/* Style .viewport-composition.split-ratio-47 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-47 {
+  /* Allocate 47 relative grid units to the Left pane. */
+  --split-left-share: 47fr;
+  /* Allocate 53 relative grid units to the Right pane. */
+  --split-right-share: 53fr;
+}
+
+/* Style .viewport-composition.split-ratio-48 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-48 {
+  /* Allocate 48 relative grid units to the Left pane. */
+  --split-left-share: 48fr;
+  /* Allocate 52 relative grid units to the Right pane. */
+  --split-right-share: 52fr;
+}
+
+/* Style .viewport-composition.split-ratio-49 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-49 {
+  /* Allocate 49 relative grid units to the Left pane. */
+  --split-left-share: 49fr;
+  /* Allocate 51 relative grid units to the Right pane. */
+  --split-right-share: 51fr;
+}
+
+/* Style .viewport-composition.split-ratio-50 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-50 {
+  /* Allocate 50 relative grid units to the Left pane. */
+  --split-left-share: 50fr;
+  /* Allocate 50 relative grid units to the Right pane. */
+  --split-right-share: 50fr;
+}
+
+/* Style .viewport-composition.split-ratio-51 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-51 {
+  /* Allocate 51 relative grid units to the Left pane. */
+  --split-left-share: 51fr;
+  /* Allocate 49 relative grid units to the Right pane. */
+  --split-right-share: 49fr;
+}
+
+/* Style .viewport-composition.split-ratio-52 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-52 {
+  /* Allocate 52 relative grid units to the Left pane. */
+  --split-left-share: 52fr;
+  /* Allocate 48 relative grid units to the Right pane. */
+  --split-right-share: 48fr;
+}
+
+/* Style .viewport-composition.split-ratio-53 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-53 {
+  /* Allocate 53 relative grid units to the Left pane. */
+  --split-left-share: 53fr;
+  /* Allocate 47 relative grid units to the Right pane. */
+  --split-right-share: 47fr;
+}
+
+/* Style .viewport-composition.split-ratio-54 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-54 {
+  /* Allocate 54 relative grid units to the Left pane. */
+  --split-left-share: 54fr;
+  /* Allocate 46 relative grid units to the Right pane. */
+  --split-right-share: 46fr;
+}
+
+/* Style .viewport-composition.split-ratio-55 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-55 {
+  /* Allocate 55 relative grid units to the Left pane. */
+  --split-left-share: 55fr;
+  /* Allocate 45 relative grid units to the Right pane. */
+  --split-right-share: 45fr;
+}
+
+/* Style .viewport-composition.split-ratio-56 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-56 {
+  /* Allocate 56 relative grid units to the Left pane. */
+  --split-left-share: 56fr;
+  /* Allocate 44 relative grid units to the Right pane. */
+  --split-right-share: 44fr;
+}
+
+/* Style .viewport-composition.split-ratio-57 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-57 {
+  /* Allocate 57 relative grid units to the Left pane. */
+  --split-left-share: 57fr;
+  /* Allocate 43 relative grid units to the Right pane. */
+  --split-right-share: 43fr;
+}
+
+/* Style .viewport-composition.split-ratio-58 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-58 {
+  /* Allocate 58 relative grid units to the Left pane. */
+  --split-left-share: 58fr;
+  /* Allocate 42 relative grid units to the Right pane. */
+  --split-right-share: 42fr;
+}
+
+/* Style .viewport-composition.split-ratio-59 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-59 {
+  /* Allocate 59 relative grid units to the Left pane. */
+  --split-left-share: 59fr;
+  /* Allocate 41 relative grid units to the Right pane. */
+  --split-right-share: 41fr;
+}
+
+/* Style .viewport-composition.split-ratio-60 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-60 {
+  /* Allocate 60 relative grid units to the Left pane. */
+  --split-left-share: 60fr;
+  /* Allocate 40 relative grid units to the Right pane. */
+  --split-right-share: 40fr;
+}
+
+/* Style .viewport-composition.split-ratio-61 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-61 {
+  /* Allocate 61 relative grid units to the Left pane. */
+  --split-left-share: 61fr;
+  /* Allocate 39 relative grid units to the Right pane. */
+  --split-right-share: 39fr;
+}
+
+/* Style .viewport-composition.split-ratio-62 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-62 {
+  /* Allocate 62 relative grid units to the Left pane. */
+  --split-left-share: 62fr;
+  /* Allocate 38 relative grid units to the Right pane. */
+  --split-right-share: 38fr;
+}
+
+/* Style .viewport-composition.split-ratio-63 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-63 {
+  /* Allocate 63 relative grid units to the Left pane. */
+  --split-left-share: 63fr;
+  /* Allocate 37 relative grid units to the Right pane. */
+  --split-right-share: 37fr;
+}
+
+/* Style .viewport-composition.split-ratio-64 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-64 {
+  /* Allocate 64 relative grid units to the Left pane. */
+  --split-left-share: 64fr;
+  /* Allocate 36 relative grid units to the Right pane. */
+  --split-right-share: 36fr;
+}
+
+/* Style .viewport-composition.split-ratio-65 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-65 {
+  /* Allocate 65 relative grid units to the Left pane. */
+  --split-left-share: 65fr;
+  /* Allocate 35 relative grid units to the Right pane. */
+  --split-right-share: 35fr;
+}
+
+/* Style .viewport-composition.split-ratio-66 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-66 {
+  /* Allocate 66 relative grid units to the Left pane. */
+  --split-left-share: 66fr;
+  /* Allocate 34 relative grid units to the Right pane. */
+  --split-right-share: 34fr;
+}
+
+/* Style .viewport-composition.split-ratio-67 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-67 {
+  /* Allocate 67 relative grid units to the Left pane. */
+  --split-left-share: 67fr;
+  /* Allocate 33 relative grid units to the Right pane. */
+  --split-right-share: 33fr;
+}
+
+/* Style .viewport-composition.split-ratio-68 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-68 {
+  /* Allocate 68 relative grid units to the Left pane. */
+  --split-left-share: 68fr;
+  /* Allocate 32 relative grid units to the Right pane. */
+  --split-right-share: 32fr;
+}
+
+/* Style .viewport-composition.split-ratio-69 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-69 {
+  /* Allocate 69 relative grid units to the Left pane. */
+  --split-left-share: 69fr;
+  /* Allocate 31 relative grid units to the Right pane. */
+  --split-right-share: 31fr;
+}
+
+/* Style .viewport-composition.split-ratio-70 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-70 {
+  /* Allocate 70 relative grid units to the Left pane. */
+  --split-left-share: 70fr;
+  /* Allocate 30 relative grid units to the Right pane. */
+  --split-right-share: 30fr;
+}
+
+/* Style .viewport-composition.split-ratio-71 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-71 {
+  /* Allocate 71 relative grid units to the Left pane. */
+  --split-left-share: 71fr;
+  /* Allocate 29 relative grid units to the Right pane. */
+  --split-right-share: 29fr;
+}
+
+/* Style .viewport-composition.split-ratio-72 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-72 {
+  /* Allocate 72 relative grid units to the Left pane. */
+  --split-left-share: 72fr;
+  /* Allocate 28 relative grid units to the Right pane. */
+  --split-right-share: 28fr;
+}
+
+/* Style .viewport-composition.split-ratio-73 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-73 {
+  /* Allocate 73 relative grid units to the Left pane. */
+  --split-left-share: 73fr;
+  /* Allocate 27 relative grid units to the Right pane. */
+  --split-right-share: 27fr;
+}
+
+/* Style .viewport-composition.split-ratio-74 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-74 {
+  /* Allocate 74 relative grid units to the Left pane. */
+  --split-left-share: 74fr;
+  /* Allocate 26 relative grid units to the Right pane. */
+  --split-right-share: 26fr;
+}
+
+/* Style .viewport-composition.split-ratio-75 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-75 {
+  /* Allocate 75 relative grid units to the Left pane. */
+  --split-left-share: 75fr;
+  /* Allocate 25 relative grid units to the Right pane. */
+  --split-right-share: 25fr;
+}
+
+/* Style .viewport-composition.split-ratio-76 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-76 {
+  /* Allocate 76 relative grid units to the Left pane. */
+  --split-left-share: 76fr;
+  /* Allocate 24 relative grid units to the Right pane. */
+  --split-right-share: 24fr;
+}
+
+/* Style .viewport-composition.split-ratio-77 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-77 {
+  /* Allocate 77 relative grid units to the Left pane. */
+  --split-left-share: 77fr;
+  /* Allocate 23 relative grid units to the Right pane. */
+  --split-right-share: 23fr;
+}
+
+/* Style .viewport-composition.split-ratio-78 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-78 {
+  /* Allocate 78 relative grid units to the Left pane. */
+  --split-left-share: 78fr;
+  /* Allocate 22 relative grid units to the Right pane. */
+  --split-right-share: 22fr;
+}
+
+/* Style .viewport-composition.split-ratio-79 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-79 {
+  /* Allocate 79 relative grid units to the Left pane. */
+  --split-left-share: 79fr;
+  /* Allocate 21 relative grid units to the Right pane. */
+  --split-right-share: 21fr;
+}
+
+/* Style .viewport-composition.split-ratio-80 to define the chosen Split Screen width. */
+.viewport-composition.split-ratio-80 {
+  /* Allocate 80 relative grid units to the Left pane. */
+  --split-left-share: 80fr;
+  /* Allocate 20 relative grid units to the Right pane. */
+  --split-right-share: 20fr;
+}
+
 /* Define shared CSS variables and defaults for the whole document. */
 :root[data-sidebar-open="false"] .viewport-composition {
   /* Set the element's distance from the left edge of its positioning area. Value: 0. */

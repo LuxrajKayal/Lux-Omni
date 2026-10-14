@@ -27,13 +27,6 @@ export class WorkspaceUI {
     // Find the button that opens or closes the sidebar.
     // Purpose: Find the HTML element or elements used by this part of the interface.
     this.sidebarToggle = document.querySelector('#sidebar-toggle');
-    // Find the sidebar whose width follows the current state.
-    // Purpose: Find the HTML element or elements used by this part of the interface.
-    this.sidebar = document.querySelector('#sidebar');
-    // Find the grid that places the sidebar beside the workspace.
-    // Purpose: Find the HTML element or elements used by this part of the interface.
-    this.workspaceLayout = document.querySelector('.workspace-layout');
-
     // Find the button that selects the Full Screen layout.
     // Purpose: Find the HTML element or elements used by this part of the interface.
     this.fullScreenButton = document.querySelector('#viewport-fullscreen');
@@ -52,9 +45,64 @@ export class WorkspaceUI {
     // Find the divider that adjusts the two pane widths.
     // Purpose: Find the HTML element or elements used by this part of the interface.
     this.splitDivider = document.querySelector('#viewport-split-divider');
-
-    // Remember the split ratio locally, just as the earlier divider did.
-    // Purpose: Run this statement as the next step in the surrounding operation.
+    // Cache the welcome state shown while no viewport window is active.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.workspaceEmptyState = document.querySelector('.workspace-empty-state');
+    // Cache the shared viewport toolbar.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportTopbar = document.querySelector('#viewport-topbar');
+    // Cache the Full Screen or solo-pane toolbar.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportToolbarFull = document.querySelector('#viewport-toolbar-full');
+    // Cache the Left pane toolbar.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportToolbarLeft = document.querySelector('#viewport-toolbar-left');
+    // Cache the Right pane toolbar.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportToolbarRight = document.querySelector('#viewport-toolbar-right');
+    // Cache the Full Screen viewport number.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportNumberFull = document.querySelector('#viewport-number-full');
+    // Cache the Left pane viewport number.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportNumberLeft = document.querySelector('#viewport-number-left');
+    // Cache the Right pane viewport number.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportNumberRight = document.querySelector('#viewport-number-right');
+    // Cache the minimized-window dock and entries container.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportMinimizedDock = document.querySelector('#viewport-minimized-dock');
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportMinimizedItems = document.querySelector('#viewport-minimized-items');
+    // Cache the Full Screen minimize button shared by a solo pane.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportMinimizeFullButton = document.querySelector('#viewport-minimize-full');
+    // Cache the Left pane minimize button.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportMinimizeLeftButton = document.querySelector('#viewport-minimize-left');
+    // Cache the Right pane minimize button.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportMinimizeRightButton = document.querySelector('#viewport-minimize-right');
+    // Cache the Full Screen close button shared by a solo pane.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportCloseFullButton = document.querySelector('#viewport-close-full');
+    // Cache the Left pane close button.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportCloseLeftButton = document.querySelector('#viewport-close-left');
+    // Cache the Right pane close button.
+    // Purpose: Find the HTML element or elements used by this part of the interface.
+    this.viewportCloseRightButton = document.querySelector('#viewport-close-right');
+    // Start with no active viewport, matching the legacy state machine.
+    // Purpose: Store a value needed by the next operation.
+    this.activeViewportMode = null;
+    // Remember which pane remains active when its partner is minimized.
+    // Purpose: Store a value needed by the next operation.
+    this.soloSplitSide = null;
+    // Save minimized windows so users can restore them.
+    // Purpose: Store a value needed by the next operation.
+    this.minimizedViewportStates = new Map();
+    // Begin Split Screen at a balanced ratio.
+    // Purpose: Store a value needed by the next operation.
     this.rememberedSplitRatio = 0.5;
 
     // Listen for theme clicks only when the theme button exists.
@@ -96,23 +144,86 @@ export class WorkspaceUI {
     // Purpose: Close the current block, handler, object, or expression.
     });
 
-    // Select Full Screen when its layout button is clicked.
+    // Open Full Screen through the shared viewport state machine.
     // Purpose: Register a handler so the application reacts when this event occurs.
     this.fullScreenButton?.addEventListener('click', () => {
-      // Publish the selected layout so the state handler updates the page.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      Store.setState({ activeLayout: 'full' });
-    // Purpose: Close the current block, handler, object, or expression.
+      // Preserve populated viewports and select Full Screen.
+      // Purpose: Run the next viewport operation.
+      this.setViewportMode('full');
+    // Purpose: Close the current handler.
     });
-
-    // Select Split Screen when its layout button is clicked.
+    // Open both Split Screen panes through the shared state machine.
     // Purpose: Register a handler so the application reacts when this event occurs.
     this.splitScreenButton?.addEventListener('click', () => {
-      // Publish the selected layout so both panes can be shown.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      Store.setState({ activeLayout: 'split' });
-    // Purpose: Close the current block, handler, object, or expression.
+      // Preserve or restore content while selecting Split Screen.
+      // Purpose: Run the next viewport operation.
+      this.setViewportMode('split');
+    // Purpose: Close the current handler.
     });
+    // Connect the Full Screen minimize button.
+    // Purpose: Register a handler so the application reacts when this event occurs.
+    this.viewportMinimizeFullButton?.addEventListener('click', () => {
+      // Minimize Full Screen or the active solo split pane.
+      // Purpose: Run the next viewport operation.
+      this.minimizeFullScreenViewport();
+    // Purpose: Close the current handler.
+    });
+    // Connect the Left pane minimize button.
+    // Purpose: Register a handler so the application reacts when this event occurs.
+    this.viewportMinimizeLeftButton?.addEventListener('click', () => {
+      // Minimize Left while keeping Right visible.
+      // Purpose: Run the next viewport operation.
+      this.minimizeSplitViewport('left');
+    // Purpose: Close the current handler.
+    });
+    // Connect the Right pane minimize button.
+    // Purpose: Register a handler so the application reacts when this event occurs.
+    this.viewportMinimizeRightButton?.addEventListener('click', () => {
+      // Minimize Right while keeping Left visible.
+      // Purpose: Run the next viewport operation.
+      this.minimizeSplitViewport('right');
+    // Purpose: Close the current handler.
+    });
+    // Connect the Full Screen and solo-pane close button.
+    // Purpose: Register a handler so the application reacts when this event occurs.
+    this.viewportCloseFullButton?.addEventListener('click', () => {
+      // Route the close action to the viewport window that is visible.
+      // Purpose: Run the next viewport operation.
+      this.closeFullScreenViewport();
+    // Purpose: Close the current handler.
+    });
+    // Connect the Left pane close button.
+    // Purpose: Register a handler so the application reacts when this event occurs.
+    this.viewportCloseLeftButton?.addEventListener('click', () => {
+      // Close Left after the user confirms.
+      // Purpose: Run the next viewport operation.
+      this.closeSplitViewport('left');
+    // Purpose: Close the current handler.
+    });
+    // Connect the Right pane close button.
+    // Purpose: Register a handler so the application reacts when this event occurs.
+    this.viewportCloseRightButton?.addEventListener('click', () => {
+      // Close Right after the user confirms.
+      // Purpose: Run the next viewport operation.
+      this.closeSplitViewport('right');
+    // Purpose: Close the current handler.
+    });
+    // Save the callback that activates viewports for incoming file-open requests.
+    // Purpose: Store a callback needed by EventBus.
+    this.fileOpenRequestedHandler = (payload = {}) => {
+      // Activate the destination before an adapter mounts the selected file.
+      // Purpose: Run the next viewport operation.
+      this.activateViewportForTarget(payload.viewportType);
+    // Purpose: Close the current callback.
+    };
+    // Save the callback for a successful PDF open notification.
+    // Purpose: Store a callback needed by EventBus.
+    this.pdfOpenedHandler = (payload = {}) => {
+      // Keep a successfully opened PDF's destination visible.
+      // Purpose: Run the next viewport operation.
+      this.activateViewportForTarget(payload.viewportType);
+    // Purpose: Close the current callback.
+    };
 
     // Restore the top bar reveal behavior used while Focus Mode is active.
     // Purpose: Run this statement as the next step in the surrounding operation.
@@ -122,12 +233,17 @@ export class WorkspaceUI {
     // Purpose: Run this statement as the next step in the surrounding operation.
     this.installSplitDividerControls();
 
-    // Listen for every shared state update and apply it to the page.
-    // Purpose: Subscribe to an event so this module can react to changes.
+    // Render every update made through the shared Store.
+    // Purpose: Subscribe to a shared state event.
     EventBus.subscribe('STATE_CHANGED', this.handleStateChange.bind(this));
-
-    // Apply the current state once so the page is correct at startup.
-    // Purpose: Run this statement as the next step in the surrounding operation.
+    // Activate the requested destination before the relevant renderer runs.
+    // Purpose: Subscribe to a shared file-open event.
+    EventBus.subscribe('FILE_OPEN_REQUESTED', this.fileOpenRequestedHandler);
+    // Ensure a successful PDF open leaves its viewport visible.
+    // Purpose: Subscribe to a shared PDF-open event.
+    EventBus.subscribe('PDF_OPENED', this.pdfOpenedHandler);
+    // Draw the initial empty workspace now that the listeners are ready.
+    // Purpose: Run the next viewport operation.
     this.handleStateChange({ state: Store.getState() });
   // Purpose: Close the current block, handler, object, or expression.
   }
@@ -264,21 +380,9 @@ export class WorkspaceUI {
     // Apply a ratio while keeping the left pane between 20% and 80%.
     // Purpose: Declare a variable that stores a value needed by this logic.
     const setSplitViewportRatio = (ratio) => {
-      // Clamp the ratio to the original minimum and maximum limits.
-      // Purpose: Declare a variable that stores a value needed by this logic.
-      const boundedRatio = Math.max(0.2, Math.min(0.8, ratio));
-      // Remember the ratio locally so switching layouts preserves it.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      this.rememberedSplitRatio = boundedRatio;
-      // Tell CSS how much space each side of the divider should receive.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      composition.style.setProperty('--split-left-share', boundedRatio + 'fr');
-      // Give the right pane the remaining share of the layout.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      composition.style.setProperty('--split-right-share', (1 - boundedRatio) + 'fr');
-      // Keep assistive technology informed of the divider's current value.
-      // Purpose: Update an HTML attribute or data field to reflect the current state.
-      divider.setAttribute('aria-valuenow', String(Math.round(boundedRatio * 100)));
+      // Choose the correct external stylesheet class for this ratio.
+      // Purpose: Run the next viewport operation.
+      this.setSplitViewportRatio(ratio);
     // Purpose: Close the current block, handler, object, or expression.
     };
 
@@ -422,6 +526,480 @@ export class WorkspaceUI {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
+  // Activate Full Screen or Split Screen when a file event names a target.
+  // Purpose: Continue the viewport window operation.
+  activateViewportForTarget(side) {
+    // Purpose: Check this condition before changing viewport state.
+    if (side === 'full') this.setViewportMode('full');
+    // Purpose: Handle the alternate viewport state.
+    else if (side === 'left' || side === 'right') this.setViewportMode('split');
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Find the fixed document host associated with a viewport side.
+  // Purpose: Continue the viewport window operation.
+  getViewportElement(side) {
+    // Purpose: Check this condition before changing viewport state.
+    if (side === 'full') return this.fullScreenViewportLayout?.querySelector(':scope > [data-viewport-side="full"]') || null;
+    // Purpose: Check this condition before changing viewport state.
+    if (side === 'left' || side === 'right') return this.splitScreenViewportLayout?.querySelector(':scope > [data-viewport-side="' + side + '"]') || null;
+    // Purpose: Return a result or stop this operation.
+    return null;
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Detect rendered document or tool content so layout changes can preserve it.
+  // Purpose: Continue the viewport window operation.
+  hasViewportContent(side) {
+    // Purpose: Store a value needed by the next operation.
+    const root = this.getViewportElement(side);
+    // Purpose: Return a result or stop this operation.
+    return Boolean(root && (root.dataset.fileName || root.childElementCount > 0 || (root.shadowRoot && root.shadowRoot.childElementCount > 0)));
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Find a filename or accessible fallback label for a minimized window.
+  // Purpose: Continue the viewport window operation.
+  getViewportFileName(side) {
+    // Purpose: Store a value needed by the next operation.
+    const root = this.getViewportElement(side);
+    // Purpose: Return a result or stop this operation.
+    return root?.dataset.fileName?.trim() || root?.getAttribute('aria-label')?.trim() || 'Untitled';
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Keep enough information to restore a minimized Full, Left, or Right window.
+  // Purpose: Continue the viewport window operation.
+  rememberMinimizedViewport(side, originalMode) {
+    // Purpose: Store a value needed by the next operation.
+    const root = this.getViewportElement(side);
+    // Purpose: Check this condition before changing viewport state.
+    if (!root) return;
+    // Purpose: Run the next viewport operation.
+    this.minimizedViewportStates.set(side, { side: side, originalMode: originalMode, splitRatio: this.rememberedSplitRatio });
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Render restore buttons for all minimized windows using the existing dock markup and CSS.
+  // Purpose: Continue the viewport window operation.
+  renderMinimizedViewportDock() {
+    // Purpose: Check this condition before changing viewport state.
+    if (!this.viewportMinimizedDock || !this.viewportMinimizedItems) return;
+    // Purpose: Run the next viewport operation.
+    this.viewportMinimizedItems.replaceChildren();
+    // Purpose: Repeat this step for each viewport side.
+    for (const side of ['full', 'left', 'right']) {
+      // Purpose: Store a value needed by the next operation.
+      const saved = this.minimizedViewportStates.get(side);
+      // Purpose: Check this condition before changing viewport state.
+      if (!saved) continue;
+      // Purpose: Store a value needed by the next operation.
+      const number = side === 'left' ? '1/2' : side === 'right' ? '2/2' : '0';
+      // Purpose: Store a value needed by the next operation.
+      const name = this.getViewportFileName(side);
+      // Purpose: Store a value needed by the next operation.
+      const button = document.createElement('button');
+      // Purpose: Set up an accessible viewport restore control.
+      button.className = 'viewport-minimized-bar';
+      // Purpose: Set up an accessible viewport restore control.
+      button.type = 'button';
+      // Purpose: Set up an accessible viewport restore control.
+      button.dataset.minimizedViewport = side;
+      // Purpose: Set up an accessible viewport restore control.
+      button.setAttribute('aria-label', 'Restore viewport ' + number + ', ' + name);
+      // Purpose: Set up an accessible viewport restore control.
+      button.title = 'Restore viewport ' + number + ', ' + name;
+      // Purpose: Store a value needed by the next operation.
+      const numberLabel = document.createElement('span');
+      // Purpose: Set up an accessible viewport restore control.
+      numberLabel.className = 'viewport-minimized-number';
+      // Purpose: Set up an accessible viewport restore control.
+      numberLabel.textContent = number;
+      // Purpose: Store a value needed by the next operation.
+      const fileLabel = document.createElement('span');
+      // Purpose: Set up an accessible viewport restore control.
+      fileLabel.className = 'viewport-minimized-file';
+      // Purpose: Set up an accessible viewport restore control.
+      fileLabel.textContent = name;
+      // Purpose: Store a value needed by the next operation.
+      const restoreMark = document.createElement('span');
+      // Purpose: Set up an accessible viewport restore control.
+      restoreMark.className = 'viewport-minimized-restore';
+      // Purpose: Set up an accessible viewport restore control.
+      restoreMark.setAttribute('aria-hidden', 'true');
+      // Purpose: Set up an accessible viewport restore control.
+      restoreMark.textContent = '↗';
+      // Purpose: Set up an accessible viewport restore control.
+      button.append(numberLabel, fileLabel, restoreMark);
+      // Purpose: Set up an accessible viewport restore control.
+      button.addEventListener('click', () => this.restoreMinimizedViewport(side));
+      // Purpose: Run the next viewport operation.
+      this.viewportMinimizedItems.append(button);
+    // Purpose: Close the current block, callback, or expression.
+    }
+    // Purpose: Update the viewport controller state.
+    this.viewportMinimizedDock.hidden = this.minimizedViewportStates.size === 0;
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Render the active layout, toolbar visibility, labels, restore dock, and welcome state.
+  // Purpose: Continue the viewport window operation.
+  renderViewportComposition() {
+    // Purpose: Check this condition before changing viewport state.
+    if (!this.viewportComposition || !this.fullScreenViewportLayout || !this.splitScreenViewportLayout) return;
+    // Purpose: Store a value needed by the next operation.
+    const full = this.activeViewportMode === 'full';
+    // Purpose: Store a value needed by the next operation.
+    const split = this.activeViewportMode === 'split';
+    // Purpose: Store a value needed by the next operation.
+    const solo = this.activeViewportMode === 'solo';
+    // Purpose: Store a value needed by the next operation.
+    const active = this.activeViewportMode !== null;
+    // Purpose: Store a value needed by the next operation.
+    const minimized = this.minimizedViewportStates.size > 0;
+    // Purpose: Update the viewport controller state.
+    this.viewportComposition.dataset.mode = solo ? 'solo-' + this.soloSplitSide : (this.activeViewportMode || 'minimized');
+    // Purpose: Update the viewport controller state.
+    this.viewportComposition.hidden = !active && !minimized;
+    // Purpose: Run the next viewport operation.
+    this.viewportComposition.classList.toggle('is-minimized-only', !active && minimized);
+    // Purpose: Update the viewport controller state.
+    this.fullScreenViewportLayout.hidden = !full;
+    // Purpose: Update the viewport controller state.
+    this.splitScreenViewportLayout.hidden = !(split || solo);
+    // Purpose: Check this condition before changing viewport state.
+    if (this.viewportTopbar) this.viewportTopbar.hidden = !active;
+    // Purpose: Check this condition before changing viewport state.
+    if (this.viewportToolbarFull) this.viewportToolbarFull.hidden = !(full || solo);
+    // Purpose: Check this condition before changing viewport state.
+    if (this.viewportToolbarLeft) this.viewportToolbarLeft.hidden = !split;
+    // Purpose: Check this condition before changing viewport state.
+    if (this.viewportToolbarRight) this.viewportToolbarRight.hidden = !split;
+    // Purpose: Check this condition before changing viewport state.
+    if (this.splitDivider) this.splitDivider.hidden = !split;
+    // Purpose: Check this condition before changing viewport state.
+    if (this.viewportNumberFull) this.viewportNumberFull.hidden = !full;
+    // Purpose: Check this condition before changing viewport state.
+    if (this.viewportNumberLeft) this.viewportNumberLeft.hidden = !(split || (solo && this.soloSplitSide === 'left'));
+    // Purpose: Check this condition before changing viewport state.
+    if (this.viewportNumberRight) this.viewportNumberRight.hidden = !(split || (solo && this.soloSplitSide === 'right'));
+    // Purpose: Run the next viewport operation.
+    this.fullScreenButton?.setAttribute('aria-pressed', String(full || solo));
+    // Purpose: Run the next viewport operation.
+    this.splitScreenButton?.setAttribute('aria-pressed', String(split));
+    // Purpose: Store a value needed by the next operation.
+    const side = this.soloSplitSide === 'left' ? 'left' : 'right';
+    // Purpose: Run the next viewport operation.
+    this.viewportMinimizeFullButton?.setAttribute('aria-label', solo ? 'Minimize ' + side + ' viewport' : 'Minimize full-screen viewport');
+    // Purpose: Run the next viewport operation.
+    this.viewportMinimizeFullButton?.setAttribute('title', solo ? 'Minimize ' + side + ' viewport' : 'Minimize viewport');
+    // Purpose: Run the next viewport operation.
+    this.viewportCloseFullButton?.setAttribute('aria-label', solo ? 'Close ' + side + ' viewport' : 'Close full-screen viewport');
+    // Purpose: Run the next viewport operation.
+    this.viewportCloseFullButton?.setAttribute('title', solo ? 'Close ' + side + ' viewport' : 'Close viewport');
+    // Purpose: Check this condition before changing viewport state.
+    if (this.workspaceEmptyState) this.workspaceEmptyState.hidden = active;
+    // Purpose: Run the next viewport operation.
+    this.renderMinimizedViewportDock();
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Publish the active viewport mode through Store so all subscribers stay in sync.
+  // Purpose: Continue the viewport window operation.
+  publishViewportMode() {
+    // Purpose: Store a value needed by the next operation.
+    const activeLayout = this.activeViewportMode === 'solo' ? 'solo-' + this.soloSplitSide : this.activeViewportMode;
+    // Purpose: Continue the viewport window operation.
+    Store.setState({ activeLayout: activeLayout });
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Switch the visible layout while keeping populated viewports recoverable.
+  // Purpose: Continue the viewport window operation.
+  setViewportMode(mode) {
+    // Purpose: Check this condition before changing viewport state.
+    if (!this.viewportComposition || !this.fullScreenViewportLayout || !this.splitScreenViewportLayout) return;
+    // Purpose: Store a value needed by the next operation.
+    const previous = this.activeViewportMode;
+    // Purpose: Store a value needed by the next operation.
+    const previousSide = this.soloSplitSide;
+    // Purpose: Check this condition before changing viewport state.
+    if (mode === 'full') {
+      // Purpose: Check this condition before changing viewport state.
+      if (previous === 'split') {
+        // Purpose: Check this condition before changing viewport state.
+        if (this.hasViewportContent('left')) this.rememberMinimizedViewport('left', 'split');
+        // Purpose: Check this condition before changing viewport state.
+        if (this.hasViewportContent('right')) this.rememberMinimizedViewport('right', 'split');
+      // Purpose: Continue the viewport window operation.
+      } else if (previous === 'solo' && previousSide && this.hasViewportContent(previousSide)) {
+        // Purpose: Run the next viewport operation.
+        this.rememberMinimizedViewport(previousSide, 'split');
+      // Purpose: Close the current block, callback, or expression.
+      }
+      // Purpose: Run the next viewport operation.
+      this.minimizedViewportStates.delete('full');
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = 'full';
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = null;
+    // Purpose: Continue the viewport window operation.
+    } else if (mode === 'split') {
+      // Purpose: Check this condition before changing viewport state.
+      if (previous === 'full' && this.hasViewportContent('full')) this.rememberMinimizedViewport('full', 'full');
+      // Purpose: Run the next viewport operation.
+      this.minimizedViewportStates.delete('left');
+      // Purpose: Run the next viewport operation.
+      this.minimizedViewportStates.delete('right');
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = 'split';
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = null;
+    // Purpose: Continue the viewport window operation.
+    } else {
+      // Purpose: Return a result or stop this operation.
+      return;
+    // Purpose: Close the current block, callback, or expression.
+    }
+    // Purpose: Run the next viewport operation.
+    this.publishViewportMode();
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Minimize Full Screen or the active solo pane into the restore dock.
+  // Purpose: Continue the viewport window operation.
+  minimizeFullScreenViewport() {
+    // Purpose: Check this condition before changing viewport state.
+    if (this.activeViewportMode === 'solo' && this.soloSplitSide) {
+      // Purpose: Run the next viewport operation.
+      this.minimizeSplitViewport(this.soloSplitSide);
+      // Purpose: Return a result or stop this operation.
+      return;
+    // Purpose: Close the current block, callback, or expression.
+    }
+    // Purpose: Check this condition before changing viewport state.
+    if (this.activeViewportMode !== 'full') return;
+    // Purpose: Run the next viewport operation.
+    this.rememberMinimizedViewport('full', 'full');
+    // Purpose: Update the viewport controller state.
+    this.activeViewportMode = null;
+    // Purpose: Update the viewport controller state.
+    this.soloSplitSide = null;
+    // Purpose: Run the next viewport operation.
+    this.publishViewportMode();
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Minimize one split pane while keeping the other pane visible.
+  // Purpose: Continue the viewport window operation.
+  minimizeSplitViewport(side) {
+    // Purpose: Check this condition before changing viewport state.
+    if (this.activeViewportMode === 'split') {
+      // Purpose: Update the viewport controller state.
+      this.rememberedSplitRatio = Number(this.splitDivider?.getAttribute('aria-valuenow') || '50') / 100;
+      // Purpose: Run the next viewport operation.
+      this.rememberMinimizedViewport(side, 'split');
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = 'solo';
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = side === 'left' ? 'right' : 'left';
+    // Purpose: Continue the viewport window operation.
+    } else if (this.activeViewportMode === 'solo' && this.soloSplitSide === side) {
+      // Purpose: Run the next viewport operation.
+      this.rememberMinimizedViewport(side, 'split');
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = null;
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = null;
+    // Purpose: Continue the viewport window operation.
+    } else {
+      // Purpose: Return a result or stop this operation.
+      return;
+    // Purpose: Close the current block, callback, or expression.
+    }
+    // Purpose: Run the next viewport operation.
+    this.publishViewportMode();
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Restore a minimized viewport or reunite the two split panes.
+  // Purpose: Continue the viewport window operation.
+  restoreMinimizedViewport(side) {
+    // Purpose: Store a value needed by the next operation.
+    const saved = this.minimizedViewportStates.get(side);
+    // Purpose: Check this condition before changing viewport state.
+    if (!saved) return;
+    // Purpose: Check this condition before changing viewport state.
+    if (side === 'full' || saved.originalMode === 'full') {
+      // Purpose: Check this condition before changing viewport state.
+      if (this.activeViewportMode === 'solo' && this.soloSplitSide && this.hasViewportContent(this.soloSplitSide)) {
+        // Purpose: Run the next viewport operation.
+        this.rememberMinimizedViewport(this.soloSplitSide, 'split');
+      // Purpose: Continue the viewport window operation.
+      } else if (this.activeViewportMode === 'split') {
+        // Purpose: Check this condition before changing viewport state.
+        if (this.hasViewportContent('left')) this.rememberMinimizedViewport('left', 'split');
+        // Purpose: Check this condition before changing viewport state.
+        if (this.hasViewportContent('right')) this.rememberMinimizedViewport('right', 'split');
+      // Purpose: Close the current block, callback, or expression.
+      }
+      // Purpose: Run the next viewport operation.
+      this.minimizedViewportStates.delete('full');
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = 'full';
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = null;
+    // Purpose: Continue the viewport window operation.
+    } else {
+      // Purpose: Store a value needed by the next operation.
+      const otherSide = side === 'left' ? 'right' : 'left';
+      // Purpose: Store a value needed by the next operation.
+      const restorePair = this.activeViewportMode === 'solo' && this.soloSplitSide === otherSide && this.minimizedViewportStates.has(side);
+      // Purpose: Check this condition before changing viewport state.
+      if (restorePair) {
+        // Purpose: Run the next viewport operation.
+        this.minimizedViewportStates.delete('left');
+        // Purpose: Run the next viewport operation.
+        this.minimizedViewportStates.delete('right');
+        // Purpose: Update the viewport controller state.
+        this.activeViewportMode = 'split';
+        // Purpose: Update the viewport controller state.
+        this.soloSplitSide = null;
+      // Purpose: Continue the viewport window operation.
+      } else {
+        // Purpose: Check this condition before changing viewport state.
+        if (this.activeViewportMode === 'full' && this.hasViewportContent('full')) this.rememberMinimizedViewport('full', 'full');
+        // Purpose: Handle the alternate viewport state.
+        else if (this.activeViewportMode === 'solo' && this.soloSplitSide && this.hasViewportContent(this.soloSplitSide)) this.rememberMinimizedViewport(this.soloSplitSide, 'split');
+        // Purpose: Run the next viewport operation.
+        this.minimizedViewportStates.delete(side);
+        // Purpose: Update the viewport controller state.
+        this.activeViewportMode = 'solo';
+        // Purpose: Update the viewport controller state.
+        this.soloSplitSide = side;
+      // Purpose: Close the current block, callback, or expression.
+      }
+      // Purpose: Run the next viewport operation.
+      this.setSplitViewportRatio(saved.splitRatio || this.rememberedSplitRatio);
+    // Purpose: Close the current block, callback, or expression.
+    }
+    // Purpose: Run the next viewport operation.
+    this.publishViewportMode();
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Send a close event to renderers, then clear this viewport's content and metadata.
+  // Purpose: Continue the viewport window operation.
+  clearViewportContents(side) {
+    // Purpose: Notify other modules through the shared event system.
+    EventBus.publish('VIEWPORT_CLOSE_REQUESTED', { viewportType: side });
+    // Purpose: Store a value needed by the next operation.
+    const root = this.getViewportElement(side);
+    // Purpose: Check this condition before changing viewport state.
+    if (!root) return;
+    // Purpose: Check this condition before changing viewport state.
+    if (root.shadowRoot) root.shadowRoot.replaceChildren();
+    // Purpose: Continue the viewport window operation.
+    root.replaceChildren();
+    // Purpose: Continue the viewport window operation.
+    root.removeAttribute('data-file-name');
+    // Purpose: Continue the viewport window operation.
+    root.classList.remove('lux-pdf-editor-root');
+    // Purpose: Continue the viewport window operation.
+    root.classList.remove('lux-pdf-render-error');
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Close Full Screen or the visible solo split pane after confirmation.
+  // Purpose: Continue the viewport window operation.
+  closeFullScreenViewport() {
+    // Purpose: Check this condition before changing viewport state.
+    if (this.activeViewportMode === 'solo' && this.soloSplitSide) {
+      // Purpose: Run the next viewport operation.
+      this.closeSplitViewport(this.soloSplitSide);
+      // Purpose: Return a result or stop this operation.
+      return;
+    // Purpose: Close the current block, callback, or expression.
+    }
+    // Purpose: Check this condition before changing viewport state.
+    if (this.activeViewportMode !== 'full' || !window.confirm('Discard documents?')) return;
+    // Purpose: Run the next viewport operation.
+    this.clearViewportContents('full');
+    // Purpose: Run the next viewport operation.
+    this.minimizedViewportStates.delete('full');
+    // Purpose: Update the viewport controller state.
+    this.activeViewportMode = null;
+    // Purpose: Update the viewport controller state.
+    this.soloSplitSide = null;
+    // Purpose: Run the next viewport operation.
+    this.publishViewportMode();
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Close a visible split pane and retain its partner when one is open.
+  // Purpose: Continue the viewport window operation.
+  closeSplitViewport(side) {
+    // Purpose: Store a value needed by the next operation.
+    const paired = this.activeViewportMode === 'split';
+    // Purpose: Store a value needed by the next operation.
+    const solo = this.activeViewportMode === 'solo' && this.soloSplitSide === side;
+    // Purpose: Check this condition before changing viewport state.
+    if ((!paired && !solo) || !window.confirm('Discard documents?')) return;
+    // Purpose: Run the next viewport operation.
+    this.clearViewportContents(side);
+    // Purpose: Run the next viewport operation.
+    this.minimizedViewportStates.delete(side);
+    // Purpose: Check this condition before changing viewport state.
+    if (paired) {
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = 'solo';
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = side === 'left' ? 'right' : 'left';
+    // Purpose: Continue the viewport window operation.
+    } else {
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = null;
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = null;
+    // Purpose: Close the current block, callback, or expression.
+    }
+    // Purpose: Run the next viewport operation.
+    this.publishViewportMode();
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Clamp a split ratio and apply its stylesheet class.
+  // Purpose: Continue the viewport window operation.
+  setSplitViewportRatio(ratio) {
+    // Purpose: Store a value needed by the next operation.
+    const bounded = Math.max(0.2, Math.min(0.8, ratio));
+    // Purpose: Update the viewport controller state.
+    this.rememberedSplitRatio = bounded;
+    // Purpose: Run the next viewport operation.
+    this.applySplitRatioClass(bounded);
+    // Purpose: Check this condition before changing viewport state.
+    if (this.splitDivider) this.splitDivider.setAttribute('aria-valuenow', String(Math.round(bounded * 100)));
+  // Purpose: Close the current block, callback, or expression.
+  }
+
+  // Select a predefined external CSS class for the split ratio.
+  // Purpose: Continue the viewport window operation.
+  applySplitRatioClass(ratio) {
+    // Purpose: Check this condition before changing viewport state.
+    if (!this.viewportComposition) return;
+    // Purpose: Store a value needed by the next operation.
+    const percentage = Math.round(ratio * 100);
+    // Purpose: Repeat this step for each viewport side.
+    for (let candidate = 20; candidate <= 80; candidate += 1) {
+      // Purpose: Run the next viewport operation.
+      this.viewportComposition.classList.remove('split-ratio-' + candidate);
+    // Purpose: Close the current block, callback, or expression.
+    }
+    // Purpose: Run the next viewport operation.
+    this.viewportComposition.classList.add('split-ratio-' + percentage);
+  // Purpose: Close the current block, callback, or expression.
+  }
+
   // Apply a state snapshot after startup or a shared state update.
   // Purpose: Run this statement as the next step in the surrounding operation.
   handleStateChange({ state } = {}) {
@@ -510,35 +1088,6 @@ export class WorkspaceUI {
     // Let the stylesheet apply its existing open and closed sidebar rules.
     // Purpose: Update an HTML attribute or data field to reflect the current state.
     document.documentElement.setAttribute('data-sidebar-open', String(isSidebarOpen));
-    // Also set the sidebar width directly so the state is visible without CSS rules.
-    // Purpose: Check this condition before choosing which branch should run.
-    if (this.sidebar) {
-      // Use the original 68-pixel sidebar width when it is open.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      this.sidebar.style.width = isSidebarOpen ? '68px' : '0px';
-      // Permit the sidebar to collapse fully when it is closed.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      this.sidebar.style.minWidth = isSidebarOpen ? '68px' : '0px';
-      // Clip inner content when the sidebar is closed.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      this.sidebar.style.overflow = 'hidden';
-      // Remove the border when closed so no thin line remains visible.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      this.sidebar.style.borderRightColor = isSidebarOpen ? '' : 'transparent';
-    // Purpose: Close the current block, handler, object, or expression.
-    }
-    // Match the grid columns to the selected sidebar width.
-    // Purpose: Check this condition before choosing which branch should run.
-    if (this.workspaceLayout) {
-      // Keep the main workspace flexible beside the sidebar.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      this.workspaceLayout.style.gridTemplateColumns = isSidebarOpen
-        // Purpose: Run this statement as the next step in the surrounding operation.
-        ? '68px minmax(0, 1fr)'
-        // Purpose: Run this statement as the next step in the surrounding operation.
-        : '0px minmax(0, 1fr)';
-    // Purpose: Close the current block, handler, object, or expression.
-    }
     // Keep the sidebar button's accessible state in sync with the Store.
     // Purpose: Check this condition before choosing which branch should run.
     if (this.sidebarToggle) {
@@ -554,74 +1103,42 @@ export class WorkspaceUI {
     // Purpose: Close the current block, handler, object, or expression.
     }
 
-    // Use Split Screen only for the exact split state; otherwise show Full Screen.
-    // Purpose: Declare a variable that stores a value needed by this logic.
-    const isSplitLayout = state.activeLayout === 'split';
-    // Treat the other supported layout state as Full Screen.
-    // Purpose: Declare a variable that stores a value needed by this logic.
-    const isFullLayout = !isSplitLayout;
-    // Unhide the composition so the selected layout can actually be seen.
-    // Purpose: Check this condition before choosing which branch should run.
-    if (this.viewportComposition) {
-      // Let the selected layout occupy the viewport composition area.
-      // Purpose: Show or hide this interface element using its hidden state.
-      this.viewportComposition.hidden = false;
-    // Purpose: Close the current block, handler, object, or expression.
+    // Read the Store value; null means no viewport window is active.
+    // Purpose: Store the current layout for the renderer.
+    const selectedLayout = state.activeLayout;
+    // Keep Full Screen and paired Split Screen modes.
+    // Purpose: Check this condition before choosing the viewport mode.
+    if (selectedLayout === 'full' || selectedLayout === 'split') {
+      // Record the active layout.
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = selectedLayout;
+      // Clear any previous solo-pane selection.
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = null;
+    // Purpose: Close the current block or expression.
+    } else if (selectedLayout === 'solo-left' || selectedLayout === 'solo-right') {
+      // Record the one-pane Split Screen mode.
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = 'solo';
+      // Extract the side from the saved layout value.
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = selectedLayout.slice('solo-'.length);
+    // Purpose: Close the current block or expression.
+    } else {
+      // Treat null or unsupported state as an empty workspace.
+      // Purpose: Update the viewport controller state.
+      this.activeViewportMode = null;
+      // Clear the solo-pane marker because no window is active.
+      // Purpose: Update the viewport controller state.
+      this.soloSplitSide = null;
+    // Purpose: Close the current block or expression.
     }
-    // Show the Full Screen container only when that layout is selected.
-    // Purpose: Check this condition before choosing which branch should run.
-    if (this.fullScreenViewportLayout) {
-      // The hidden property keeps the inactive layout out of view and tab order.
-      // Purpose: Show or hide this interface element using its hidden state.
-      this.fullScreenViewportLayout.hidden = !isFullLayout;
-    // Purpose: Close the current block, handler, object, or expression.
-    }
-    // Show the Split Screen container only when that layout is selected.
-    // Purpose: Check this condition before choosing which branch should run.
-    if (this.splitScreenViewportLayout) {
-      // The inactive layout should not occupy space or receive keyboard focus.
-      // Purpose: Show or hide this interface element using its hidden state.
-      this.splitScreenViewportLayout.hidden = !isSplitLayout;
-    // Purpose: Close the current block, handler, object, or expression.
-    }
-    // Show the divider only when there are two panes to resize.
-    // Purpose: Check this condition before choosing which branch should run.
-    if (this.splitDivider) {
-      // A hidden divider cannot be focused or dragged in Full Screen mode.
-      // Purpose: Show or hide this interface element using its hidden state.
-      this.splitDivider.hidden = !isSplitLayout;
-    // Purpose: Close the current block, handler, object, or expression.
-    }
-    // Keep the Full Screen button's pressed state aligned with the selected layout.
-    // Purpose: Check this condition before choosing which branch should run.
-    if (this.fullScreenButton) {
-      // Expose whether Full Screen is the active choice to assistive technology.
-      // Purpose: Update an HTML attribute or data field to reflect the current state.
-      this.fullScreenButton.setAttribute('aria-pressed', String(isFullLayout));
-    // Purpose: Close the current block, handler, object, or expression.
-    }
-    // Keep the Split Screen button's pressed state aligned with the selected layout.
-    // Purpose: Check this condition before choosing which branch should run.
-    if (this.splitScreenButton) {
-      // Expose whether Split Screen is the active choice to assistive technology.
-      // Purpose: Update an HTML attribute or data field to reflect the current state.
-      this.splitScreenButton.setAttribute('aria-pressed', String(isSplitLayout));
-    // Purpose: Close the current block, handler, object, or expression.
-    }
-    // Reapply the saved local divider ratio when Split Screen becomes active.
-    // Purpose: Check this condition before choosing which branch should run.
-    if (isSplitLayout && this.viewportComposition && this.splitDivider) {
-      // Keep the two panes at the most recently selected ratio.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      this.viewportComposition.style.setProperty('--split-left-share', this.rememberedSplitRatio + 'fr');
-      // Keep the right pane at the matching remaining ratio.
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      this.viewportComposition.style.setProperty('--split-right-share', (1 - this.rememberedSplitRatio) + 'fr');
-      // Synchronize the accessible percentage with the restored ratio.
-      // Purpose: Update an HTML attribute or data field to reflect the current state.
-      this.splitDivider.setAttribute('aria-valuenow', String(Math.round(this.rememberedSplitRatio * 100)));
-    // Purpose: Close the current block, handler, object, or expression.
-    }
+    // Apply visibility and restore-dock state from the selected layout.
+    // Purpose: Run the viewport renderer.
+    this.renderViewportComposition();
+    // Apply the current Split ratio through CSS classes, without inline style writes.
+    // Purpose: Run the viewport renderer.
+    this.setSplitViewportRatio(this.rememberedSplitRatio);
   // Purpose: Close the current block, handler, object, or expression.
   }
 // Purpose: Close the current block, handler, object, or expression.

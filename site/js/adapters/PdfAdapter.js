@@ -954,6 +954,17 @@ export class PdfAdapter {
     // Listen for the shared event emitted when a file is assigned to a viewport.
     // Purpose: Register this adapter to receive a shared application event.
     EventBus.subscribe("FILE_OPEN_REQUESTED", this.fileOpenHandler);
+    // Keep one stable listener for requests to close a viewport window.
+    // Purpose: Store a callback needed by the shared event system.
+    this.viewportCloseHandler = (payload = {}) => {
+      // Let this adapter cancel pending work and release any active PDF.js renderer.
+      // Purpose: Run the next viewport cleanup operation.
+      this.handleViewportCloseRequested(payload);
+    // Purpose: Close the current callback.
+    };
+    // Receive window-close notifications without coupling WorkspaceUI to PDF.js.
+    // Purpose: Subscribe to the shared event that announces viewport closure.
+    EventBus.subscribe("VIEWPORT_CLOSE_REQUESTED", this.viewportCloseHandler);
   // Purpose: Close the current block or callback.
   }
 
@@ -974,6 +985,24 @@ export class PdfAdapter {
     // Return the matching viewport or null when the target name is not supported.
     return selector ? document.querySelector(selector) : null;
   // Purpose: Close the current block or callback.
+  }
+
+  // Cancel an unfinished PDF load or dispose its renderer when a viewport closes.
+  // Purpose: Run the next viewport cleanup operation.
+  handleViewportCloseRequested({ viewportType } = {}) {
+    // Accept only the supported Full, Left, and Right viewport targets.
+    // Purpose: Check this condition before choosing which branch should run.
+    if (!["full", "left", "right"].includes(viewportType)) return;
+    // Increase the target's request sequence so older pending loads are stale.
+    // Purpose: Store a value needed by the next viewport cleanup operation.
+    const nextRequestId = (this.requestIds.get(viewportType) || 0) + 1;
+    // Save the updated sequence before cleaning up the existing renderer.
+    // Purpose: Update the active request sequence.
+    this.requestIds.set(viewportType, nextRequestId);
+    // Reuse the adapter's normal cleanup path for mounted and pending viewers.
+    // Purpose: Run the next viewport cleanup operation.
+    this.clearTargetViewport(viewportType);
+  // Purpose: Close the current method.
   }
 
   // Check the filename, MIME type, or small file signature before claiming a PDF.
@@ -1039,6 +1068,9 @@ export class PdfAdapter {
     if (root.shadowRoot) root.shadowRoot.replaceChildren();
     // Remove any ordinary children so the host is reusable by another adapter.
     root.replaceChildren();
+    // Clear the name so an emptied viewport cannot show a stale dock label.
+    // Purpose: Remove old filename metadata from the viewport host.
+    root.removeAttribute("data-file-name");
     // Remove the class that applies layout styles specifically to an active PDF viewer.
     // Purpose: Run this statement as the next step in the PDF workflow.
     root.classList.remove("lux-pdf-editor-root");
@@ -1181,6 +1213,10 @@ export class PdfAdapter {
       // Purpose: Close the current block or callback.
       }
       // Store this renderer only after the PDF.js pages have initialized successfully.
+      // Expose the displayed filename so the minimized dock can identify this window.
+      // Purpose: Update viewport metadata for the user interface.
+      root.dataset.fileName = fileName;
+      // Store this renderer only after the PDF.js pages have initialized successfully.
       this.renderers.set(viewportType, { root, editor, fileName, payload });
       // Remove only the pending record that belongs to this completed request.
       if (this.pendingRequests.get(viewportType)?.requestId === requestId) {
@@ -1256,6 +1292,9 @@ export class PdfAdapter {
     // Stop receiving future file-open requests.
     // Purpose: Run this statement as the next step in the PDF workflow.
     EventBus.unsubscribe("FILE_OPEN_REQUESTED", this.fileOpenHandler);
+    // Stop receiving close notifications after this adapter is disposed.
+    // Purpose: Unsubscribe this module from the shared close event.
+    EventBus.unsubscribe("VIEWPORT_CLOSE_REQUESTED", this.viewportCloseHandler);
     // Collect targets that have either a pending or successfully mounted PDF.
     const viewportTypes = new Set([...this.renderers.keys(), ...this.pendingRequests.keys()]);
     // Clear every viewport currently owned by this adapter.

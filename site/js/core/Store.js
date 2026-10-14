@@ -41,9 +41,9 @@ class Store {
     // Start with the sidebar visible or hidden according to this flag: closed.
     // Purpose: Set this named property in the surrounding object or configuration.
     sidebarOpen: false,
-    // Use the full workspace as the initial layout.
+    // Keep the workspace in its welcome state until a control explicitly opens a viewport.
     // Purpose: Set this named property in the surrounding object or configuration.
-    activeLayout: 'full',
+    activeLayout: null,
     // Reserve slots for the full, left, and right document viewports.
     // Purpose: Set this named property in the surrounding object or configuration.
     viewports: { full: null, left: null, right: null },
