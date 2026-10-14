@@ -550,6 +550,61 @@ export class WorkspaceUI {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
+  // Record the dragged restore tile and expose its side to the native browser drag system.
+  // Purpose: Begin one validated viewport move from the minimized dock.
+  handleDockDragStart(event, side) {
+    // Stop the drag if the selected window is no longer present in shared minimized state.
+    // Purpose: Reject stale dock controls before the browser starts a move.
+    if (!this.minimizedViewportStates.has(side)) {
+      // Cancel the browser's default drag operation for an invalid source.
+      // Purpose: Prevent a stale restore button from starting an unsupported move.
+      event.preventDefault();
+      // Leave the handler without changing any shared state.
+      // Purpose: Stop processing the invalid source.
+      return;
+    // Purpose: Close the source validation condition.
+    }
+    // Mark the current restore button so the stylesheet can show drag feedback.
+    // Purpose: Display which minimized viewport is being moved.
+    event.currentTarget.classList.add('is-dragging');
+    // Write transfer metadata only when the browser supplied a DataTransfer object.
+    // Purpose: Support native HTML5 dragging without relying only on module memory.
+    if (event.dataTransfer) {
+      // Tell the browser this drag intends to move the existing viewport.
+      // Purpose: Set the native drag operation type.
+      event.dataTransfer.effectAllowed = 'move';
+      // Save the application-specific key used by the receiving viewport.
+      // Purpose: Identify the dragged viewport in the native transfer object.
+      event.dataTransfer.setData('application/x-lux-viewport', side);
+      // Add a plain-text fallback for browsers that handle custom transfer types differently.
+      // Purpose: Keep the source side available through the standard text transfer type.
+      event.dataTransfer.setData('text/plain', side);
+    // Purpose: Close the DataTransfer availability condition.
+    }
+    // Record the active drag in the shared Store so all listeners see one source of truth.
+    // Purpose: Publish the current drag state through EventBus-backed Store state.
+    Store.setViewportDrag({ sourceSide: side });
+  // Purpose: Close the dragstart handler.
+  }
+
+  // Clear drag styling and shared drag state after a native drag ends.
+  // Purpose: Finish the minimized dock drag lifecycle safely.
+  handleDockDragEnd(event, side) {
+    // Remove the dragged appearance from the button even when the drop was cancelled.
+    // Purpose: Restore the normal dock control appearance.
+    event.currentTarget?.classList.remove('is-dragging');
+    // Remove every drop-target outline in case the browser ended the drag outside a viewport.
+    // Purpose: Ensure cancelled and completed drags do not leave stale visual feedback.
+    document.querySelectorAll('.viewport.is-drop-target').forEach((viewport) => viewport.classList.remove('is-drop-target'));
+    // Read the shared record so an older dragend cannot clear a newer drag operation.
+    // Purpose: Check which viewport currently owns the drag state.
+    const activeDrag = Store.getState().viewportDrag;
+    // Clear drag state only when this event belongs to the current source tile.
+    // Purpose: Keep unrelated or stale dragend events from clearing another drag.
+    if (activeDrag?.sourceSide === side) Store.setViewportDrag(null);
+  // Purpose: Close the dragend handler.
+  }
+
   // Connect the existing Left and Right viewport containers to native drop events.
   // Purpose: Keep drag-and-drop behavior inside the workspace UI module.
   installViewportDragAndDrop() {
