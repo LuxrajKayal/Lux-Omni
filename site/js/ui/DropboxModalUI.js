@@ -15,9 +15,9 @@ export class DropboxModalUI {
   // Find the existing page controls and wire their user actions.
   // Purpose: Run this statement as the next step in the surrounding operation.
   constructor() {
-    // Cache the top-bar button that connects or opens the Dropbox browser.
+    // Cache the non-interactive top-bar region that reports Dropbox connection status.
     // Purpose: Find the HTML element or elements used by this part of the interface.
-    this.topbarButton = document.querySelector('#dropbox-topbar-button');
+    this.topbarStatus = document.querySelector('#dropbox-topbar-status');
     // Cache the connection label displayed inside that button.
     // Purpose: Find the HTML element or elements used by this part of the interface.
     this.statusIndicator = document.querySelector('#dropbox-status-indicator');
@@ -194,23 +194,18 @@ export class DropboxModalUI {
     // Purpose: Close the current block, handler, object, or expression.
     }
 
-    // Keep the top-bar button's accessible description in sync with the state.
+    // Keep the status-only region's accessible label synchronized with the verified state.
     // Purpose: Check this condition before choosing which branch should run.
-    if (this.topbarButton) {
+    if (this.topbarStatus) {
+      // Describe the connection state without suggesting that this region opens files or connects.
       // Purpose: Update an HTML attribute or data field to reflect the current state.
-      this.topbarButton.setAttribute(
+      this.topbarStatus.setAttribute(
         // Purpose: Run this statement as the next step in the surrounding operation.
         'aria-label',
         // Purpose: Run this statement as the next step in the surrounding operation.
-        this.isConnected ? 'Dropbox connected — open files' : 'Dropbox disconnected — connect',
+        this.isConnected ? 'Dropbox connection status: Connected' : 'Dropbox connection status: Disconnected',
       // Purpose: Close the current call or grouped expression.
       );
-      // Purpose: Run this statement as the next step in the surrounding operation.
-      this.topbarButton.title = this.isConnected
-        // Purpose: Run this statement as the next step in the surrounding operation.
-        ? 'Dropbox connected. Click to browse files.'
-        // Purpose: Run this statement as the next step in the surrounding operation.
-        : 'Dropbox disconnected. Click to connect.';
     // Purpose: Close the current block, handler, object, or expression.
     }
 
@@ -848,7 +843,7 @@ export class DropboxModalUI {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-  // Use the sidebar or top-bar button to browse files or begin authorization.
+  // Use the sidebar Dropbox button to browse files or begin authorization.
   // Purpose: Run this statement as the next step in the surrounding operation.
   async handleDropboxButtonClick() {
     // Avoid navigating away while the user is disconnecting.
@@ -1322,11 +1317,9 @@ export class DropboxModalUI {
   // Attach click and keyboard handlers to the existing legacy-compatible controls.
   // Purpose: Run this statement as the next step in the surrounding operation.
   wireEvents() {
-    // Both Dropbox shortcuts open the same file manager or start the same OAuth flow.
+    // The sidebar shortcut starts authorization or opens the Dropbox file manager.
     // Purpose: Register a handler so the application reacts when this event occurs.
     this.sidebarButton?.addEventListener('click', () => void this.handleDropboxButtonClick());
-    // Purpose: Register a handler so the application reacts when this event occurs.
-    this.topbarButton?.addEventListener('click', () => void this.handleDropboxButtonClick());
     // Connect the top-bar actions to their actual service workflows.
     // Purpose: Register a handler so the application reacts when this event occurs.
     this.syncButton?.addEventListener('click', () => void this.handleSync());
