@@ -100,12 +100,12 @@ class DropboxApi {
     // Access browser storage for PKCE validation and legacy-compatible session restoration.
     // Purpose: Start a protected operation so failures can be handled cleanly.
     try {
-      // Return the browser storage object without saving any access token in it.
+      // Return the browser storage object used for PKCE values and short-lived session keys.
       // Purpose: Return the result to the code that called this function.
       return window.localStorage;
     // Purpose: Close the current block, handler, object, or expression.
     } catch {
-      // Explain that storage is needed only to complete the OAuth redirect safely.
+      // Explain that browser storage is required for PKCE validation and session restoration.
       // Purpose: Report an invalid input or failed operation to the caller.
       throw new DropboxApiError(
         // Purpose: Run this statement as the next step in the surrounding operation.
@@ -213,7 +213,7 @@ class DropboxApi {
     // Storage may be blocked, so cleanup should never hide the original result.
     // Purpose: Start a protected operation so failures can be handled cleanly.
     try {
-      // Get the browser storage used for the short-lived OAuth values.
+      // Access the browser storage used for the temporary OAuth values.
       // Purpose: Declare a variable that stores a value needed by this logic.
       const storage = this.#getStorage();
       // Clean only the keys associated with the callback we just handled.
@@ -510,7 +510,7 @@ class DropboxApi {
   // Send file bytes to or from a Dropbox content endpoint.
   // Purpose: Run this statement as the next step in the surrounding operation.
   async #requestContent(endpoint, args, body) {
-    // Get the active token without ever placing it in browser storage.
+    // Retrieve the token from this service's private cache or its valid persisted session.
     // Purpose: Declare a variable that stores a value needed by this logic.
     const token = this.#getActiveAccessToken();
     // Require the user to authorize before transferring any content.
@@ -551,7 +551,7 @@ class DropboxApi {
       // Read the service's error response before changing local state.
       // Purpose: Declare a variable that stores a value needed by this logic.
       const error = await this.#readErrorResponse(response);
-      // Clear the in-memory token after an unauthorized response.
+      // Clear the in-memory and persisted token after an unauthorized response.
       // Purpose: Run this statement as the next step in the surrounding operation.
       this.#expireSessionOnUnauthorized(error.status);
       // Let the caller present the error or retry the operation.
@@ -597,7 +597,7 @@ class DropboxApi {
   // Create a URL for OAuth authorization using the PKCE S256 flow.
   // Purpose: Run this statement as the next step in the surrounding operation.
   async createAuthorizationUrl() {
-    // Prepare access to the browser storage used for temporary PKCE values only.
+    // Prepare browser storage for the temporary PKCE state and verifier values.
     // Purpose: Declare a variable that stores a value needed by this logic.
     const storage = this.#getStorage();
     // Create a high-entropy verifier that is kept only during the redirect exchange.
@@ -858,7 +858,7 @@ class DropboxApi {
   // Check the active connection by requesting the current Dropbox account.
   // Purpose: Run this statement as the next step in the surrounding operation.
   async checkConnection() {
-    // Return early when sign-in has not produced a valid in-memory token.
+    // Return early when no valid cached or saved short-lived token exists.
     // Purpose: Check this condition before choosing which branch should run.
     if (!this.hasLocalSession()) return { connected: false, account: null };
     // Ask Dropbox to verify the account associated with the current token.
@@ -1129,7 +1129,7 @@ class DropboxApi {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-  // Revoke the current Dropbox token and clear all in-memory session details.
+  // Revoke the current Dropbox token and clear cached and persisted session details.
   // Purpose: Run this statement as the next step in the surrounding operation.
   async revokeToken() {
     // Keep a local reference only long enough to send the revoke request.
@@ -1182,7 +1182,7 @@ class DropboxApi {
   // Clear the in-memory connection, persisted session, and temporary authorization attempt.
   // Purpose: Run this statement as the next step in the surrounding operation.
   clearSession() {
-    // Forget the private access token without writing it anywhere else.
+    // Forget the private access-token cache before removing the persisted session.
     // Purpose: Run this statement as the next step in the surrounding operation.
     this.#accessToken = null;
     // Reset its expiry deadline at the same time.
