@@ -47,6 +47,15 @@ class Store {
     // Reserve slots for the full, left, and right document viewports.
     // Purpose: Set this named property in the surrounding object or configuration.
     viewports: { full: null, left: null, right: null },
+    // Keep minimized window metadata in shared state so every module sees the same restore dock.
+    // Purpose: Set this named property in the surrounding object or configuration.
+    minimizedViewports: [],
+    // Remember which minimized viewport is currently being dragged by the user.
+    // Purpose: Set this named property in the surrounding object or configuration.
+    viewportDrag: null,
+    // Remember a pending drop that needs the user to confirm replacing existing content.
+    // Purpose: Set this named property in the surrounding object or configuration.
+    pendingViewportReplacement: null,
   // Purpose: Close the current block, handler, object, or expression.
   };
 
@@ -61,6 +70,15 @@ class Store {
       ...this.#state,
       // Purpose: Set this named property in the surrounding object or configuration.
       viewports: { ...this.#state.viewports },
+      // Return fresh minimized records so callers cannot mutate Store's private array.
+      // Purpose: Return a defensive copy of the minimized viewport list.
+      minimizedViewports: this.#state.minimizedViewports.map((viewport) => ({ ...viewport })),
+      // Return a separate drag record so event handlers cannot edit Store state directly.
+      // Purpose: Return a defensive copy of the active drag state.
+      viewportDrag: this.#state.viewportDrag ? { ...this.#state.viewportDrag } : null,
+      // Return a separate pending replacement record for the same isolation guarantee.
+      // Purpose: Return a defensive copy of the pending replacement operation.
+      pendingViewportReplacement: this.#state.pendingViewportReplacement ? { ...this.#state.pendingViewportReplacement } : null,
     // Purpose: Close the current block, handler, object, or expression.
     };
   // Purpose: Close the current block, handler, object, or expression.
@@ -104,6 +122,16 @@ class Store {
     // Purpose: Close the current block, handler, object, or expression.
     }
 
+    // Copy minimized records so updates cannot keep mutable arrays outside the Store.
+    // Purpose: Normalize and isolate minimized-window state before saving it.
+    nextState.minimizedViewports = Array.isArray(nextState.minimizedViewports) ? nextState.minimizedViewports.map((viewport) => ({ ...viewport })) : [];
+    // Copy a valid drag record or reset an invalid value to null.
+    // Purpose: Normalize the active drag state before saving it.
+    nextState.viewportDrag = nextState.viewportDrag && typeof nextState.viewportDrag === 'object' && !Array.isArray(nextState.viewportDrag) ? { ...nextState.viewportDrag } : null;
+    // Copy a valid replacement operation or reset an invalid value to null.
+    // Purpose: Normalize the pending replacement state before saving it.
+    nextState.pendingViewportReplacement = nextState.pendingViewportReplacement && typeof nextState.pendingViewportReplacement === 'object' && !Array.isArray(nextState.pendingViewportReplacement) ? { ...nextState.pendingViewportReplacement } : null;
+
     // Replace the private state only after the new state has been prepared.
     // Purpose: Run this statement as the next step in the surrounding operation.
     this.#state = nextState;
@@ -133,6 +161,16 @@ class Store {
     // Purpose: Close the current block, handler, object, or expression.
     }
 
+    // Copy minimized records in the published update when this update changes them.
+    // Purpose: Protect the minimized update payload from outside mutation.
+    if (Object.hasOwn(updates, 'minimizedViewports')) updatesSnapshot.minimizedViewports = nextState.minimizedViewports.map((viewport) => ({ ...viewport }));
+    // Copy the drag record in the published update when dragging changes.
+    // Purpose: Protect the drag update payload from outside mutation.
+    if (Object.hasOwn(updates, 'viewportDrag')) updatesSnapshot.viewportDrag = nextState.viewportDrag ? { ...nextState.viewportDrag } : null;
+    // Copy the replacement record in the published update when confirmation state changes.
+    // Purpose: Protect the replacement update payload from outside mutation.
+    if (Object.hasOwn(updates, 'pendingViewportReplacement')) updatesSnapshot.pendingViewportReplacement = nextState.pendingViewportReplacement ? { ...nextState.pendingViewportReplacement } : null;
+
     // Prepare a separate snapshot so listeners cannot reassign the private state.
     // Purpose: Declare a variable that stores a value needed by this logic.
     const stateSnapshot = this.getState();
@@ -151,6 +189,63 @@ class Store {
     // Purpose: Return the result to the code that called this function.
     return this.getState();
   // Purpose: Close the current block, handler, object, or expression.
+  }
+
+  // Add or update one minimized viewport while keeping the shared list unique by side.
+  // Purpose: Provide a single state-changing operation for the restore dock.
+  setMinimizedViewport(viewport) {
+    // Accept only a record for one of the three supported viewport containers.
+    // Purpose: Validate the minimized viewport update before storing it.
+    if (!viewport || !['full', 'left', 'right'].includes(viewport.side)) throw new TypeError('Store.setMinimizedViewport expects a supported viewport side.');
+    // Keep every other minimized window while replacing the selected side's record.
+    // Purpose: Build the next minimized list without mutating the existing list.
+    const nextViewports = this.#state.minimizedViewports.filter((savedViewport) => savedViewport.side !== viewport.side);
+    // Append an isolated record for the viewport being minimized.
+    // Purpose: Add the viewport to the shared restore dock state.
+    nextViewports.push({ ...viewport });
+    // Publish the new list so the workspace can redraw its restore dock.
+    // Purpose: Notify event subscribers about the state change.
+    return this.setState({ minimizedViewports: nextViewports });
+  // Purpose: Close the current method.
+  }
+
+  // Remove one viewport from the shared restore dock state.
+  // Purpose: Provide a single state-changing operation for dock removal.
+  removeMinimizedViewport(side) {
+    // Accept only Full, Left, or Right viewport names.
+    // Purpose: Validate the viewport side before changing shared state.
+    if (!['full', 'left', 'right'].includes(side)) throw new TypeError('Store.removeMinimizedViewport expects a supported viewport side.');
+    // Retain all minimized records except the one that was restored or moved.
+    // Purpose: Build the next minimized list without mutating the existing list.
+    const nextViewports = this.#state.minimizedViewports.filter((savedViewport) => savedViewport.side !== side);
+    // Publish the filtered list so UI subscribers stay synchronized.
+    // Purpose: Notify event subscribers about the state change.
+    return this.setState({ minimizedViewports: nextViewports });
+  // Purpose: Close the current method.
+  }
+
+  // Record or clear the native drag-and-drop operation.
+  // Purpose: Keep drag state inside the shared memory bank.
+  setViewportDrag(viewportDrag) {
+    // Validate a non-null drag record before allowing it into shared state.
+    // Purpose: Check the shape of the drag operation.
+    if (viewportDrag !== null && (!viewportDrag || !['full', 'left', 'right'].includes(viewportDrag.sourceSide))) throw new TypeError('Store.setViewportDrag expects null or a supported source side.');
+    // Store a copy so the caller cannot change the record after publishing it.
+    // Purpose: Save the drag state and notify event subscribers.
+    return this.setState({ viewportDrag: viewportDrag ? { ...viewportDrag } : null });
+  // Purpose: Close the current method.
+  }
+
+  // Record or clear a Replace confirmation request for a drop onto occupied content.
+  // Purpose: Keep replacement decisions inside the shared memory bank.
+  setPendingViewportReplacement(operation) {
+    // Validate every non-null replacement request before showing a confirmation dialog.
+    // Purpose: Check both viewport names and prevent a viewport from replacing itself.
+    if (operation !== null && (!operation || !['full', 'left', 'right'].includes(operation.sourceSide) || !['left', 'right'].includes(operation.targetSide) || operation.sourceSide === operation.targetSide)) throw new TypeError('Store.setPendingViewportReplacement expects a supported move operation.');
+    // Store a copy of the selected move or clear the request after Cancel or Replace.
+    // Purpose: Save the pending replacement operation and notify subscribers.
+    return this.setState({ pendingViewportReplacement: operation ? { ...operation } : null });
+  // Purpose: Close the current method.
   }
 
   // Persist only supported preferences explicitly included in a state update.

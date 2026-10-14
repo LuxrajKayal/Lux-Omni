@@ -265,3 +265,16 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Subscribed the workspace to `FILE_OPEN_REQUESTED` and `PDF_OPENED` so it activates at the request stage and remains active after a PDF renderer confirms success.
   * Added `VIEWPORT_CLOSE_REQUESTED` handling to `PdfAdapter` so closing a viewport invalidates pending PDF renders and releases the active PDF.js renderer. The adapter stores and clears the viewport filename for restore labels.
   * Removed direct JavaScript style-property writes from `WorkspaceUI`; the sidebar remains CSS-controlled and split-pane resizing selects stylesheet classes in `site/styles.css`.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `feat(ui): implement event-driven minimization, restore dock, and drag-and-drop viewport moves`
+* **Changes:**
+  * Moved minimized viewport records, active drag state, and pending replacement operations into `Store.js`, with defensive copies and dedicated state-changing methods that publish `STATE_CHANGED` through EventBus.
+  * Updated `WorkspaceUI.js` to use Store as the source of truth for the restore dock, preserve existing restore-button nodes during unrelated state changes, and register native HTML5 dragstart, dragend, dragover, dragleave, and drop listeners.
+  * Restored the legacy Full/Left/Right minimization and restore lifecycle, including solo-pane layouts, the existing Replace confirmation dialog, Escape/outside-click cancellation, and immediate moves into empty targets.
+  * Added an event-driven `VIEWPORT_CONTENTS_MOVED` handoff for DOM-preserving moves. WorkspaceUI transfers the existing Shadow DOM and light-DOM nodes, while `PdfAdapter.js` re-keys an already-mounted PDF renderer so later Close/Replace operations still dispose the same instance.
+  * Preserved in-progress PDF open requests by invalidating the hidden source request and reissuing it for the new target; completed PDF viewer instances are moved without re-rendering.
+  * Reused the existing viewport markup and stylesheet classes; no inline event handlers or inline style writes were introduced.
+  * Validation: inspected the generated source transformations and ran JavaScript syntax parsing checks before publishing the Git tree.

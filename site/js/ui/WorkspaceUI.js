@@ -92,15 +92,24 @@ export class WorkspaceUI {
     // Cache the Right pane close button.
     // Purpose: Find the HTML element or elements used by this part of the interface.
     this.viewportCloseRightButton = document.querySelector('#viewport-close-right');
+    // Cache the existing modal used when a dropped viewport would replace content.
+    // Purpose: Find the HTML element used to confirm a viewport move.
+    this.viewportReplaceDialog = document.querySelector('#viewport-replace-dialog');
+    // Cache the Cancel button in the existing replacement dialog.
+    // Purpose: Find the HTML element used to reject a viewport move.
+    this.viewportReplaceCancelButton = document.querySelector('#viewport-replace-cancel');
+    // Cache the Replace button in the existing replacement dialog.
+    // Purpose: Find the HTML element used to confirm a viewport move.
+    this.viewportReplaceConfirmButton = document.querySelector('#viewport-replace-confirm');
     // Start with no active viewport, matching the legacy state machine.
     // Purpose: Store a value needed by the next operation.
     this.activeViewportMode = null;
     // Remember which pane remains active when its partner is minimized.
     // Purpose: Store a value needed by the next operation.
     this.soloSplitSide = null;
-    // Save minimized windows so users can restore them.
+    // Remember the last successful drop time so its follow-up click does not restore a tile.
     // Purpose: Store a value needed by the next operation.
-    this.minimizedViewportStates = new Map();
+    this.lastViewportDropAt = 0;
     // Begin Split Screen at a balanced ratio.
     // Purpose: Store a value needed by the next operation.
     this.rememberedSplitRatio = 0.5;
@@ -232,6 +241,9 @@ export class WorkspaceUI {
     // Attach the legacy-compatible pointer and keyboard behavior to the divider.
     // Purpose: Run this statement as the next step in the surrounding operation.
     this.installSplitDividerControls();
+    // Register native drag-and-drop and Replace dialog behavior without inline handlers.
+    // Purpose: Wire the existing viewport DOM to the event-driven move workflow.
+    this.installViewportDragAndDrop();
 
     // Render every update made through the shared Store.
     // Purpose: Subscribe to a shared state event.
@@ -246,6 +258,18 @@ export class WorkspaceUI {
     // Purpose: Run the next viewport operation.
     this.handleStateChange({ state: Store.getState() });
   // Purpose: Close the current block, handler, object, or expression.
+  }
+
+  // Read minimized records as a fresh Map so old lookup code cannot mutate Store directly.
+  // Purpose: Expose a convenient read-only view of shared minimized-window state.
+  get minimizedViewportStates() {
+    // Read the cloned list returned by Store before building the lookup map.
+    // Purpose: Keep this helper separate from Store's private array.
+    const savedViewports = Store.getState().minimizedViewports;
+    // Return a new lookup Map whose changes do not affect Store.
+    // Purpose: Support side-based restore-dock lookups.
+    return new Map(savedViewports.map((savedViewport) => [savedViewport.side, savedViewport]));
+  // Purpose: Close the current getter.
   }
 
   // Show the top bar only while Focus Mode is enabled.
@@ -526,6 +550,267 @@ export class WorkspaceUI {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
+  // Connect the existing Left and Right viewport containers to native drop events.
+  // Purpose: Keep drag-and-drop behavior inside the workspace UI module.
+  installViewportDragAndDrop() {
+    // Register drop targets only for the two split panes, matching the legacy behavior.
+    // Purpose: Keep the Full Screen viewport out of the native drag target list.
+    for (const side of ['left', 'right']) {
+      // Find the fixed viewport container associated with the current target side.
+      // Purpose: Attach listeners to the existing DOM rather than recreating HTML.
+      const viewport = this.getViewportElement(side);
+      // Skip a missing target instead of breaking workspace startup.
+      // Purpose: Keep the event setup safe if optional markup is absent.
+      if (!viewport) continue;
+      // Accept drags only when a valid minimized window is being carried.
+      // Purpose: Register the native dragover handler for this target.
+      viewport.addEventListener('dragover', (event) => {
+        // Read the current drag source from shared state or the browser transfer object.
+        // Purpose: Find the minimized viewport currently being dragged.
+        const sourceSide = Store.getState().viewportDrag?.sourceSide || event.dataTransfer?.getData('application/x-lux-viewport');
+        // Ignore empty, self-targeted, or no-longer-minimized drag sources.
+        // Purpose: Prevent invalid viewport moves before the browser accepts the drop.
+        if (!sourceSide || sourceSide === side || !this.minimizedViewportStates.has(sourceSide)) return;
+        // Tell the browser that this viewport accepts the current move operation.
+        // Purpose: Enable the native drop event for an allowed viewport target.
+        event.preventDefault();
+        // Use the standard move cursor feedback where a DataTransfer object exists.
+        // Purpose: Communicate that the item will move instead of being copied.
+        if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
+        // Add the stylesheet class that highlights the active drop target.
+        // Purpose: Show the user where the minimized window will be moved.
+        viewport.classList.add('is-drop-target');
+      // Purpose: Close the dragover handler.
+      });
+      // Remove highlighting when the pointer leaves the viewport instead of entering a child.
+      // Purpose: Register the native dragleave handler for this target.
+      viewport.addEventListener('dragleave', (event) => {
+        // Keep the highlight while the pointer moves between descendants of the same viewport.
+        // Purpose: Avoid flickering when the pointer crosses viewer controls.
+        if (event.relatedTarget && viewport.contains(event.relatedTarget)) return;
+        // Clear the visual indication after leaving this target.
+        // Purpose: Remove the stylesheet class used for drop feedback.
+        viewport.classList.remove('is-drop-target');
+      // Purpose: Close the dragleave handler.
+      });
+      // Complete an allowed drop by requesting a safe move through the workspace controller.
+      // Purpose: Register the native drop handler for this target.
+      viewport.addEventListener('drop', (event) => {
+        // Read the source saved at dragstart, using the data transfer payload as fallback.
+        // Purpose: Find the minimized viewport to be moved.
+        const sourceSide = event.dataTransfer?.getData('application/x-lux-viewport') || Store.getState().viewportDrag?.sourceSide;
+        // Ignore a drop when its source is invalid or has already left the restore dock.
+        // Purpose: Keep unsupported drop operations from changing viewport state.
+        if (!sourceSide || sourceSide === side || !this.minimizedViewportStates.has(sourceSide)) return;
+        // Prevent the browser from treating the viewport drop as a file or text insertion.
+        // Purpose: Keep the operation under the application's control.
+        event.preventDefault();
+        // Remember this drop so the browser's follow-up click cannot trigger Restore.
+        // Purpose: Avoid running both move and restore for the same gesture.
+        this.lastViewportDropAt = Date.now();
+        // Remove any drop target highlights after the target has been chosen.
+        // Purpose: Reset the visual feedback for the finished drag.
+        document.querySelectorAll('.viewport.is-drop-target').forEach((target) => target.classList.remove('is-drop-target'));
+        // Start the move or open the replacement confirmation if the target is occupied.
+        // Purpose: Route both occupied and empty drops through one state-aware method.
+        this.handleViewportDrop(sourceSide, side);
+      // Purpose: Close the drop handler.
+      });
+    // Purpose: Close the loop over Left and Right targets.
+    }
+    // Route the existing Replace button to the stored pending operation.
+    // Purpose: Register the modal confirmation handler without inline JavaScript.
+    this.viewportReplaceConfirmButton?.addEventListener('click', () => this.confirmViewportReplacement());
+    // Route Cancel to a method that clears the pending replacement from Store.
+    // Purpose: Register the modal cancellation handler without inline JavaScript.
+    this.viewportReplaceCancelButton?.addEventListener('click', () => this.cancelViewportReplacement());
+    // Treat a click on the dialog's outside area as a Cancel action.
+    // Purpose: Preserve the legacy behavior for dismissing the replacement dialog.
+    this.viewportReplaceDialog?.addEventListener('click', (event) => {
+      // Ignore clicks inside the confirmation card itself.
+      // Purpose: Keep the confirmation dialog open while the user interacts with its controls.
+      if (event.target !== this.viewportReplaceDialog) return;
+      // Cancel the move when the user clicks the modal's outside area.
+      // Purpose: Clear the pending operation and close the dialog.
+      this.cancelViewportReplacement();
+    // Purpose: Close the dialog click handler.
+    });
+    // Allow Escape to cancel only when a replacement operation is pending.
+    // Purpose: Register the keyboard shortcut for dialog cancellation.
+    document.addEventListener('keydown', (event) => {
+      // Ignore other keys or Escape presses when the dialog is not active.
+      // Purpose: Avoid affecting ordinary keyboard navigation.
+      if (event.key !== 'Escape' || !Store.getState().pendingViewportReplacement) return;
+      // Cancel the current Replace decision using the same shared-state method.
+      // Purpose: Keep mouse and keyboard cancellation consistent.
+      this.cancelViewportReplacement();
+    // Purpose: Close the document keydown handler.
+    });
+  // Purpose: Close the viewport drag-and-drop installation method.
+  }
+
+  // Handle a dropped dock tile by either moving it now or asking before replacement.
+  // Purpose: Keep the target occupancy check in the workspace controller.
+  handleViewportDrop(sourceSide, targetSide) {
+    // Accept only a minimized source and a Left or Right target that is not itself.
+    // Purpose: Validate the requested source and destination before making changes.
+    if (!['full', 'left', 'right'].includes(sourceSide) || !['left', 'right'].includes(targetSide) || sourceSide === targetSide || !this.minimizedViewportStates.has(sourceSide)) return;
+    // Ask before replacing content that is already mounted in the target viewport.
+    // Purpose: Protect the active document from accidental replacement.
+    if (this.hasViewportContent(targetSide)) {
+      // Stop rather than overwrite content if the existing confirmation markup is missing.
+      // Purpose: Keep occupied-target moves safe when optional markup is unavailable.
+      if (!this.viewportReplaceDialog) return;
+      // Store the exact source and target until the user chooses Replace or Cancel.
+      // Purpose: Preserve the user's requested move in shared application state.
+      Store.setPendingViewportReplacement({ sourceSide: sourceSide, targetSide: targetSide });
+      // Reveal the existing replacement dialog through its hidden HTML attribute.
+      // Purpose: Display the confirmation question without inline styles.
+      this.viewportReplaceDialog.hidden = false;
+      // Place keyboard focus on Replace so the next action is clear and accessible.
+      // Purpose: Support fast keyboard confirmation.
+      this.viewportReplaceConfirmButton?.focus();
+      // Stop here until the user makes a decision.
+      // Purpose: Prevent moving the source before replacement is confirmed.
+      return;
+    // Purpose: Close the occupied-target condition.
+    }
+    // Move into an empty viewport immediately without showing a confirmation dialog.
+    // Purpose: Keep empty-target drops direct and predictable.
+    this.moveViewportContents(sourceSide, targetSide);
+  // Purpose: Close the drop routing method.
+  }
+
+  // Confirm the stored move only after the user presses Replace.
+  // Purpose: Keep the confirmation button separate from DOM move details.
+  confirmViewportReplacement() {
+    // Read the selected operation from Store rather than a local pending variable.
+    // Purpose: Retrieve the move chosen by the user.
+    const pending = Store.getState().pendingViewportReplacement;
+    // Ignore Replace when no drop is waiting for confirmation.
+    // Purpose: Keep repeated or stale button presses harmless.
+    if (!pending) return;
+    // Hide the dialog using the existing hidden HTML attribute.
+    // Purpose: Close the confirmation UI without inline style writes.
+    if (this.viewportReplaceDialog) this.viewportReplaceDialog.hidden = true;
+    // Clear shared pending state before performing the DOM operation.
+    // Purpose: Finish the confirmation part of the event-driven flow.
+    Store.setPendingViewportReplacement(null);
+    // Move the minimized window to the accepted target viewport.
+    // Purpose: Complete the user's confirmed Replace operation.
+    this.moveViewportContents(pending.sourceSide, pending.targetSide);
+  // Purpose: Close the confirmation method.
+  }
+
+  // Cancel the stored move without changing any mounted viewer nodes.
+  // Purpose: Keep modal cancellation separate from DOM move details.
+  cancelViewportReplacement() {
+    // Hide the dialog when it exists on the current page.
+    // Purpose: Close the confirmation UI without inline style writes.
+    if (this.viewportReplaceDialog) this.viewportReplaceDialog.hidden = true;
+    // Clear the operation so a later Replace click cannot reuse it.
+    // Purpose: Reset shared pending replacement state.
+    Store.setPendingViewportReplacement(null);
+  // Purpose: Close the cancellation method.
+  }
+
+  // Move the mounted viewer nodes rather than rendering the source document again.
+  // Purpose: Preserve existing content instances when a minimized window is moved.
+  moveViewportContents(sourceSide, targetSide) {
+    // Find the original host and the host that will receive the mounted content.
+    // Purpose: Resolve both fixed containers before touching their child nodes.
+    const sourceRoot = this.getViewportElement(sourceSide);
+    // Purpose: Resolve the destination container from its supported side name.
+    const targetRoot = this.getViewportElement(targetSide);
+    // Read the saved dock record so a known filename survives a move with sparse metadata.
+    // Purpose: Preserve a useful restore label until the target host owns the document.
+    const savedSource = this.minimizedViewportStates.get(sourceSide);
+    // Refuse invalid targets, missing hosts, and sources that are no longer minimized.
+    // Purpose: Keep the move operation safe if another event changes state first.
+    if (!sourceRoot || !targetRoot || sourceSide === targetSide || !savedSource || !['left', 'right'].includes(targetSide)) return false;
+    // Save the current file name and PDF-specific classes before touching either host.
+    // Purpose: Transfer viewport metadata along with the mounted document nodes.
+    const sourceFileName = sourceRoot.dataset.fileName || savedSource.fileName || '';
+    // Remember whether the current source host belongs to the PDF viewer adapter.
+    // Purpose: Reapply only the viewer-specific classes that belong with moved content.
+    const sourceHasPdfClass = sourceRoot.classList.contains('lux-pdf-editor-root');
+    // Remember whether the source host is displaying a PDF rendering error.
+    // Purpose: Preserve a useful error appearance when moving an error view.
+    const sourceHasPdfErrorClass = sourceRoot.classList.contains('lux-pdf-render-error');
+    // Release the target's current adapter-owned viewer before its DOM is replaced.
+    // Purpose: Let adapters dispose the replaced document through the event system.
+    if (this.hasViewportContent(targetSide)) EventBus.publish('VIEWPORT_CLOSE_REQUESTED', { viewportType: targetSide });
+    // Remove any remaining ordinary target children after adapter cleanup has run.
+    // Purpose: Ensure the target host is empty before receiving the source nodes.
+    targetRoot.replaceChildren();
+    // Move the source's Shadow DOM children when a renderer uses an isolated shadow root.
+    // Purpose: Preserve the actual PDF.js toolbar, viewer, and live node references.
+    if (sourceRoot.shadowRoot) {
+      // Reuse the target's shadow root or create one only when it has never existed.
+      // Purpose: Keep the viewer isolated from the main workspace styles.
+      const destinationShadowRoot = targetRoot.shadowRoot || targetRoot.attachShadow({ mode: 'open' });
+      // Collect the source child nodes before moving them into the target shadow root.
+      // Purpose: Transfer the existing nodes instead of cloning or recreating them.
+      const shadowNodes = Array.from(sourceRoot.shadowRoot.childNodes);
+      // Move every shadow node into the target while keeping each node's identity.
+      // Purpose: Preserve live viewer controls and PDF.js instances.
+      for (const node of shadowNodes) destinationShadowRoot.append(node);
+    // Purpose: Close the source-shadow-root condition.
+    }
+    // Collect ordinary light-DOM children that may belong to other document adapters.
+    // Purpose: Support future renderers that mount outside Shadow DOM.
+    const lightNodes = Array.from(sourceRoot.childNodes);
+    // Move each ordinary child instead of destroying and recreating it.
+    // Purpose: Preserve mounted DOM nodes for non-Shadow-DOM document types.
+    for (const node of lightNodes) targetRoot.append(node);
+    // Keep the target's filename attribute aligned with the document now hosted there.
+    // Purpose: Update dock labels and document metadata for the new side.
+    if (sourceFileName) targetRoot.dataset.fileName = sourceFileName;
+    // Remove stale target filename metadata when the source had no saved name.
+    // Purpose: Avoid showing an unrelated document name in the target dock label.
+    else targetRoot.removeAttribute('data-file-name');
+    // Apply the PDF host class only if the moved content came from a PDF host.
+    // Purpose: Keep viewer-specific host presentation attached to the moved document.
+    targetRoot.classList.toggle('lux-pdf-editor-root', sourceHasPdfClass);
+    // Transfer the visible PDF error class only when it belonged to the source.
+    // Purpose: Keep PDF error styling aligned with the moved document.
+    targetRoot.classList.toggle('lux-pdf-render-error', sourceHasPdfErrorClass);
+    // Remove the source filename so an emptied hidden host is no longer mislabeled.
+    // Purpose: Keep the old viewport ready for a future file assignment.
+    sourceRoot.removeAttribute('data-file-name');
+    // Remove PDF-specific state from the now-empty source host.
+    // Purpose: Keep viewer CSS classes on the host that owns the content.
+    sourceRoot.classList.remove('lux-pdf-editor-root');
+    // Remove the source error state after its content moves to the target.
+    // Purpose: Prevent the empty host from retaining an old rendering error.
+    sourceRoot.classList.remove('lux-pdf-render-error');
+    // Tell the PDF adapter to move its internal lifecycle record to the new viewport key.
+    // Purpose: Keep later Close or Replace operations able to dispose the same live viewer.
+    EventBus.publish('VIEWPORT_CONTENTS_MOVED', { sourceSide: sourceSide, targetSide: targetSide, sourceRoot: sourceRoot, targetRoot: targetRoot });
+    // Remove the source dock entry after its document has moved successfully.
+    // Purpose: Update shared restore state to match the new content location.
+    Store.removeMinimizedViewport(sourceSide);
+    // Remove any stale minimized record for the destination side as well.
+    // Purpose: Keep one restore tile per actual minimized viewport.
+    Store.removeMinimizedViewport(targetSide);
+    // Clear drag state after the transfer has finished.
+    // Purpose: Finish the native drag-and-drop state transition.
+    Store.setViewportDrag(null);
+    // Clear a replacement request if the move came from the confirmation dialog.
+    // Purpose: Keep pending replacement state empty after success.
+    Store.setPendingViewportReplacement(null);
+    // Record the drop time so a follow-up click does not restore the source tile.
+    // Purpose: Avoid running Restore after an already-completed move.
+    this.lastViewportDropAt = Date.now();
+    // Refresh visibility after state changes and content transfer have completed.
+    // Purpose: Render the correct active layout and restore dock.
+    this.renderViewportComposition();
+    // Report that the requested viewport move completed.
+    // Purpose: Let callers distinguish a completed move from a rejected operation.
+    return true;
+  // Purpose: Close the move operation.
+  }
+
   // Activate Full Screen or Split Screen when a file event names a target.
   // Purpose: Continue the viewport window operation.
   activateViewportForTarget(side) {
@@ -575,8 +860,9 @@ export class WorkspaceUI {
     const root = this.getViewportElement(side);
     // Purpose: Check this condition before changing viewport state.
     if (!root) return;
-    // Purpose: Run the next viewport operation.
-    this.minimizedViewportStates.set(side, { side: side, originalMode: originalMode, splitRatio: this.rememberedSplitRatio });
+    // Record the layout needed to restore this viewport, including its visible filename.
+    // Purpose: Update the shared minimized-window list in Store.
+    Store.setMinimizedViewport({ side: side, originalMode: originalMode, splitRatio: this.rememberedSplitRatio, fileName: this.getViewportFileName(side) });
   // Purpose: Close the current block, callback, or expression.
   }
 
@@ -585,7 +871,31 @@ export class WorkspaceUI {
   renderMinimizedViewportDock() {
     // Purpose: Check this condition before changing viewport state.
     if (!this.viewportMinimizedDock || !this.viewportMinimizedItems) return;
-    // Purpose: Run the next viewport operation.
+    // Find the minimized sides in the same stable order used by the restore dock.
+    // Purpose: Prepare the list of buttons that should be visible.
+    const desiredSides = ['full', 'left', 'right'].filter((side) => this.minimizedViewportStates.has(side));
+    // Read the currently mounted buttons before deciding whether a rebuild is necessary.
+    // Purpose: Preserve the dragged button node while unrelated state changes render.
+    const existingButtons = Array.from(this.viewportMinimizedItems.querySelectorAll('[data-minimized-viewport]'));
+    // Compare the existing button side order with the Store's minimized side order.
+    // Purpose: Detect whether the restore dock structure has changed.
+    const sameSides = existingButtons.length === desiredSides.length && existingButtons.every((button, index) => button.dataset.minimizedViewport === desiredSides[index]);
+    // Check whether visible labels still match the document name in their viewport.
+    // Purpose: Refresh button nodes only when their displayed label must change.
+    const sameLabels = sameSides && desiredSides.every((side, index) => existingButtons[index].querySelector('.viewport-minimized-file')?.textContent === this.getViewportFileName(side));
+    // Keep the existing buttons when they still represent the same minimized windows.
+    // Purpose: Prevent dragstart state updates from detaching the active drag source.
+    if (sameSides && sameLabels) {
+      // Keep the dock visible only while at least one minimized window exists.
+      // Purpose: Synchronize dock visibility with shared state.
+      this.viewportMinimizedDock.hidden = desiredSides.length === 0;
+      // Stop here because none of the restore button nodes need rebuilding.
+      // Purpose: Preserve the current dock DOM and any in-progress drag.
+      return;
+    // Purpose: Close the current conditional block.
+    }
+    // Clear outdated restore buttons before creating the current set.
+    // Purpose: Rebuild the dock only when its contents have actually changed.
     this.viewportMinimizedItems.replaceChildren();
     // Purpose: Repeat this step for each viewport side.
     for (const side of ['full', 'left', 'right']) {
@@ -601,6 +911,9 @@ export class WorkspaceUI {
       const button = document.createElement('button');
       // Purpose: Set up an accessible viewport restore control.
       button.className = 'viewport-minimized-bar';
+      // Enable native HTML5 drag-and-drop for this minimized restore control.
+      // Purpose: Let a minimized window be dragged onto a visible Left or Right viewport.
+      button.draggable = true;
       // Purpose: Set up an accessible viewport restore control.
       button.type = 'button';
       // Purpose: Set up an accessible viewport restore control.
@@ -631,8 +944,23 @@ export class WorkspaceUI {
       restoreMark.textContent = '↗';
       // Purpose: Set up an accessible viewport restore control.
       button.append(numberLabel, fileLabel, restoreMark);
-      // Purpose: Set up an accessible viewport restore control.
-      button.addEventListener('click', () => this.restoreMinimizedViewport(side));
+      // Restore on click unless the same physical action just completed a drag-and-drop.
+      // Purpose: Avoid accidentally restoring a window after moving it with the mouse.
+      button.addEventListener('click', () => {
+        // Ignore the synthetic or follow-up click that can occur after a completed drop.
+        // Purpose: Keep one drag gesture from triggering two different viewport actions.
+        if (Date.now() - this.lastViewportDropAt < 800) return;
+        // Restore the minimized window after an ordinary click.
+        // Purpose: Return the selected viewport to the visible layout.
+        this.restoreMinimizedViewport(side);
+      // Purpose: Close the click handler.
+      });
+      // Start tracking the source window when the user begins dragging this restore tile.
+      // Purpose: Register a native dragstart handler.
+      button.addEventListener('dragstart', (event) => this.handleDockDragStart(event, side));
+      // Clear drag state and highlighting when the drag ends.
+      // Purpose: Register a native dragend handler.
+      button.addEventListener('dragend', (event) => this.handleDockDragEnd(event, side));
       // Purpose: Run the next viewport operation.
       this.viewportMinimizedItems.append(button);
     // Purpose: Close the current block, callback, or expression.
@@ -737,8 +1065,9 @@ export class WorkspaceUI {
         this.rememberMinimizedViewport(previousSide, 'split');
       // Purpose: Close the current block, callback, or expression.
       }
-      // Purpose: Run the next viewport operation.
-      this.minimizedViewportStates.delete('full');
+      // Remove Full Screen from the shared minimized-window list.
+      // Purpose: Update the shared viewport state.
+      Store.removeMinimizedViewport('full');
       // Purpose: Update the viewport controller state.
       this.activeViewportMode = 'full';
       // Purpose: Update the viewport controller state.
@@ -747,10 +1076,12 @@ export class WorkspaceUI {
     } else if (mode === 'split') {
       // Purpose: Check this condition before changing viewport state.
       if (previous === 'full' && this.hasViewportContent('full')) this.rememberMinimizedViewport('full', 'full');
-      // Purpose: Run the next viewport operation.
-      this.minimizedViewportStates.delete('left');
-      // Purpose: Run the next viewport operation.
-      this.minimizedViewportStates.delete('right');
+      // Remove Left from the shared minimized-window list.
+      // Purpose: Update the shared viewport state.
+      Store.removeMinimizedViewport('left');
+      // Remove Right from the shared minimized-window list.
+      // Purpose: Update the shared viewport state.
+      Store.removeMinimizedViewport('right');
       // Purpose: Update the viewport controller state.
       this.activeViewportMode = 'split';
       // Purpose: Update the viewport controller state.
@@ -843,8 +1174,9 @@ export class WorkspaceUI {
         if (this.hasViewportContent('right')) this.rememberMinimizedViewport('right', 'split');
       // Purpose: Close the current block, callback, or expression.
       }
-      // Purpose: Run the next viewport operation.
-      this.minimizedViewportStates.delete('full');
+      // Remove Full Screen from the shared minimized-window list.
+      // Purpose: Update the shared viewport state.
+      Store.removeMinimizedViewport('full');
       // Purpose: Update the viewport controller state.
       this.activeViewportMode = 'full';
       // Purpose: Update the viewport controller state.
@@ -857,10 +1189,12 @@ export class WorkspaceUI {
       const restorePair = this.activeViewportMode === 'solo' && this.soloSplitSide === otherSide && this.minimizedViewportStates.has(side);
       // Purpose: Check this condition before changing viewport state.
       if (restorePair) {
-        // Purpose: Run the next viewport operation.
-        this.minimizedViewportStates.delete('left');
-        // Purpose: Run the next viewport operation.
-        this.minimizedViewportStates.delete('right');
+        // Remove Left from the shared minimized-window list.
+        // Purpose: Update the shared viewport state.
+        Store.removeMinimizedViewport('left');
+        // Remove Right from the shared minimized-window list.
+        // Purpose: Update the shared viewport state.
+        Store.removeMinimizedViewport('right');
         // Purpose: Update the viewport controller state.
         this.activeViewportMode = 'split';
         // Purpose: Update the viewport controller state.
@@ -871,8 +1205,9 @@ export class WorkspaceUI {
         if (this.activeViewportMode === 'full' && this.hasViewportContent('full')) this.rememberMinimizedViewport('full', 'full');
         // Purpose: Handle the alternate viewport state.
         else if (this.activeViewportMode === 'solo' && this.soloSplitSide && this.hasViewportContent(this.soloSplitSide)) this.rememberMinimizedViewport(this.soloSplitSide, 'split');
-        // Purpose: Run the next viewport operation.
-        this.minimizedViewportStates.delete(side);
+        // Remove the selected side from the shared minimized-window list.
+        // Purpose: Update the shared viewport state.
+        Store.removeMinimizedViewport(side);
         // Purpose: Update the viewport controller state.
         this.activeViewportMode = 'solo';
         // Purpose: Update the viewport controller state.
@@ -925,8 +1260,9 @@ export class WorkspaceUI {
     if (this.activeViewportMode !== 'full' || !window.confirm('Discard documents?')) return;
     // Purpose: Run the next viewport operation.
     this.clearViewportContents('full');
-    // Purpose: Run the next viewport operation.
-    this.minimizedViewportStates.delete('full');
+    // Remove Full Screen from the shared minimized-window list.
+    // Purpose: Update the shared viewport state.
+    Store.removeMinimizedViewport('full');
     // Purpose: Update the viewport controller state.
     this.activeViewportMode = null;
     // Purpose: Update the viewport controller state.
@@ -947,8 +1283,9 @@ export class WorkspaceUI {
     if ((!paired && !solo) || !window.confirm('Discard documents?')) return;
     // Purpose: Run the next viewport operation.
     this.clearViewportContents(side);
-    // Purpose: Run the next viewport operation.
-    this.minimizedViewportStates.delete(side);
+    // Remove the selected side from the shared minimized-window list.
+    // Purpose: Update the shared viewport state.
+    Store.removeMinimizedViewport(side);
     // Purpose: Check this condition before changing viewport state.
     if (paired) {
       // Purpose: Update the viewport controller state.

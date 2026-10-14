@@ -965,7 +965,58 @@ export class PdfAdapter {
     // Receive window-close notifications without coupling WorkspaceUI to PDF.js.
     // Purpose: Subscribe to the shared event that announces viewport closure.
     EventBus.subscribe("VIEWPORT_CLOSE_REQUESTED", this.viewportCloseHandler);
+    // Keep a stable callback for notifications that transfer an existing mounted viewer.
+    // Purpose: Store a callback that can be removed when the adapter is disposed.
+    this.viewportContentsMovedHandler = (payload = {}) => {
+      // Re-key the adapter's lifecycle records after WorkspaceUI moves live DOM nodes.
+      // Purpose: Keep Close and Replace connected to the moved viewer instance.
+      this.handleViewportContentsMoved(payload);
+    // Purpose: Close the moved-content callback.
+    };
+    // Listen for DOM-preserving moves without coupling WorkspaceUI to PDF.js internals.
+    // Purpose: Subscribe to the shared viewport contents moved event.
+    EventBus.subscribe("VIEWPORT_CONTENTS_MOVED", this.viewportContentsMovedHandler);
   // Purpose: Close the current block or callback.
+  }
+
+  // Transfer adapter ownership when WorkspaceUI moves a live viewport into another host.
+  // Purpose: Preserve PDF.js renderer lifecycle tracking across dock drag-and-drop.
+  handleViewportContentsMoved({ sourceSide, targetSide, sourceRoot, targetRoot } = {}) {
+    // Accept only the supported source and target viewport names and existing DOM hosts.
+    // Purpose: Keep invalid move notifications from changing adapter ownership.
+    if (!['full', 'left', 'right'].includes(sourceSide) || !['full', 'left', 'right'].includes(targetSide) || sourceSide === targetSide || !sourceRoot || !targetRoot) return;
+    // Find a successfully mounted renderer that still belongs to the source root.
+    // Purpose: Locate the live PDF.js instance being moved.
+    const activeRenderer = this.renderers.get(sourceSide);
+    // Re-key the renderer without disposing it when the source and host match.
+    // Purpose: Let later viewport cleanup reach the same editor instance.
+    if (activeRenderer?.root === sourceRoot) {
+      // Remove the old key so only the destination side owns this renderer.
+      // Purpose: Prevent duplicate lifecycle ownership of the moved viewer.
+      this.renderers.delete(sourceSide);
+      // Store the original editor and payload with its new viewport root.
+      // Purpose: Preserve the existing PDF.js instance while updating its host reference.
+      this.renderers.set(targetSide, { ...activeRenderer, root: targetRoot });
+    // Purpose: Close the active-renderer condition.
+    }
+    // Find a source request that has not finished mounting its PDF viewer yet.
+    // Purpose: Handle drops that occur while the source document is still loading.
+    const pendingRequest = this.pendingRequests.get(sourceSide);
+    // Reissue only an unfinished request because it has no complete viewer instance to preserve.
+    // Purpose: Prevent an asynchronous render from mounting into the now-hidden source host.
+    if (pendingRequest?.payload) {
+      // Invalidate the old asynchronous request before it can write to its original host.
+      // Purpose: Mark the original request as stale.
+      this.requestIds.set(sourceSide, (this.requestIds.get(sourceSide) || 0) + 1);
+      // Remove the source pending marker before requesting the same file at the new target.
+      // Purpose: Let the new target become the only owner of the pending request.
+      this.pendingRequests.delete(sourceSide);
+      // Route the still-loading document to the target; no finished viewer instance is lost.
+      // Purpose: Resume the uncompleted open operation at its new viewport.
+      EventBus.publish('FILE_OPEN_REQUESTED', { ...pendingRequest.payload, viewportType: targetSide });
+    // Purpose: Close the pending-render condition.
+    }
+  // Purpose: Close the moved-content method.
   }
 
   // Find the Full, Left, or Right container using the active HTML IDs and data attributes.
@@ -1159,8 +1210,9 @@ export class PdfAdapter {
     Store.setState({ activeLayout: viewportType === "full" ? "full" : "split" });
     // Clear the target before attaching the new PDF viewer.
     this.clearTargetViewport(viewportType, root);
-    // Remember this in-flight request so a newer request can clear its host immediately.
-    this.pendingRequests.set(viewportType, { root, requestId });
+    // Remember the payload so an unfinished render can be rerouted if its window is moved.
+    // Purpose: Preserve enough request data to resume loading at a different viewport.
+    this.pendingRequests.set(viewportType, { root, requestId, payload });
     // Choose the file name displayed by the PDF toolbar and the local download button.
     // Purpose: Store the value needed by the following logic.
     const fileName = String(payload?.fileName || payload?.fileData?.name || payload?.metadata?.name || payload?.originalPath || "document.pdf");
@@ -1295,6 +1347,9 @@ export class PdfAdapter {
     // Stop receiving close notifications after this adapter is disposed.
     // Purpose: Unsubscribe this module from the shared close event.
     EventBus.unsubscribe("VIEWPORT_CLOSE_REQUESTED", this.viewportCloseHandler);
+    // Stop receiving viewport-move events after this adapter has been disposed.
+    // Purpose: Remove the moved-content listener during adapter cleanup.
+    EventBus.unsubscribe("VIEWPORT_CONTENTS_MOVED", this.viewportContentsMovedHandler);
     // Collect targets that have either a pending or successfully mounted PDF.
     const viewportTypes = new Set([...this.renderers.keys(), ...this.pendingRequests.keys()]);
     // Clear every viewport currently owned by this adapter.
