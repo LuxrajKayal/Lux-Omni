@@ -18,7 +18,7 @@ export class DropboxModalUI {
     // Cache the non-interactive top-bar region that reports Dropbox connection status.
     // Purpose: Find the HTML element or elements used by this part of the interface.
     this.topbarStatus = document.querySelector('#dropbox-topbar-status');
-    // Cache the connection label displayed inside that button.
+    // Cache the connection label displayed inside the status region.
     // Purpose: Find the HTML element or elements used by this part of the interface.
     this.statusIndicator = document.querySelector('#dropbox-status-indicator');
     // Cache the action that saves edited viewport content back to Dropbox.
@@ -301,7 +301,7 @@ export class DropboxModalUI {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-  // Restore a valid callback session or check the session already in memory.
+  // Handle the OAuth callback or verify the saved session on a normal page load.
   // Purpose: Run this statement as the next step in the surrounding operation.
   async initialize() {
     // Look for the authorization code or error returned by Dropbox.
