@@ -267,7 +267,7 @@ export class DropboxModalUI {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-  // Ask the Dropbox service to verify that its in-memory token still works.
+  // Ask Dropbox to verify the short-lived token restored or cached by the service.
   // Purpose: Run this statement as the next step in the surrounding operation.
   async refreshConnectionStatus({ notifyOnError = false } = {}) {
     // Purpose: Start a protected operation so failures can be handled cleanly.
@@ -356,7 +356,7 @@ export class DropboxModalUI {
     // Purpose: Close the current block, handler, object, or expression.
     }
 
-    // Normal page loads simply verify whether a valid in-memory token exists.
+    // Normal page loads restore a valid saved session when available, then verify it with Dropbox.
     // Purpose: Wait for the asynchronous operation to finish before continuing.
     await this.refreshConnectionStatus();
   // Purpose: Close the current block, handler, object, or expression.
