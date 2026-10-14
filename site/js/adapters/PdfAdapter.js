@@ -385,8 +385,18 @@ async function mountPdfEditor({ root, blob, fileName, viewportType, onDirty, onE
   viewerFrame.append(scrollContainer);
   // Purpose: Run this statement as the next step in the PDF workflow.
   shell.append(toolbar, viewerFrame);
-  // Purpose: Run this statement as the next step in the PDF workflow.
+  // Attach the viewer shell so the browser can calculate styles within its Shadow DOM.
+  // Purpose: Ensure the PDF.js container exists in the rendered document tree before initialization.
   shadowRoot.append(shell);
+  // Wait one rendering frame so external stylesheets and computed layout are ready for PDF.js.
+  // Purpose: Allow the browser to apply the absolute-position rule before PDFViewer checks it.
+  await new Promise((resolve) => requestAnimationFrame(resolve));
+  // Read the computed position instead of assuming the component stylesheet applied correctly.
+  // Purpose: Validate the container requirement before constructing PDF.js's viewer.
+  const containerPosition = getComputedStyle(scrollContainer).position;
+  // Stop with a targeted diagnostic if an asset path or CSS regression leaves the container unpositioned.
+  // Purpose: Explain the actual setup failure before PDF.js throws its generic container error.
+  if (containerPosition !== "absolute") throw new Error("PDF viewer CSS did not apply position: absolute to its page container.");
 
   // Purpose: Store the value that the following logic needs.
   const eventBus = new pdfjsViewer.EventBus();

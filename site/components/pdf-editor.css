@@ -271,10 +271,10 @@ color: #b42318; }
   /* Set the element's background appearance. Value: #e9edf3. */
   background: #e9edf3;
 }
-/* Style elements matching .lux-pdf-viewer-container to define their appearance and layout. */
-.lux-pdf-viewer-container {
-  /* Choose how the element is positioned on the page. Value: absolute. */
-  position: absolute;
+/* Style the PDF.js scroll container within its editor shell so its required positioning cannot be overridden. */
+.lux-pdf-editor > .lux-pdf-viewer-frame > .lux-pdf-viewer-container {
+  /* Choose how the element is positioned on the page. Value: absolute with priority. */
+  position: absolute !important;
   /* Set the offsets used to position the element. Value: 0. */
   inset: 0;
   /* Control the element's width. Value: 100%. */

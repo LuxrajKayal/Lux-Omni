@@ -278,3 +278,14 @@ This log chronologically records file creation, removal, moves, modifications, a
   * Preserved in-progress PDF open requests by invalidating the hidden source request and reissuing it for the new target; completed PDF viewer instances are moved without re-rendering.
   * Reused the existing viewport markup and stylesheet classes; no inline event handlers or inline style writes were introduced.
   * Validation: inspected the generated source transformations and ran JavaScript syntax parsing checks before publishing the Git tree.
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `fix(pdf): enforce PDF.js container positioning and document viewport lifecycle`
+* **Changes:**
+  * Compared the active PDF editor mount sequence and component stylesheet with `_legacy_reference/site/pdf-engine.js` and `_legacy_reference/site/pdf-editor.css`.
+  * Strengthened the PDF.js scroll-container selector so the required absolute positioning wins within the isolated viewer Shadow DOM.
+  * Added a rendering-frame boundary after attaching the PDF shell and an explicit computed-position check before constructing `PDFViewer`, turning stylesheet timing or path regressions into a targeted diagnostic.
+  * Audited the complete legacy viewport state machine, fixed-slot layout, minimized dock, drag/drop replacement flow, PDF mount lifecycle, and the new migration's EventBus ownership boundaries.
+  * Created a Word design document with a viewport lifecycle flowchart, module connection map, mode transitions, drag/drop replacement rules, naming/identity requirements, regression scenarios, and source references.
