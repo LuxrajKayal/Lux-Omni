@@ -359,3 +359,11 @@ This log chronologically records file creation, removal, moves, modifications, a
 * **Commit:** `fix(css): rename Dropbox connection status selector`
 * **Changes:**
   * Updated the Dropbox component stylesheet to target `.dropbox-topbar-status`, keeping the connection label's green/red state colors and responsive width rule in the modular CSS layer.
+
+
+---
+
+* **Date:** 2026-10-14
+* **Commit:** `docs(dropbox): clarify restored session status check`
+* **Changes:**
+  * Updated `DropboxModalUI.js` comments to describe live verification of a restored or cached session after page load.
