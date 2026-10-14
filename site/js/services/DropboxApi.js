@@ -38,9 +38,15 @@ const DROPBOX_CONFIG = Object.freeze({
     "files.content.write",
   // Purpose: Run this statement as the next step in the surrounding operation.
   ]),
-  // Keep only temporary PKCE state and verifier values in browser storage.
+  // Keep the legacy-compatible short-lived session and temporary PKCE values in browser storage.
   // Purpose: Set this named property in the surrounding object or configuration.
   storageKeys: Object.freeze({
+    // Preserve the legacy key so a verified Dropbox session can survive a page refresh.
+    // Purpose: Set this named property in the surrounding object or configuration.
+    accessToken: "lux-omni-dropbox-access-token",
+    // Store the deadline alongside the access token so expired sessions are rejected.
+    // Purpose: Set this named property in the surrounding object or configuration.
+    expiresAt: "lux-omni-dropbox-expires-at",
     // Prefix state-specific verifier keys so separate authorization attempts do not overwrite.
     // Purpose: Set this named property in the surrounding object or configuration.
     pendingVerifier: "lux-omni-dropbox-pkce-verifier",
@@ -81,17 +87,17 @@ export class DropboxApiError extends Error {
 // Build the service as a class, then export one shared instance below.
 // Purpose: Define a class that groups related state and behavior.
 class DropboxApi {
-  // Store the active access token only inside this private in-memory field.
+  // Cache the active token privately while keeping the legacy-compatible session in browser storage.
   // Purpose: Run this statement as the next step in the surrounding operation.
   #accessToken = null;
-  // Keep the expiration time in memory instead of browser storage as well.
+  // Cache the token deadline privately and restore it from storage after a page refresh.
   // Purpose: Run this statement as the next step in the surrounding operation.
   #expiresAt = 0;
 
   // Provide a clear error if browser storage cannot be accessed for PKCE.
   // Purpose: Run this statement as the next step in the surrounding operation.
   #getStorage() {
-    // Read localStorage only when the OAuth redirect needs temporary PKCE values.
+    // Access browser storage for PKCE validation and legacy-compatible session restoration.
     // Purpose: Start a protected operation so failures can be handled cleanly.
     try {
       // Return the browser storage object without saving any access token in it.
@@ -336,28 +342,92 @@ class DropboxApi {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-  // Return the active token only to internal methods and only while it is valid.
+  // Remove only the persisted access token and expiry metadata when a session ends.
+  // Purpose: Run this statement as the next step in the surrounding operation.
+  #clearStoredSession() {
+    // Keep cleanup best-effort so it cannot hide the original network or sign-out result.
+    // Purpose: Start a protected operation so failures can be handled cleanly.
+    try {
+      // Read the same storage used by the legacy session so existing sessions can migrate.
+      // Purpose: Declare a variable that stores a value needed by this logic.
+      const storage = this.#getStorage();
+      // Remove the short-lived access token after expiry, revocation, or authorization failure.
+      // Purpose: Run this statement as the next step in the surrounding operation.
+      storage.removeItem(DROPBOX_CONFIG.storageKeys.accessToken);
+      // Remove its deadline so the two session values cannot drift apart.
+      // Purpose: Run this statement as the next step in the surrounding operation.
+      storage.removeItem(DROPBOX_CONFIG.storageKeys.expiresAt);
+    // Purpose: Close the current block, handler, object, or expression.
+    } catch {
+      // The in-memory session can still be cleared when browser storage is unavailable.
+    // Purpose: Close the current block, handler, object, or expression.
+    }
+  // Purpose: Close the current block, handler, object, or expression.
+  }
+
+  // Restore a valid short-lived session from localStorage after a page refresh.
   // Purpose: Run this statement as the next step in the surrounding operation.
   #getActiveAccessToken() {
-    // Allow a small safety margin so requests do not begin with a nearly expired token.
+    // Reuse a cached token only while it remains valid beyond the safety margin.
     // Purpose: Check this condition before choosing which branch should run.
-    if (!this.#accessToken || !this.#expiresAt || this.#expiresAt <= Date.now() + 15000) {
-      // Forget an expired token in memory so it cannot be used by later requests.
+    if (this.#accessToken && this.#expiresAt > Date.now() + 15000) {
+      // Return the verified-in-memory token while it is still fresh enough to use.
+      // Purpose: Return the result to the code that called this function.
+      return this.#accessToken;
+    // Purpose: Close this conditional branch.
+    }
+
+    // Clear stale cached values before looking for the persisted session.
+    // Purpose: Run this statement as the next step in the surrounding operation.
+    this.#accessToken = null;
+    // Purpose: Run this statement as the next step in the surrounding operation.
+    this.#expiresAt = 0;
+
+    // Read the saved token and deadline without exposing them to UI modules.
+    // Purpose: Start a protected operation so storage failures cannot become valid sessions.
+    try {
+      // Access the browser storage through this service's private helper.
+      // Purpose: Declare a variable that stores a value needed by this logic.
+      const storage = this.#getStorage();
+      // Read the access token using the exact key used by the legacy implementation.
+      // Purpose: Declare a variable that stores a value needed by this logic.
+      const storedToken = storage.getItem(DROPBOX_CONFIG.storageKeys.accessToken);
+      // Read the expiry deadline saved beside the token.
+      // Purpose: Declare a variable that stores a value needed by this logic.
+      const storedExpiresAt = Number(storage.getItem(DROPBOX_CONFIG.storageKeys.expiresAt));
+
+      // Reject missing, malformed, expired, or nearly expired session details.
+      // Purpose: Check this condition before choosing which branch should run.
+      if (!storedToken || !Number.isFinite(storedExpiresAt) || storedExpiresAt <= Date.now() + 15000) {
+        // Remove stale saved credentials so later checks start from a clean state.
+        // Purpose: Run this statement as the next step in the surrounding operation.
+        this.#clearStoredSession();
+        // Report that there is no usable local session.
+        // Purpose: Return the result to the code that called this function.
+        return null;
+      // Purpose: Close this conditional branch.
+      }
+
+      // Restore the verified-lifetime token into the private cache for API requests.
       // Purpose: Run this statement as the next step in the surrounding operation.
-      this.#accessToken = null;
-      // Forget the expired token's deadline in memory too.
+      this.#accessToken = storedToken;
+      // Keep its expiry deadline in the private cache too.
       // Purpose: Run this statement as the next step in the surrounding operation.
-      this.#expiresAt = 0;
-      // Tell the caller that no active token is available.
+      this.#expiresAt = storedExpiresAt;
+      // Return the token only to internal service methods.
+      // Purpose: Return the result to the code that called this function.
+      return this.#accessToken;
+    // Purpose: Close the current block, handler, object, or expression.
+    } catch {
+      // Do not claim a local session when the browser blocks access to storage.
       // Purpose: Return the result to the code that called this function.
       return null;
     // Purpose: Close the current block, handler, object, or expression.
     }
-    // Return the active token to a private request method only.
-    // Purpose: Return the result to the code that called this function.
-    return this.#accessToken;
   // Purpose: Close the current block, handler, object, or expression.
   }
+
+
 
   // Forget an access token if Dropbox reports that the token is unauthorized.
   // Purpose: Run this statement as the next step in the surrounding operation.
@@ -365,12 +435,15 @@ class DropboxApi {
     // Other HTTP errors do not prove that the access token is invalid.
     // Purpose: Check this condition before choosing which branch should run.
     if (status !== 401) return;
-    // Remove the token from memory after a 401 response.
+    // Remove the rejected token from the private cache.
     // Purpose: Run this statement as the next step in the surrounding operation.
     this.#accessToken = null;
-    // Remove its expiration deadline at the same time.
+    // Remove its expiration deadline from the private cache too.
     // Purpose: Run this statement as the next step in the surrounding operation.
     this.#expiresAt = 0;
+    // Remove persisted credentials because Dropbox has rejected this session.
+    // Purpose: Run this statement as the next step in the surrounding operation.
+    this.#clearStoredSession();
   // Purpose: Close the current block, handler, object, or expression.
   }
 
@@ -715,12 +788,39 @@ class DropboxApi {
       // Use Dropbox's expiry value, with the same four-hour fallback as the legacy flow.
       // Purpose: Declare a variable that stores a value needed by this logic.
       const expiresIn = Math.max(60, Number(tokenResult.expires_in) || 14400);
-      // Save the active access token only in the private field on this instance.
+      // Keep the token in the private cache used by this service.
       // Purpose: Run this statement as the next step in the surrounding operation.
       this.#accessToken = tokenResult.access_token;
-      // Keep the expiry deadline in memory beside the private token.
+      // Calculate the short-lived session deadline from Dropbox token metadata.
       // Purpose: Run this statement as the next step in the surrounding operation.
       this.#expiresAt = Date.now() + expiresIn * 1000;
+
+      // Persist the session using the same access-token keys as the legacy implementation.
+      // Purpose: Start a protected operation so a partial storage write cannot leave stale credentials.
+      try {
+        // Access the browser storage only inside the Dropbox service.
+        // Purpose: Declare a variable that stores a value needed by this logic.
+        const storage = this.#getStorage();
+        // Save the short-lived token so the next page load can restore and verify the session.
+        // Purpose: Run this statement as the next step in the surrounding operation.
+        storage.setItem(DROPBOX_CONFIG.storageKeys.accessToken, this.#accessToken);
+        // Save the expiry deadline beside the token so expired sessions are rejected.
+        // Purpose: Run this statement as the next step in the surrounding operation.
+        storage.setItem(DROPBOX_CONFIG.storageKeys.expiresAt, String(this.#expiresAt));
+      // Purpose: Close the current block, handler, object, or expression.
+      } catch {
+        // Remove a partial write and clear the current cache if session storage failed.
+        // Purpose: Run this statement as the next step in the surrounding operation.
+        this.#clearStoredSession();
+        // Purpose: Run this statement as the next step in the surrounding operation.
+        this.#accessToken = null;
+        // Purpose: Run this statement as the next step in the surrounding operation.
+        this.#expiresAt = 0;
+        // Require a working browser storage session before reporting sign-in as complete.
+        // Purpose: Report an invalid input or failed operation to the caller.
+        throw new DropboxApiError("Dropbox signed in, but the browser could not save the session. Please authorize again.");
+      // Purpose: Close this conditional branch.
+      }
 
       // Return connection metadata without exposing the access token to callers.
       // Purpose: Return the result to the code that called this function.
@@ -746,7 +846,7 @@ class DropboxApi {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-  // Report whether this service currently holds a valid in-memory access token.
+  // Report whether this service can restore a valid short-lived session locally.
   // Purpose: Run this statement as the next step in the surrounding operation.
   hasLocalSession() {
     // Return a boolean without returning the private token itself.
@@ -1068,6 +1168,9 @@ class DropboxApi {
       // Forget the token deadline so the old session cannot be reused.
       // Purpose: Run this statement as the next step in the surrounding operation.
       this.#expiresAt = 0;
+      // Remove the persisted session so refresh cannot restore a disconnected account.
+      // Purpose: Run this statement as the next step in the surrounding operation.
+      this.#clearStoredSession();
       // Remove any unfinished PKCE state and verifier values.
       // Purpose: Run this statement as the next step in the surrounding operation.
       this.#clearPendingOAuth();
@@ -1076,7 +1179,7 @@ class DropboxApi {
   // Purpose: Close the current block, handler, object, or expression.
   }
 
-  // Clear the in-memory connection and any temporary authorization attempt.
+  // Clear the in-memory connection, persisted session, and temporary authorization attempt.
   // Purpose: Run this statement as the next step in the surrounding operation.
   clearSession() {
     // Forget the private access token without writing it anywhere else.
@@ -1085,7 +1188,9 @@ class DropboxApi {
     // Reset its expiry deadline at the same time.
     // Purpose: Run this statement as the next step in the surrounding operation.
     this.#expiresAt = 0;
-    // Clean up only temporary state and verifier entries from localStorage.
+    // Remove the saved short-lived session as well as any pending PKCE values.
+    // Purpose: Run this statement as the next step in the surrounding operation.
+    this.#clearStoredSession();
     // Purpose: Run this statement as the next step in the surrounding operation.
     this.#clearPendingOAuth();
   // Purpose: Close the current block, handler, object, or expression.
